@@ -4,3 +4,4 @@ obj
 *.suo
 *.user
 
+Source/SJ.AppConsole/App_DATA/SJ.sqlite
