@@ -11,6 +11,13 @@ namespace SJ.AppConsole
     {
         static void Main(string[] args)
         {
+            //NHHelper.SchemaExport();
+
+            CreateData();
+        }
+
+        private static void CreateData()
+        {
             ISession session = NHHelper.GetSession();
             ITransaction tx = session.BeginTransaction();
 
@@ -18,14 +25,28 @@ namespace SJ.AppConsole
             {
                 Job job = new Job() { Title = "Job Title, " + i };
                 session.SaveOrUpdate(job);
+
+                for (int j = 0; j < 3; j++)
+                {
+                    Comment comment = new Comment()
+                    {
+                        Value = "Comment, " + j,
+                        ParentJob = job
+                    };
+
+                    session.SaveOrUpdate(comment);
+                }
+
+
             }
 
             tx.Commit();
             session.Flush();
 
-            foreach (Job job in session.QueryOver<Job>().List())
+
+            foreach (Job innerJob in session.QueryOver<Job>().List())
             {
-                Console.WriteLine(string.Format("Job: {0}, {1}", job.Id, job.Title));
+                Console.WriteLine(string.Format("Job: {0}, {1}", innerJob.Id, innerJob.Title));
             }
 
             Console.WriteLine("press enter");

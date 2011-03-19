@@ -9,6 +9,7 @@
     </id>
 
     <property name="Title"/>
-  </class>
+    
+ </class>
 
 </hibernate-mapping>

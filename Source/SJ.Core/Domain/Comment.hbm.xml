@@ -9,6 +9,13 @@
     </id>
 
     <property name="Value"/>
+
+    <many-to-one
+      name="ParentJob"
+      class="Job"
+      column="job_id"
+      cascade="all-delete-orphan"
+      not-null="true"/>
   </class>
 
 </hibernate-mapping>

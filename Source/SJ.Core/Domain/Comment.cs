@@ -9,5 +9,7 @@ namespace SJ.Core
     {
         public virtual int Id { set; get; }
         public virtual string Value { set; get; }
+
+        public virtual Job ParentJob { set; get; }
     }
 }
