@@ -9,7 +9,14 @@
     </id>
 
     <property name="Title"/>
-    
- </class>
+    <set
+      cascade="all-delete-orphan"
+      name="Comments"
+      inverse="true">
+      <key column="job_id"/>
+      <one-to-many class="Comment" />
+    </set>
+
+  </class>
 
 </hibernate-mapping>

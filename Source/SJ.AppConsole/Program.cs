@@ -24,19 +24,18 @@ namespace SJ.AppConsole
             for (int i = 0; i < 10; i++)
             {
                 Job job = new Job() { Title = "Job Title, " + i };
-                session.SaveOrUpdate(job);
 
                 for (int j = 0; j < 3; j++)
                 {
-                    Comment comment = new Comment()
+                    job.AddComment(new Comment()
                     {
-                        Value = "Comment, " + j,
-                        ParentJob = job
-                    };
+                        Value = "Comment, " + j
+                    });
 
-                    session.SaveOrUpdate(comment);
+                    
                 }
 
+                session.SaveOrUpdate(job);
 
             }
 

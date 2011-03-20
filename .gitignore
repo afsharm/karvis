@@ -1,7 +1,8 @@
+
 bin
 obj
 
 *.suo
 *.user
 
-Source/SJ.AppConsole/App_DATA/SJ.sqlite
+Source/SJ.AppConsole/App_Data/

@@ -14,7 +14,6 @@
       name="ParentJob"
       class="Job"
       column="job_id"
-      cascade="all-delete-orphan"
       not-null="true"/>
   </class>
 
