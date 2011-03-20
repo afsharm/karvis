@@ -11,6 +11,8 @@ namespace SJ.AppConsole
     {
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
+
             //NHHelper.SchemaExport();
 
             CreateData();
@@ -32,7 +34,7 @@ namespace SJ.AppConsole
                         Value = "Comment, " + j
                     });
 
-                    
+
                 }
 
                 session.SaveOrUpdate(job);
