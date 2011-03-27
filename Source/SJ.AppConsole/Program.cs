@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using SJ.Core;
 using NHibernate;
+using log4net.Config;
+using System.IO;
 
 namespace SJ.AppConsole
 {
@@ -11,10 +13,7 @@ namespace SJ.AppConsole
     {
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-
-            //NHHelper.SchemaExport();
-
+            XmlConfigurator.Configure(new FileInfo("log4net.config"));
             CreateData();
         }
 
