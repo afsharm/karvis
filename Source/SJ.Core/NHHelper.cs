@@ -8,22 +8,42 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace SJ.Core
 {
+
     public class NHHelper
     {
-        public static ISession GetSession()
-        {
-            ISessionFactory sessionFactory = new Configuration().Configure().BuildSessionFactory();
+        private static NHHelper instance;
 
+        ISessionFactory sessionFactory;
+
+        private NHHelper()
+        {
+            sessionFactory = new Configuration().Configure().BuildSessionFactory();
+        }
+
+        public static NHHelper Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new NHHelper();
+                }
+                return instance;
+            }
+        }
+
+        public ISession GetSession()
+        {
             return sessionFactory.OpenSession();
         }
 
-        public static void SchemaUpdate()
+        public void SchemaUpdate()
         {
             SchemaUpdate schemaUpdate = new SchemaUpdate(new Configuration().Configure());
             schemaUpdate.Execute(false, true);
         }
 
-        public static void SchemaExport()
+        public void SchemaExport()
         {
             SchemaExport schemaExport = new SchemaExport(new Configuration().Configure());
             schemaExport.Execute(false, true, false);

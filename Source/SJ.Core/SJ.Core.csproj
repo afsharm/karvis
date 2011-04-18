@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\JobDao.cs" />
     <Compile Include="Domain\Comment.cs">
       <SubType>Code</SubType>
     </Compile>

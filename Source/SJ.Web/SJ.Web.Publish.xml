@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="f:\SJ" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Web.config" publishTime="04/18/2011 10:30:10" />
+    <file relUrl="log4net.config" publishTime="04/18/2011 09:13:53" />
+    <file relUrl="bin/System.Data.SQLite.DLL" publishTime="02/17/2011 11:39:56" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="03/26/2011 11:19:22" />
+    <file relUrl="bin/NHibernate.Caches.SysCache.dll" publishTime="03/10/2011 12:15:09" />
+    <file relUrl="bin/SJ.Web.pdb" publishTime="04/18/2011 10:28:54" />
+    <file relUrl="hibernate.cfg.xml" publishTime="04/18/2011 09:34:57" />
+    <file relUrl="bin/log4net.config" publishTime="04/18/2011 09:13:53" />
+    <file relUrl="JobDetail.aspx" publishTime="04/18/2011 10:26:08" />
+    <file relUrl="bin/SJ.Web.dll" publishTime="04/18/2011 10:28:54" />
+    <file relUrl="bin/Castle.Core.dll" publishTime="11/15/2010 07:14:20" />
+    <file relUrl="bin/hibernate.cfg.xml" publishTime="04/18/2011 09:34:57" />
+    <file relUrl="bin/SJ.Core.dll" publishTime="04/18/2011 10:28:53" />
+    <file relUrl="JobList.aspx" publishTime="04/18/2011 10:17:29" />
+    <file relUrl="bin/Iesi.Collections.dll" publishTime="03/05/2011 13:08:08" />
+    <file relUrl="bin/NHibernate.dll" publishTime="03/05/2011 13:08:26" />
+    <file relUrl="Global.asax" publishTime="04/18/2011 09:17:22" />
+    <file relUrl="Admin/AddJob.aspx" publishTime="04/18/2011 09:50:44" />
+    <file relUrl="Admin/Config.aspx" publishTime="04/18/2011 09:08:11" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="03/26/2011 11:19:22" />
+    <file relUrl="bin/log4net.dll" publishTime="12/18/2010 12:20:11" />
+    <file relUrl="Default.aspx" publishTime="03/26/2011 11:19:22" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="03/26/2011 11:19:22" />
+    <file relUrl="bin/SJ.Core.pdb" publishTime="04/18/2011 10:28:53" />
+    <file relUrl="bin/NHibernate.ByteCode.Castle.dll" publishTime="03/05/2011 13:08:30" />
+  </publishProfile>
+</publishData>

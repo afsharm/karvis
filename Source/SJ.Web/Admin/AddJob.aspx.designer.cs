@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SJ.Web {
+namespace SJ.Web.Admin {
     
     
-    public partial class JobDetail {
+    public partial class AddJob {
         
         /// <summary>
         /// form1 control.
@@ -20,6 +20,15 @@ namespace SJ.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
         
         /// <summary>
         /// txtTitle control.
@@ -40,13 +49,13 @@ namespace SJ.Web {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
-        /// hlkURL control.
+        /// txtURL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlkURL;
+        protected global::System.Web.UI.WebControls.TextBox txtURL;
         
         /// <summary>
         /// txtTag control.
@@ -58,12 +67,12 @@ namespace SJ.Web {
         protected global::System.Web.UI.WebControls.TextBox txtTag;
         
         /// <summary>
-        /// txtDateAdded control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateAdded;
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

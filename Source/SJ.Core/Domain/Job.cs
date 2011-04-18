@@ -17,6 +17,11 @@ namespace SJ.Core
 
         public virtual int Id { set; get; }
         public virtual string Title { set; get; }
+        public virtual string Description { set; get; }
+        public virtual int VisitCount { set; get; }
+        public virtual string Tag { set; get; }
+        public virtual DateTime? DateAdded { set; get; }
+        public virtual string URL { set; get; }
 
         public virtual ISet Comments { set; get; }
 

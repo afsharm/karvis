@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobDetail.aspx.cs" Inherits="SJ.Web.JobDetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddJob.aspx.cs" Inherits="SJ.Web.Admin.AddJob" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,6 +7,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:Label Text="" runat="server" ID="lblMessage" />
     <div>
         <table>
             <tr>
@@ -30,7 +31,7 @@
                     URL
                 </td>
                 <td>
-                    <asp:HyperLink runat="server" ID="hlkURL" Text="Link" />
+                    <asp:TextBox runat="server" ID="txtURL" />
                 </td>
             </tr>
             <tr>
@@ -41,16 +42,8 @@
                     <asp:TextBox runat="server" ID="txtTag" />
                 </td>
             </tr>
-            <tr>
-                <td>
-                    Date Added:
-                </td>
-                <td>
-                    <asp:TextBox runat="server" ID="txtDateAdded" />
-                </td>
-            </tr>
         </table>
-        <asp:HyperLink Text="Return to Job List" runat="server" NavigateUrl="~/JobList.aspx" />
+        <asp:Button Text="Save" runat="server" ID="btnSave" OnClick="btnSave_Click" />
     </div>
     </form>
 </body>

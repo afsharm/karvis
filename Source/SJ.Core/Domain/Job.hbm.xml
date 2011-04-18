@@ -9,6 +9,12 @@
     </id>
 
     <property name="Title"/>
+    <property name="Description"/>
+    <property name="VisitCount"/>
+    <property name="Tag"/>
+    <property name="DateAdded"/>
+    <property name="URL"/>
+
     <set
       cascade="all-delete-orphan"
       name="Comments"
