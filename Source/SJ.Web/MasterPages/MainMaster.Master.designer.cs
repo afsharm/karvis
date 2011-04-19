@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SJ.Web {
+namespace SJ.Web.MasterPages {
     
     
-    public partial class JobList {
+    public partial class MainMaster {
         
         /// <summary>
         /// form1 control.
@@ -22,21 +22,21 @@ namespace SJ.Web {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// grdJobList control.
+        /// head control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdJobList;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
         
         /// <summary>
-        /// odsJobList control.
+        /// MainHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsJobList;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainHolder;
     }
 }

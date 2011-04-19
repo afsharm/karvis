@@ -1,12 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="SJ.Web.JobList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="SJ.Web.JobList"
+    MasterPageFile="~/MasterPages/MainMaster.Master" %>
+<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
+    فهرست مشاغل
+</asp:Content>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
         <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false">
             <Columns>
@@ -24,6 +22,4 @@
         <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll">
         </asp:ObjectDataSource>
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>

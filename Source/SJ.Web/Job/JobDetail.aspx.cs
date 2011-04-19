@@ -16,6 +16,9 @@ namespace SJ.Web
             {
                 string jobId = Request.QueryString["ID"];
 
+                if (string.IsNullOrEmpty(jobId))
+                    Response.Redirect("JobList.aspx");
+
                 Job job = JobDao.GetJob(jobId);
 
                 txtTitle.Text = job.Title;
