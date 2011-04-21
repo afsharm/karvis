@@ -15,7 +15,7 @@ namespace SJ.Core
             Comments = new HashedSet<Comment>();
         }
 
-        public virtual int Id { set; get; }
+        public virtual int ID { set; get; }
         public virtual string Title { set; get; }
         public virtual string Description { set; get; }
         public virtual int VisitCount { set; get; }

@@ -36,17 +36,5 @@ namespace SJ.Core
         {
             return sessionFactory.OpenSession();
         }
-
-        public void SchemaUpdate()
-        {
-            SchemaUpdate schemaUpdate = new SchemaUpdate(new Configuration().Configure());
-            schemaUpdate.Execute(false, true);
-        }
-
-        public void SchemaExport()
-        {
-            SchemaExport schemaExport = new SchemaExport(new Configuration().Configure());
-            schemaExport.Execute(false, true, false);
-        }
     }
 }

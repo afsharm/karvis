@@ -4,7 +4,7 @@
 
   <class name="Job">
 
-    <id name="Id">
+    <id name="ID">
       <generator class="identity" />
     </id>
 

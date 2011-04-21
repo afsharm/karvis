@@ -12,26 +12,16 @@ namespace SJ.Web.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = string.Empty;
-        }
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            try
+            if (!IsPostBack)
             {
-                JobDao.AddNewJob(txtTitle.Text, txtDescription.Text, txtURL.Text, txtTag.Text);
-                New();
-                lblMessage.Text = "saved!";
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error: " + ex.Message;
+                lblMessage.Text = string.Empty;
+                frmJob.ChangeMode(FormViewMode.Insert);
             }
         }
 
-        private void New()
+        protected void odsJob_Inserted(object sender, ObjectDataSourceStatusEventArgs e)
         {
-            txtTitle.Text = txtDescription.Text = txtURL.Text = txtTag.Text = string.Empty;
+            hdnID.Value = e.ReturnValue.ToString();
         }
     }
 }

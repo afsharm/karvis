@@ -8,7 +8,7 @@ namespace SJ.Core
 {
     public class JobDao
     {
-        public static void AddNewJob(string title, string description, string url, string tag)
+        public static int AddNewJob(string title, string description, string url, string tag)
         {
             url = url.ToLower();
 
@@ -31,6 +31,8 @@ namespace SJ.Core
             session.SaveOrUpdate(job);
             session.Flush();
             tx.Commit();
+
+            return job.ID;
         }
 
         public IList<Job> FindAll()

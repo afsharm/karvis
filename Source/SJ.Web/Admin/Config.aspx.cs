@@ -34,7 +34,7 @@ namespace SJ.Web.Admin
         {
             if (Membership.CanLogin(txtDBPassword.Text))
             {
-                NHHelper.Instance.SchemaExport();
+                ConfigHelper.SchemaExport();
                 lblMessage.Text = "Database created from scratch.";
             }
             else

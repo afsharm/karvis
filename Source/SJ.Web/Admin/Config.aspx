@@ -1,13 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Config.aspx.cs" Inherits="SJ.Web.Admin.Config" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Config.aspx.cs" Inherits="SJ.Web.Admin.Config"
+    MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    SJ<br />
+<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
+    تنظیمات
+</asp:Content>
+<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
     <asp:Label Text="" runat="server" ID="lblMessage" />
     <div runat="server" id="divLogin">
         Enter Password:<br />
@@ -21,6 +18,4 @@
         <asp:TextBox runat="server" ID="txtDBPassword" />
         <asp:Button Text="Create Database" runat="server" ID="btnCreateDB" OnClick="btnCreateDB_Click" />
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>

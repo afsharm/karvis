@@ -53,6 +53,7 @@
     <Compile Include="Domain\Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\ConfigHelper.cs" />
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>
     </Compile>

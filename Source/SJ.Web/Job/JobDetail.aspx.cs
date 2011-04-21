@@ -18,15 +18,6 @@ namespace SJ.Web
 
                 if (string.IsNullOrEmpty(jobId))
                     Response.Redirect("JobList.aspx");
-
-                Job job = JobDao.GetJob(jobId);
-
-                txtTitle.Text = job.Title;
-                txtDescription.Text = job.Description;
-                txtTag.Text = job.Tag;
-                hlkURL.NavigateUrl = job.URL;
-
-                txtDateAdded.Text = job.DateAdded.ToString();
             }
         }
     }
