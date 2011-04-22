@@ -45,7 +45,7 @@
                         تاریخ ثبت:
                     </td>
                     <td>
-                        <%# Eval("DateAdded") %>
+                        <%# Eval("DateAddedPersian") %>
                     </td>
                 </tr>
                 <tr>

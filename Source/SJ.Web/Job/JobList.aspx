@@ -11,7 +11,7 @@
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" />
                 <asp:BoundField DataField="Title" HeaderText="Title" />
-                <asp:BoundField DataField="DateAdded" HeaderText="DateAdded" />
+                <asp:BoundField DataField="DateAddedPersian" HeaderText="DateAdded" />
                 <asp:TemplateField HeaderText="Detail">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# "JobDetail.aspx?ID=" + Eval("ID") %>'

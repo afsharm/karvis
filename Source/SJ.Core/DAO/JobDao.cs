@@ -75,5 +75,19 @@ namespace SJ.Core
             session.Flush();
             tx.Commit();
         }
+
+        public static void IncreaseVisitCount(string ID)
+        {
+            ISession session = NHHelper.Instance.GetSession();
+
+            Job job = session.Load<Job>(Convert.ToInt32(ID));
+
+            job.VisitCount++;
+
+            ITransaction tx = session.BeginTransaction();
+            session.SaveOrUpdate(job);
+            session.Flush();
+            tx.Commit();
+        }
     }
 }

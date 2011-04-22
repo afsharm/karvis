@@ -18,6 +18,8 @@ namespace SJ.Web
 
                 if (string.IsNullOrEmpty(jobId))
                     Response.Redirect("JobList.aspx");
+
+                JobDao.IncreaseVisitCount(jobId);
             }
         }
     }

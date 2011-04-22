@@ -57,6 +57,7 @@
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GeneralHelper.cs" />
     <Compile Include="NHHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

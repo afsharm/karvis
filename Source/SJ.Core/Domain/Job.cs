@@ -23,6 +23,14 @@ namespace SJ.Core
         public virtual DateTime? DateAdded { set; get; }
         public virtual string URL { set; get; }
 
+        public virtual string DateAddedPersian
+        {
+            get
+            {
+                return GeneralHelper.ConvertToPersianDate(DateAdded);
+            }
+        }
+
         public virtual ISet Comments { set; get; }
 
         public virtual void AddComment(Comment comment)
