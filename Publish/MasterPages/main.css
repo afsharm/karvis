@@ -1,0 +1,185 @@
+/*
+Original design: Basic Modular (v1.0 - Nov 25, 2010) - A free xhtml/css website template by Andreas Viklund.
+For more information, see http://andreasviklund.com/templates/basic-modular/
+*/
+
+/* Tags */
+*
+{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    background: #d2d4d5;
+    color: #303030;
+    font: 76% Verdana,Tahoma,Sans-Serif;
+    text-align: center;
+}
+p
+{
+    font-size: 0.9em;
+    margin: 0 0 16px;
+}
+a
+{
+    color: #d56e30;
+    text-decoration: none;
+}
+a:hover
+{
+    color: #d56e30;
+    text-decoration: underline;
+}
+h1
+{
+    font-size: 1.6em;
+    margin: 0 0 8px;
+}
+h2
+{
+    font-size: 1.4em;
+    margin: 0 0 8px;
+}
+
+/* Container */
+#container
+{
+    background: #fff;
+    margin: 20px auto;
+    padding: 10px 10px 1px;
+    text-align: right;
+    width: 770px;
+}
+
+/* Header */
+.header
+{
+    background: #f5e9d9;
+    clear: both;
+    margin: 0 0 10px;
+    padding: 10px;
+}
+.header h1
+{
+    font-size: 1.8em;
+    letter-spacing: -1px;
+    margin: 0;
+    padding: 10px 0 0 10px;
+}
+.header p
+{
+    font-size: 1.0em;
+    font-weight: 700;
+    margin: 0;
+    padding: 0 0 10px 10px;
+}
+
+/* Main menu */
+.mainmenu
+{
+    clear: both;
+    margin: 0 0 10px;
+}
+.mainmenu ul
+{
+    background: #f0f0f0;
+    list-style: none;
+    width: 100%;
+}
+.mainmenu li
+{
+    float: right;
+    list-style: none;
+    margin: 0 0 10px;
+}
+.mainmenu li a
+{
+    background: #f0f0f0;
+    border-right: 10px solid #fff;
+    display: block;
+    float: right; /*font-size: 1.1em; font-weight: 700;*/
+    padding: 6px 10px;
+}
+.mainmenu li a:hover
+{
+    background: #f5e9d9;
+    display: block;
+    padding: 6px 10px;
+}
+
+/* Headline */
+.headline
+{
+    border-left: 20px solid #d56e30;
+    clear: both;
+    margin: 0 0 10px;
+    padding: 0 10px;
+}
+.headline h1
+{
+    margin: 0;
+}
+
+/* Single content */
+.singlecontent
+{
+    background: #f0f0f0;
+    clear: both;
+    line-height: 1.4em;
+    margin: 0 0 10px;
+    padding: 10px 10px 1px;
+}
+
+/* Double content  */
+.doublecontent
+{
+    background: #f0f0f0;
+    clear: both;
+    line-height: 1.4em;
+    margin: 0 0 10px;
+    padding: 10px 10px 1px;
+}
+.doubleleft
+{
+    float: left;
+    width: 48%;
+}
+.doubleright
+{
+    float: right;
+    width: 48%;
+}
+
+/* Footer */
+.footer
+{
+    background: #f0f0e0;
+    clear: both;
+    color: gray;
+    margin: 0 0 10px;
+    padding: 10px;
+    text-align: center;
+    direction: ltr;
+}
+.footer p
+{
+    margin: 0;
+}
+
+/* Misc classes */
+.clear
+{
+    clear: both;
+}
+
+/* Inner Menu */
+.innermenu
+{
+    background: #f0f0f0;
+    clear: both;
+    line-height: 1.6em;
+    margin: 0 0 10px;
+    padding: 10px 40px 1px;
+}
+

@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs"
+    Inherits="SJ.Web.MasterPages.MainMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link href="../Images/favicon.ico" rel="icon" type="image/x-icon" />
+    <title>Soft Jobs</title>
+</head>
+<body style='direction: rtl; text-align: right'>
+    <form id="form1" runat="server">
+    <div id="container">
+        <div class="header">
+            <h1>
+                برنامک
+            </h1>
+            <h5>
+                <asp:ContentPlaceHolder ID="head" runat="server">
+                </asp:ContentPlaceHolder>
+            </h5>
+        </div>
+        <div class="singlecontent">
+            <asp:ContentPlaceHolder ID="MainHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="footer">
+            <p>
+                &#169; 2011 <a href="http://sj.afsharm.com/">sj.afsharm.com</a>
+            </p>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
