@@ -1,12 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="SJ.Web.JobList"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
+
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     فهرست مشاغل
 </asp:Content>
-
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
-        <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false">
+        <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false"
+            AllowPaging="true">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" />
                 <asp:BoundField DataField="Title" HeaderText="Title" />
@@ -19,7 +20,7 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll">
-        </asp:ObjectDataSource>
+        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll"
+            EnablePaging="true" SelectCountMethod="FindAllCount" />
     </div>
 </asp:Content>

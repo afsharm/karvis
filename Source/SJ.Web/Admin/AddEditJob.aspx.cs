@@ -15,7 +15,16 @@ namespace SJ.Web.Admin
             if (!IsPostBack)
             {
                 lblMessage.Text = string.Empty;
-                frmJob.ChangeMode(FormViewMode.Insert);
+
+                string ID = Request["ID"];
+
+                if (!string.IsNullOrEmpty(ID))
+                {
+                    hdnID.Value = ID;
+                    frmJob.ChangeMode(FormViewMode.Edit);
+                }
+                else
+                    frmJob.ChangeMode(FormViewMode.Insert);
             }
         }
 

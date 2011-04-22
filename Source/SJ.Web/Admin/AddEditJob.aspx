@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddJob.aspx.cs" Inherits="SJ.Web.Admin.AddJob"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddEditJob.aspx.cs" Inherits="SJ.Web.Admin.AddJob"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
@@ -124,9 +124,12 @@
             <asp:LinkButton ID="LinkButton2" Text="انصراف" runat="server" CommandName="Cancel" />
         </InsertItemTemplate>
     </asp:FormView>
+    <div style='text-align: left'>
+        <asp:HyperLink ID="HyperLink1" Text="بازگشت به فهرست مشاغل" runat="server" NavigateUrl="~/Job/JobList.aspx" />
+    </div>
     <asp:HiddenField runat="server" ID="hdnID" />
     <asp:ObjectDataSource runat="server" ID="odsJob" TypeName="SJ.Core.JobDao" InsertMethod="AddNewJob"
-        SelectMethod="GetJob" OnInserted="odsJob_Inserted">
+        SelectMethod="GetJob" OnInserted="odsJob_Inserted" UpdateMethod="UpdateJob">
         <SelectParameters>
             <asp:ControlParameter Name="jobID" ControlID="hdnID" PropertyName="Value" />
         </SelectParameters>

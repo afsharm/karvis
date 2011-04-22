@@ -71,7 +71,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\AddJob.aspx" />
+    <Content Include="Admin\AddEditJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -92,12 +92,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AddJob.aspx.cs">
-      <DependentUpon>AddJob.aspx</DependentUpon>
+    <Compile Include="Admin\AddEditJob.aspx.cs">
+      <DependentUpon>AddEditJob.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\AddJob.aspx.designer.cs">
-      <DependentUpon>AddJob.aspx</DependentUpon>
+    <Compile Include="Admin\AddEditJob.aspx.designer.cs">
+      <DependentUpon>AddEditJob.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Config.aspx.cs">
       <DependentUpon>Config.aspx</DependentUpon>
