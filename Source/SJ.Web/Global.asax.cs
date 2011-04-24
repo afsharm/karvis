@@ -15,6 +15,7 @@ namespace SJ.Web
         protected void Application_Start(object sender, EventArgs e)
         {
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            //log4net.Config.XmlConfigurator.Configure();
         }
 
         protected void Session_Start(object sender, EventArgs e)

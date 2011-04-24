@@ -13,5 +13,10 @@ namespace SJ.Web
         {
 
         }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            grdJobList.DataBind();
+        }
     }
 }
