@@ -9,7 +9,7 @@
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    Title:
+                    عنوان:
                 </td>
                 <td>
                     <asp:TextBox runat="server" ID="txtTitle" />
@@ -17,6 +17,7 @@
             </tr>
             <tr>
                 <td>
+                    &nbsp;
                 </td>
                 <td>
                     <asp:Button Text="جستجو" runat="server" ID="btnSearch" OnLoad="btnSearch_Click" />
@@ -29,6 +30,7 @@
                 <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
                 <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
+                <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# "JobDetail.aspx?ID=" + Eval("ID") %>'

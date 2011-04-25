@@ -48,6 +48,12 @@ namespace SJ.Core
                 case "ID DESC":
                     q = q.OrderBy(j => j.ID).Desc;
                     break;
+                case "VisitCount":
+                    q = q.OrderBy(j => j.VisitCount).Asc;
+                    break;
+                case "VisitCount DESC":
+                    q = q.OrderBy(j => j.VisitCount).Desc;
+                    break;
                 case "Title":
                     q = q.OrderBy(j => j.Title).Asc;
                     break;

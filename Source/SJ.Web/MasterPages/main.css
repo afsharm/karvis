@@ -183,3 +183,14 @@ h2
     padding: 10px 40px 1px;
 }
 
+.rtl
+{
+    direction: rtl;
+    text-align: right;
+}
+
+.ltr
+{
+    direction: ltr;
+    text-align: left;
+}
