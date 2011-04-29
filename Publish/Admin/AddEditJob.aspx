@@ -14,7 +14,7 @@
                         عنوان
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' />
+                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' Width="300" />
                     </td>
                 </tr>
                 <tr>
@@ -22,7 +22,8 @@
                         شرح
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>' />
+                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>'
+                            Width="300" Height="100" />
                     </td>
                 </tr>
                 <tr>
@@ -30,7 +31,8 @@
                         لینک
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' />
+                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' CssClass="ltr"
+                            Width="300" />
                     </td>
                 </tr>
                 <tr>
@@ -38,7 +40,8 @@
                         تگ
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' />
+                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' CssClass="ltr"
+                            Width="300" />
                     </td>
                 </tr>
             </table>
@@ -77,7 +80,7 @@
                     <td>
                         تگ
                     </td>
-                    <td>
+                    <td style="direction: ltr">
                         <%# Eval("Tag") %>
                     </td>
                 </tr>
@@ -92,7 +95,7 @@
                         عنوان
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' />
+                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' Width="300" />
                     </td>
                 </tr>
                 <tr>
@@ -100,7 +103,8 @@
                         شرح
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>' />
+                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>'
+                            Width="300" Height="100" />
                     </td>
                 </tr>
                 <tr>
@@ -108,7 +112,8 @@
                         لینک
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' />
+                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' CssClass="ltr"
+                            Width="300" />
                     </td>
                 </tr>
                 <tr>
@@ -116,7 +121,8 @@
                         تگ
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' />
+                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' CssClass="ltr"
+                            Width="300" />
                     </td>
                 </tr>
             </table>

@@ -6,21 +6,44 @@
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    عنوان:
+                </td>
+                <td>
+                    <asp:TextBox runat="server" ID="txtTitle" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <asp:Button Text="جستجو" runat="server" ID="btnSearch" OnLoad="btnSearch_Click" />
+                </td>
+            </tr>
+        </table>
         <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false"
-            AllowPaging="true">
+            AllowPaging="true" AllowSorting="true">
             <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" />
-                <asp:BoundField DataField="Title" HeaderText="Title" />
-                <asp:BoundField DataField="DateAddedPersian" HeaderText="DateAdded" />
-                <asp:TemplateField HeaderText="Detail">
+                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
+                <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
+                <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
+                <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
+                <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# "JobDetail.aspx?ID=" + Eval("ID") %>'
-                            Text="Deatils" runat="server" />
+                            Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll"
-            EnablePaging="true" SelectCountMethod="FindAllCount" />
+            EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
+            <SelectParameters>
+                <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
     </div>
 </asp:Content>
