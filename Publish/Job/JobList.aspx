@@ -33,7 +33,7 @@
                 <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
-                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# "JobDetail.aspx?ID=" + Eval("ID") %>'
+                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# string.Format("~/Job/{0}.aspx/{1}", Eval("ID"), Eval("Title")) %>'
                             Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
