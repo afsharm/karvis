@@ -84,6 +84,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Images\favicon.ico" />
+    <Content Include="AboutUs.aspx" />
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
     <Content Include="MasterPages\main.css" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="AboutUs.aspx.cs">
+      <DependentUpon>AboutUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AboutUs.aspx.designer.cs">
+      <DependentUpon>AboutUs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Job\JobDetail.aspx.cs">
       <DependentUpon>JobDetail.aspx</DependentUpon>

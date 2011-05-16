@@ -27,12 +27,19 @@
     <div id="container">
         <div class="header">
             <h1>
-                برنامک
+                کارویس
             </h1>
             <h5>
                 <asp:ContentPlaceHolder ID="head" runat="server">
                 </asp:ContentPlaceHolder>
             </h5>
+        </div>
+        <div class="mainmenu">
+            <ul>
+                <li><a href="../Default.aspx">خانه</a></li>
+                <li><a href="../Job/JobList.aspx">فهرست مشاغل</a></li>
+                <li><a href="../AboutUs.aspx">درباره‌ی ما</a></li>
+            </ul>
         </div>
         <div class="singlecontent">
             <asp:ContentPlaceHolder ID="MainHolder" runat="server">
