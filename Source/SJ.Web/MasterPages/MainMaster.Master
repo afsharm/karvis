@@ -5,6 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="کارویس، سایت کاریابی مخصوص برنامه‌نویسان" />
+    <meta name="keywords" content="karvis, کارویس, استخدام برنامه‌نویس, کار" />
+    <meta name="author" content="افشار محبی Afshar Mohebbi (afshar dot mohebbi atsign gmail dot com) / Original design: Andreas Viklund - http://andreasviklund.com/" />
     <link rel="stylesheet" type="text/css" href="main.css" />
     <link href="../Images/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Soft Jobs</title>

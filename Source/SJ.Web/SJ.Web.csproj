@@ -83,6 +83,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Images\career2.jpg" />
     <Content Include="Images\favicon.ico" />
     <Content Include="AboutUs.aspx" />
     <Content Include="Job\JobDetail.aspx" />
