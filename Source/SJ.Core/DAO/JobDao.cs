@@ -131,5 +131,14 @@ namespace SJ.Core
             session.Flush();
             tx.Commit();
         }
+
+        public static IEnumerable<Job> GetAllJobs()
+        {
+            ISession session = NHHelper.Instance.GetSession();
+
+            var q = session.QueryOver<Job>().OrderBy(j => j.DateAdded).Asc;
+
+            return q.List<Job>();
+        }
     }
 }

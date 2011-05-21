@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Web;
+using System.Configuration;
 
 namespace SJ.Core
 {
@@ -37,6 +39,21 @@ namespace SJ.Core
                 .Replace('7', '۷')
                 .Replace('8', '۸')
                 .Replace('9', '۹');
+        }
+
+        public static string GetSiteUrlPure()
+        {
+            return HttpContext.Current.Request.Url.Authority;
+        }
+
+        public static string GetSiteUrl()
+        {
+            return string.Format("http://{0}/", GetSiteUrlPure());
+        }
+
+        public static string GetAppEmail()
+        {
+            return ConfigurationManager.AppSettings["email"];
         }
     }
 }

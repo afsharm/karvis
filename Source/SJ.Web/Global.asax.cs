@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using log4net.Config;
 using System.IO;
+using SJ.Core;
 
 namespace SJ.Web
 {
@@ -15,6 +16,7 @@ namespace SJ.Web
         protected void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
+            //FeedHelper.Instance.StartService();
         }
 
         protected void Session_Start(object sender, EventArgs e)

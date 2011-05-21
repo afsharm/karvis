@@ -38,5 +38,20 @@ namespace SJ.Core
             comment.ParentJob = this;
             Comments.Add(comment);
         }
+
+        public virtual string GetJobUrl(Job job)
+        {
+            return string.Format("{0}{1}", GeneralHelper.GetSiteUrl(), GetJobUrlPure(job.ID, job.Title));
+        }
+
+        public static string GetJobUrl(object jobID, object jobTitle)
+        {
+            return string.Format("~/{0}", GetJobUrlPure(jobID, jobTitle));
+        }
+
+        public static string GetJobUrlPure(object jobID, object jobTitle)
+        {
+            return string.Format("Job/{0}.aspx/{1}", jobID, jobTitle);
+        }
     }
 }
