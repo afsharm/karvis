@@ -85,7 +85,7 @@
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\Monitor.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Feed\Feed.svc" />
+    <Content Include="Feed.svc" />
     <Content Include="Global.asax" />
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -97,7 +97,9 @@
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
     <Content Include="MasterPages\main.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -134,10 +136,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Feed\Feed.svc.cs">
+    <Compile Include="Feed.svc.cs">
       <DependentUpon>Feed.svc</DependentUpon>
     </Compile>
-    <Compile Include="Feed\IFeed.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,6 +149,7 @@
     <Compile Include="AboutUs.aspx.designer.cs">
       <DependentUpon>AboutUs.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IFeed.cs" />
     <Compile Include="Job\JobDetail.aspx.cs">
       <DependentUpon>JobDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

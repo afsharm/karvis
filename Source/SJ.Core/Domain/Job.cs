@@ -39,9 +39,9 @@ namespace SJ.Core
             Comments.Add(comment);
         }
 
-        public virtual string GetJobUrl(Job job)
+        public virtual string GetJobUrl()
         {
-            return string.Format("{0}{1}", GeneralHelper.GetSiteUrl(), GetJobUrlPure(job.ID, job.Title));
+            return string.Format("{0}{1}", GeneralHelper.GetSiteUrl(), GetJobUrlPure(this.ID, this.Title));
         }
 
         public static string GetJobUrl(object jobID, object jobTitle)

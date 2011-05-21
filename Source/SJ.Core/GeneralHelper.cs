@@ -43,7 +43,7 @@ namespace SJ.Core
 
         public static string GetSiteUrlPure()
         {
-            return HttpContext.Current.Request.Url.Authority;
+            return "http://afsharm.com/"; // HttpContext.Current.Request.Url.Authority;
         }
 
         public static string GetSiteUrl()
