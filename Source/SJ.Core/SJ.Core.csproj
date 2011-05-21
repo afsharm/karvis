@@ -61,6 +61,8 @@
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Feed\FeedHelper.cs" />
+    <Compile Include="Feed\IFeed.cs" />
     <Compile Include="GeneralHelper.cs" />
     <Compile Include="NHHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,9 +75,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RSS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

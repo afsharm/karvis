@@ -149,7 +149,6 @@
     <Compile Include="AboutUs.aspx.designer.cs">
       <DependentUpon>AboutUs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="IFeed.cs" />
     <Compile Include="Job\JobDetail.aspx.cs">
       <DependentUpon>JobDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

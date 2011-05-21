@@ -7,7 +7,7 @@ using System.Text;
 using System.ServiceModel.Web;
 using System.ServiceModel.Syndication;
 
-namespace SJ.Web
+namespace SJ.Core
 {
     [ServiceContract]
     public interface IFeed
