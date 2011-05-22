@@ -13,9 +13,9 @@ namespace SJ.Web
                 IncludeExceptionDetailInFaults = true)]
     public class Feed : IFeed
     {
-        public Rss20FeedFormatter AllJobs()
+        public SyndicationFeedFormatter All(string format)
         {
-            return FeedHelper.AllJobs();
+            return FeedHelper.All(format);
         }
     }
 }

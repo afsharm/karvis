@@ -8,11 +8,11 @@ namespace SJ.Core
 {
     public class FeedHelper
     {
-        public static Rss20FeedFormatter AllJobs()
+        public static SyndicationFeedFormatter All(string format)
         {
-            SyndicationFeed feed = new SyndicationFeed("کارویس - فهرست همه آگهی‌ها", "نمایش فهرست همه کارهای ثبت شده در سیستم", new Uri("http://afsharm.com/"));
+            SyndicationFeed feed = new SyndicationFeed("کارویس - همه", "نمایش فهرست همه کارهای ثبت شده در سیستم", new Uri("http://afsharm.com/"));
             feed.Authors.Add(new SyndicationPerson(GeneralHelper.GetAppEmail()));
-            feed.Categories.Add(new SyndicationCategory("همه آگهی‌ها"));
+            feed.Categories.Add(new SyndicationCategory("همه"));
             feed.Description = new TextSyndicationContent("نمایش فهرست همه کارهای ثبت شده در سیستم");
 
             List<SyndicationItem> items = new List<SyndicationItem>();
@@ -31,7 +31,15 @@ namespace SJ.Core
 
             feed.Items = items;
 
-            return new Rss20FeedFormatter(feed);
+            switch (format)
+            {
+                case "rss":
+                    return new Rss20FeedFormatter(feed);
+                case "atom":
+                    return new Atom10FeedFormatter(feed);
+                default:
+                    throw new ApplicationException("Unkown feed format: " + format);
+            }
         }
     }
 }

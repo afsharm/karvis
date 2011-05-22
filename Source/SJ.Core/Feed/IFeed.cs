@@ -10,10 +10,12 @@ using System.ServiceModel.Syndication;
 namespace SJ.Core
 {
     [ServiceContract]
+    [ServiceKnownType(typeof(Atom10FeedFormatter))]
+    [ServiceKnownType(typeof(Rss20FeedFormatter))]
     public interface IFeed
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/AllJobs")]
-        Rss20FeedFormatter AllJobs();
+        [WebGet(UriTemplate = "All?format={format}")]
+        SyndicationFeedFormatter All(string format);
     }
 }
