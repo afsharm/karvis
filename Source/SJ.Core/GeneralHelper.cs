@@ -5,6 +5,7 @@ using System.Text;
 using System.Globalization;
 using System.Web;
 using System.Configuration;
+using System.ServiceModel;
 
 namespace SJ.Core
 {
@@ -41,14 +42,19 @@ namespace SJ.Core
                 .Replace('9', '۹');
         }
 
-        public static string GetSiteUrlPure()
+        public static string GetAppUrlPure()
         {
-            return "http://afsharm.com/"; // HttpContext.Current.Request.Url.Authority;
+            //HttpContext is null when this method is called in a WCF service
+
+            if (HttpContext.Current != null)
+                return HttpContext.Current.Request.Url.Authority;
+            else
+                return OperationContext.Current.Host.BaseAddresses[0].Authority;
         }
 
-        public static string GetSiteUrl()
+        public static string GetAppUrl()
         {
-            return string.Format("http://{0}/", GetSiteUrlPure());
+            return string.Format("http://{0}/", GetAppUrlPure());
         }
 
         public static string GetAppEmail()

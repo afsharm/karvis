@@ -10,7 +10,10 @@ namespace SJ.Core
     {
         public static SyndicationFeedFormatter All(string format)
         {
-            SyndicationFeed feed = new SyndicationFeed("کارویس - همه", "نمایش فهرست همه کارهای ثبت شده در سیستم", new Uri("http://afsharm.com/"));
+            SyndicationFeed feed = new SyndicationFeed(
+                "کارویس - همه", "نمایش فهرست همه کارهای ثبت شده در سیستم", 
+                new Uri(GeneralHelper.GetAppUrl()));
+
             feed.Authors.Add(new SyndicationPerson(GeneralHelper.GetAppEmail()));
             feed.Categories.Add(new SyndicationCategory("همه"));
             feed.Description = new TextSyndicationContent("نمایش فهرست همه کارهای ثبت شده در سیستم");

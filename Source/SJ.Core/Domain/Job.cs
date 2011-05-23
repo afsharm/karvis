@@ -41,7 +41,7 @@ namespace SJ.Core
 
         public virtual string GetJobUrl()
         {
-            return string.Format("{0}{1}", GeneralHelper.GetSiteUrl(), GetJobUrlPure(this.ID, this.Title));
+            return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(this.ID, this.Title));
         }
 
         public static string GetJobUrl(object jobID, object jobTitle)
