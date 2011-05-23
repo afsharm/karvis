@@ -39,9 +39,9 @@
         </div>
         <div class="mainmenu">
             <ul>
-                <li><a href="../Default.aspx">خانه</a></li>
-                <li><a href="../Job/JobList.aspx">فهرست مشاغل</a></li>
-                <li><a href="../AboutUs.aspx">درباره‌ی ما</a></li>
+                <li><a href="~/Default.aspx" runat="server">خانه</a></li>
+                <li><a href="~/Job/JobList.aspx" runat="server">فهرست مشاغل</a></li>
+                <li><a href="~/AboutUs.aspx" runat="server">درباره‌ی ما</a></li>
             </ul>
         </div>
         <div class="singlecontent">
