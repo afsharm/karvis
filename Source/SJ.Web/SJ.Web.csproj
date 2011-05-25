@@ -97,6 +97,7 @@
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
     <Content Include="MasterPages\main.css" />
+    <Content Include="TagCloud.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -172,6 +173,13 @@
       <DependentUpon>MainMaster.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagCloud.aspx.cs">
+      <DependentUpon>TagCloud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TagCloud.aspx.designer.cs">
+      <DependentUpon>TagCloud.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

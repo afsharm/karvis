@@ -61,5 +61,26 @@ namespace SJ.Core
         {
             return ConfigurationManager.AppSettings["email"];
         }
+
+        public static IDictionary<string, UInt16> AnalyseTags(List<string> rawTags)
+        {
+            //todo
+            IDictionary<string, UInt16> result = new Dictionary<string, UInt16>();
+
+            result.Add("WCF", 4);
+            result.Add(".Net", 3);
+            result.Add("آزمایش", 1);
+            result.Add("C#", 4);
+            result.Add(".Net66", 13);
+            result.Add("ایران", 1);
+            result.Add("ASP", 4);
+            result.Add("PHP", 7);
+            result.Add("تست", 9);
+            result.Add("Java", 4);
+            result.Add("NHibernate", 11);
+            result.Add("Social", 21);
+
+            return result;
+        }
     }
 }

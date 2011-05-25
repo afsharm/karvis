@@ -64,6 +64,7 @@
     <Compile Include="Feed\FeedHelper.cs" />
     <Compile Include="Feed\IFeed.cs" />
     <Compile Include="GeneralHelper.cs" />
+    <Compile Include="JobService.cs" />
     <Compile Include="NHHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
