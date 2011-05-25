@@ -140,5 +140,14 @@ namespace SJ.Core
 
             return q.List<Job>();
         }
+
+        public static IList<string> GetAllTags()
+        {
+            ISession session = NHHelper.Instance.GetSession();
+
+            var q = session.QueryOver<Job>().Select(j => j.Tag);
+
+            return q.List<String>();
+        }
     }
 }

@@ -41,7 +41,8 @@
             <ul>
                 <li><a href="~/Default.aspx" runat="server">خانه</a></li>
                 <li><a href="~/Job/JobList.aspx" runat="server">فهرست مشاغل</a></li>
-                <li><a href="~/AboutUs.aspx" runat="server">درباره‌ی ما</a></li>
+                <li><a id="A1" href="~/TagCloud.aspx" runat="server">تگ‌ها</a></li>
+                <li><a id="A2" href="~/AboutUs.aspx" runat="server">درباره‌ی ما</a></li>
             </ul>
         </div>
         <div class="singlecontent">

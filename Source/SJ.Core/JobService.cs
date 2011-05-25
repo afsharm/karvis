@@ -9,8 +9,8 @@ namespace SJ.Core
     {
         public static IDictionary<string, UInt16> ExtractTagCloud()
         {
-            //todo
-            return GeneralHelper.AnalyseTags(null);
+            IList<string> tags = JobDao.GetAllTags();
+            return GeneralHelper.AnalyseTags(tags);
         }
     }
 }

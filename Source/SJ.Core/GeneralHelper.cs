@@ -62,25 +62,38 @@ namespace SJ.Core
             return ConfigurationManager.AppSettings["email"];
         }
 
-        public static IDictionary<string, UInt16> AnalyseTags(List<string> rawTags)
+        public static IDictionary<string, UInt16> AnalyseTags(IList<string> rawTags)
         {
             //todo
             IDictionary<string, UInt16> result = new Dictionary<string, UInt16>();
 
-            result.Add("WCF", 4);
-            result.Add(".Net", 3);
-            result.Add("آزمایش", 1);
-            result.Add("C#", 4);
-            result.Add(".Net66", 13);
-            result.Add("ایران", 1);
-            result.Add("ASP", 4);
-            result.Add("PHP", 7);
-            result.Add("تست", 9);
-            result.Add("Java", 4);
-            result.Add("NHibernate", 11);
-            result.Add("Social", 21);
+
+            foreach (string tagList in rawTags)
+            {
+                foreach (string tag in tagList.Split(','))
+                {
+                    if (!result.ContainsKey(tag))
+                        result.Add(tag, 0);
+
+                    result[tag]++;
+                }
+            }
 
             return result;
+        }
+
+        public static bool HasRtlText(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+                if (IsRtlChar(text[i]))
+                    return true;
+
+            return false;
+        }
+
+        private static bool IsRtlChar(char character)
+        {
+            return (int)character > 128;
         }
     }
 }
