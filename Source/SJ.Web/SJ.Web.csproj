@@ -97,6 +97,7 @@
     <Content Include="Images\career2.jpg" />
     <Content Include="Images\favicon.ico" />
     <Content Include="AboutUs.aspx" />
+    <Content Include="Images\feed-icon32x32.png" />
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
     <Content Include="MasterPages\main.css" />

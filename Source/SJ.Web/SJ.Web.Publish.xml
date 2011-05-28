@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="d:\projects\karvis\Publish" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Images/feed-icon32x32.png" publishTime="05/28/2011 13:49:29" />
     <file relUrl="bin/System.Data.SQLite.DLL" publishTime="05/22/2011 09:21:04" />
     <file relUrl="Admin/Config.aspx" publishTime="05/22/2011 09:21:05" />
     <file relUrl="Global.asax" publishTime="05/22/2011 09:21:05" />
-    <file relUrl="bin/SJ.Web.dll" publishTime="05/25/2011 13:38:02" />
+    <file relUrl="bin/SJ.Web.dll" publishTime="05/28/2011 14:04:21" />
     <file relUrl="bin/log4net.dll" publishTime="05/22/2011 09:21:04" />
     <file relUrl="bin/Iesi.Collections.dll" publishTime="05/22/2011 09:21:04" />
     <file relUrl="Default.aspx" publishTime="05/22/2011 09:21:05" />
-    <file relUrl="bin/SJ.Web.pdb" publishTime="05/25/2011 13:38:02" />
+    <file relUrl="bin/SJ.Web.pdb" publishTime="05/28/2011 14:04:21" />
     <file relUrl="hibernate.cfg.xml" publishTime="05/22/2011 09:21:05" />
     <file relUrl="Feed.svc" publishTime="05/22/2011 09:21:05" />
-    <file relUrl="bin/SJ.Core.pdb" publishTime="05/25/2011 13:36:39" />
+    <file relUrl="bin/SJ.Core.pdb" publishTime="05/28/2011 13:42:24" />
     <file relUrl="TagCloud.aspx" publishTime="05/25/2011 12:59:41" />
     <file relUrl="Admin/Monitor.aspx" publishTime="05/22/2011 09:21:05" />
     <file relUrl="bin/UrlRewritingNet.UrlRewriter.dll" publishTime="05/22/2011 09:21:04" />
@@ -23,11 +24,11 @@
     <file relUrl="bin/NHibernate.Caches.SysCache.dll" publishTime="05/22/2011 09:21:04" />
     <file relUrl="Images/career2.jpg" publishTime="05/22/2011 09:21:05" />
     <file relUrl="Job/JobList.aspx" publishTime="05/22/2011 09:21:05" />
-    <file relUrl="MasterPages/MainMaster.Master" publishTime="05/25/2011 13:38:02" />
+    <file relUrl="MasterPages/MainMaster.Master" publishTime="05/28/2011 14:51:02" />
     <file relUrl="bin/NHibernate.ByteCode.Castle.dll" publishTime="05/22/2011 09:21:04" />
     <file relUrl="Web.config" publishTime="05/23/2011 08:11:36" />
     <file relUrl="Admin/AddEditJob.aspx" publishTime="05/22/2011 09:21:05" />
-    <file relUrl="bin/SJ.Core.dll" publishTime="05/25/2011 13:36:39" />
+    <file relUrl="bin/SJ.Core.dll" publishTime="05/28/2011 13:42:24" />
     <file relUrl="Images/favicon.ico" publishTime="05/22/2011 09:21:05" />
     <file relUrl="MasterPages/main.css" publishTime="05/22/2011 09:21:05" />
     <file relUrl="bin/NHibernate.dll" publishTime="05/22/2011 09:21:04" />
