@@ -19,7 +19,7 @@ namespace SJ.AppConsole
 
         private static void CreateData()
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
             ITransaction tx = session.BeginTransaction();
 
             for (int i = 0; i < 10; i++)

@@ -5,6 +5,7 @@ using System.Text;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
+using NHibernate.Context;
 
 namespace SJ.Core
 {
@@ -13,11 +14,12 @@ namespace SJ.Core
     {
         private static NHHelper instance;
 
-        ISessionFactory sessionFactory;
+        ISessionFactory _sessionFactory;
 
         private NHHelper()
         {
-            sessionFactory = new Configuration().Configure().BuildSessionFactory();
+            var nhConfig = new Configuration().Configure();
+            _sessionFactory = nhConfig.BuildSessionFactory();
         }
 
         public static NHHelper Instance
@@ -32,9 +34,21 @@ namespace SJ.Core
             }
         }
 
-        public ISession GetSession()
+        public ISession GetCurrentSession()
         {
-            return sessionFactory.OpenSession();
+            return _sessionFactory.GetCurrentSession();
+        }
+
+        public void BeginRequest()
+        {
+            var session = _sessionFactory.OpenSession();
+            CurrentSessionContext.Bind(session);
+        }
+
+        public void EndRequest()
+        {
+            var session = CurrentSessionContext.Unbind(_sessionFactory);
+            session.Dispose();
         }
     }
 }

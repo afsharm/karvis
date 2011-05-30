@@ -26,7 +26,7 @@ namespace SJ.Core
                 VisitCount = 0
             };
 
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             ITransaction tx = session.BeginTransaction();
             session.SaveOrUpdate(job);
@@ -79,7 +79,7 @@ namespace SJ.Core
 
         private static IQueryOver<Job, Job> CreateQuery(string title)
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             var q = session.QueryOver<Job>();
 
@@ -96,14 +96,14 @@ namespace SJ.Core
 
         public static Job GetJob(string jobId)
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             return session.Get<Job>(Convert.ToInt32(jobId));
         }
 
         public static void UpdateJob(string title, string description, string URL, string tag, int ID)
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             Job job = session.Load<Job>(ID);
 
@@ -120,7 +120,7 @@ namespace SJ.Core
 
         public static void IncreaseVisitCount(string ID)
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             Job job = session.Load<Job>(Convert.ToInt32(ID));
 
@@ -134,7 +134,7 @@ namespace SJ.Core
 
         public static IEnumerable<Job> GetAllJobs()
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             var q = session.QueryOver<Job>().OrderBy(j => j.DateAdded).Asc;
 
@@ -143,7 +143,7 @@ namespace SJ.Core
 
         public static IList<string> GetAllTags()
         {
-            ISession session = NHHelper.Instance.GetSession();
+            ISession session = NHHelper.Instance.GetCurrentSession();
 
             var q = session.QueryOver<Job>().Select(j => j.Tag);
 
