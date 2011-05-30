@@ -28,11 +28,12 @@ namespace SJ.Core
 
             ISession session = NHHelper.Instance.GetCurrentSession();
 
-            ITransaction tx = session.BeginTransaction();
-            session.SaveOrUpdate(job);
-            session.Flush();
-            tx.Commit();
-
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(job);
+                session.Flush();
+                tx.Commit();
+            }
             return job.ID;
         }
 
@@ -112,10 +113,12 @@ namespace SJ.Core
             job.URL = URL;
             job.Tag = tag;
 
-            ITransaction tx = session.BeginTransaction();
-            session.SaveOrUpdate(job);
-            session.Flush();
-            tx.Commit();
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(job);
+                session.Flush();
+                tx.Commit();
+            }
         }
 
         public static void IncreaseVisitCount(string ID)
@@ -126,16 +129,18 @@ namespace SJ.Core
 
             job.VisitCount++;
 
-            ITransaction tx = session.BeginTransaction();
-            session.SaveOrUpdate(job);
-            session.Flush();
-            tx.Commit();
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(job);
+                session.Flush();
+                tx.Commit();
+            }
         }
 
         public static IEnumerable<Job> GetAllJobs()
         {
             ISession session = NHHelper.Instance.GetCurrentSession();
-
+            
             var q = session.QueryOver<Job>().OrderBy(j => j.DateAdded).Asc;
 
             return q.List<Job>();
