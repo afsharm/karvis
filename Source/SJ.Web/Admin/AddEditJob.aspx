@@ -1,12 +1,55 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddEditJob.aspx.cs" Inherits="SJ.Web.Admin.AddJob"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
+<%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     ثبت کار جدید
 </asp:Content>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
     <asp:Label Text="" runat="server" ID="lblMessage" />
     <asp:FormView runat="server" ID="frmJob" DataSourceID="odsJob" DataKeyNames="ID">
+        <InsertItemTemplate>
+            <table>
+                <tr>
+                    <td>
+                        عنوان
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' Width="300" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        شرح
+                    </td>
+                    <td>
+                        <CKEditor:CKEditorControl runat="server" ID="ckDescription" Text='<%# Bind("Description") %>'
+                            Width="300" Height="100" Toolbar="Basic" DefaultLanguage="Fa" ContentsLangDirection="Rtl"
+                            ContentsLanguage="Fa" Language="Fa" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        لینک
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' CssClass="ltr"
+                            Width="300" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        تگ
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' CssClass="ltr"
+                            Width="300" />
+                    </td>
+                </tr>
+            </table>
+            <asp:LinkButton ID="LinkButton1" Text="ثبت" runat="server" CommandName="Insert" />
+            <asp:LinkButton ID="LinkButton2" Text="انصراف" runat="server" CommandName="Cancel" />
+        </InsertItemTemplate>
         <EditItemTemplate>
             <table>
                 <tr>
@@ -22,8 +65,9 @@
                         شرح
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>'
-                            Width="300" Height="100" />
+                        <CKEditor:CKEditorControl runat="server" ID="ckDescription" Text='<%# Bind("Description") %>'
+                            Width="300" Height="100" Toolbar="Basic" DefaultLanguage="Fa" ContentsLangDirection="Rtl"
+                            ContentsLanguage="Fa" Language="Fa" />
                     </td>
                 </tr>
                 <tr>
@@ -88,47 +132,6 @@
             <asp:LinkButton ID="LinkButton3" Text="جدید" runat="server" CommandName="New" />
             <asp:LinkButton ID="LinkButton4" Text="ویرایش" runat="server" CommandName="Edit" />
         </ItemTemplate>
-        <InsertItemTemplate>
-            <table>
-                <tr>
-                    <td>
-                        عنوان
-                    </td>
-                    <td>
-                        <asp:TextBox runat="server" ID="txtTitle" Text='<%# Bind("Title") %>' Width="300" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        شرح
-                    </td>
-                    <td>
-                        <asp:TextBox runat="server" ID="txtDescription" TextMode="MultiLine" Text='<%# Bind("Description") %>'
-                            Width="300" Height="100" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        لینک
-                    </td>
-                    <td>
-                        <asp:TextBox runat="server" ID="txtURL" Text='<%# Bind("URL") %>' CssClass="ltr"
-                            Width="300" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        تگ
-                    </td>
-                    <td>
-                        <asp:TextBox runat="server" ID="txtTag" Text='<%# Bind("Tag") %>' CssClass="ltr"
-                            Width="300" />
-                    </td>
-                </tr>
-            </table>
-            <asp:LinkButton ID="LinkButton1" Text="ثبت" runat="server" CommandName="Insert" />
-            <asp:LinkButton ID="LinkButton2" Text="انصراف" runat="server" CommandName="Cancel" />
-        </InsertItemTemplate>
     </asp:FormView>
     <div style='text-align: left'>
         <asp:HyperLink ID="HyperLink1" Text="بازگشت به فهرست مشاغل" runat="server" NavigateUrl="~/Job/JobList.aspx" />
