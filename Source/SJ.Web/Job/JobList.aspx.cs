@@ -11,7 +11,7 @@ namespace SJ.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            txtTag.Text = Request.QueryString["Tag"];
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

@@ -37,9 +37,9 @@ namespace SJ.Core
             return job.ID;
         }
 
-        public IList<Job> FindAll(string title, string sortOrder, int maximumRows, int startRowIndex)
+        public IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex)
         {
-            IQueryOver<Job, Job> q = CreateQuery(title);
+            IQueryOver<Job, Job> q = CreateQuery(title, tag);
 
             switch (sortOrder)
             {
@@ -78,7 +78,7 @@ namespace SJ.Core
             return retval;
         }
 
-        private static IQueryOver<Job, Job> CreateQuery(string title)
+        private static IQueryOver<Job, Job> CreateQuery(string title, string tag)
         {
             ISession session = NHHelper.Instance.GetCurrentSession();
 
@@ -87,12 +87,15 @@ namespace SJ.Core
             if (!string.IsNullOrEmpty(title))
                 q = q.WhereRestrictionOn(j => j.Title).IsInsensitiveLike(title, MatchMode.Anywhere);
 
+            if (!string.IsNullOrEmpty(tag))
+                q = q.WhereRestrictionOn(j => j.Tag).IsInsensitiveLike(tag, MatchMode.Anywhere);
+
             return q;
         }
 
-        public int FindAllCount(string title)
+        public int FindAllCount(string title, string tag)
         {
-            return CreateQuery(title).RowCount();
+            return CreateQuery(title, tag).RowCount();
         }
 
         public static Job GetJob(string jobId)
@@ -140,7 +143,7 @@ namespace SJ.Core
         public static IEnumerable<Job> GetAllJobs()
         {
             ISession session = NHHelper.Instance.GetCurrentSession();
-            
+
             var q = session.QueryOver<Job>().OrderBy(j => j.DateAdded).Asc;
 
             return q.List<Job>();
