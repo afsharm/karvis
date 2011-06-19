@@ -62,24 +62,24 @@ namespace SJ.Core
             return ConfigurationManager.AppSettings["email"];
         }
 
-        public static IDictionary<string, UInt16> AnalyseTags(IList<string> rawTags)
+        public static IOrderedEnumerable<KeyValuePair<string, ushort>> AnalyseTags(IList<string> rawTags)
         {
-            //todo
-            IDictionary<string, UInt16> result = new Dictionary<string, UInt16>();
-
+            var result = new SortedDictionary<string, UInt16>(StringComparer.OrdinalIgnoreCase);
 
             foreach (string tagList in rawTags)
             {
                 foreach (string tag in tagList.Split(','))
                 {
-                    if (!result.ContainsKey(tag))
-                        result.Add(tag, 0);
+                    string trimmedTag = tag.Trim();
 
-                    result[tag]++;
+                    if (!result.ContainsKey(trimmedTag))
+                        result.Add(trimmedTag, 0);
+
+                    result[trimmedTag]++;
                 }
             }
 
-            return result;
+            return result.OrderByDescending(x => x.Value);
         }
 
         public static bool HasRtlText(string text)

@@ -19,7 +19,7 @@ namespace SJ.Web
 
         private void ShowTagCloud()
         {
-            IDictionary<string, UInt16> tagCloud = JobService.ExtractTagCloud();
+            var tagCloud = JobService.ExtractTagCloud();
 
             foreach (var item in tagCloud)
             {

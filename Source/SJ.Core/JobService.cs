@@ -7,7 +7,7 @@ namespace SJ.Core
 {
     public class JobService
     {
-        public static IDictionary<string, UInt16> ExtractTagCloud()
+        public static IOrderedEnumerable<KeyValuePair<string, ushort>> ExtractTagCloud()
         {
             IList<string> tags = JobDao.GetAllTags();
             return GeneralHelper.AnalyseTags(tags);
