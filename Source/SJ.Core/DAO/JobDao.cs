@@ -37,7 +37,7 @@ namespace SJ.Core
             return job.ID;
         }
 
-        public IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex)
+        public static IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex)
         {
             IQueryOver<Job, Job> q = CreateQuery(title, tag);
 
@@ -156,6 +156,11 @@ namespace SJ.Core
             var q = session.QueryOver<Job>().Select(j => j.Tag);
 
             return q.List<String>();
+        }
+
+        internal static IEnumerable<Job> GetJobsByTag(string tag)
+        {
+            return FindAll(null, tag, null, int.MaxValue, 0);
         }
     }
 }

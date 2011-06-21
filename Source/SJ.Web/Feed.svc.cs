@@ -17,5 +17,10 @@ namespace SJ.Web
         {
             return FeedHelper.All(format);
         }
+
+        public SyndicationFeedFormatter ByTag(string tag, string format)
+        {
+            return FeedHelper.ByTag(tag, format);
+        }
     }
 }

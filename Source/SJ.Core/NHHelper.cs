@@ -36,7 +36,20 @@ namespace SJ.Core
 
         public ISession GetCurrentSession()
         {
-            return _sessionFactory.GetCurrentSession();
+            //todo: previously GetCurrecntSession never returned null
+
+            ISession result = null;
+
+            try
+            {
+                result = _sessionFactory.GetCurrentSession();
+            }
+            catch (NullReferenceException)
+            {
+                result = _sessionFactory.OpenSession();
+            }
+
+            return result;
         }
 
         public void BeginRequest()

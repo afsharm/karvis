@@ -5,7 +5,7 @@
     تگ‌های استفاده شده
 </asp:Content>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
-    <div style="text-align: center; width: 500px">
-        <div id="divMain" runat="server" style="direction: ltr; text-align: center; width: 300px" />
+    <div style="text-align: center;">
+        <div id="divMain" runat="server" style="direction: ltr; text-align: center;" />
     </div>
 </asp:Content>

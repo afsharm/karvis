@@ -11,7 +11,10 @@ namespace SJ.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtTag.Text = Request.QueryString["Tag"];
+            string tag = Request.QueryString["Tag"];
+
+            if (!string.IsNullOrEmpty(tag))
+                txtTag.Text = tag;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

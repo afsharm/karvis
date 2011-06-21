@@ -17,6 +17,14 @@
             </tr>
             <tr>
                 <td>
+                    تگ:
+                </td>
+                <td>
+                    <asp:TextBox runat="server" ID="txtTag" />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     &nbsp;
                 </td>
                 <td>
@@ -29,6 +37,7 @@
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
+                <asp:BoundField DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
                 <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
@@ -43,6 +52,7 @@
             EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
+                <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
             </SelectParameters>
         </asp:ObjectDataSource>
     </div>

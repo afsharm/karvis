@@ -17,5 +17,9 @@ namespace SJ.Core
         [OperationContract]
         [WebGet(UriTemplate = "All?format={format}")]
         SyndicationFeedFormatter All(string format);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "ByTag?tag={tag}&format={format}")]
+        SyndicationFeedFormatter ByTag(string tag, string format);
     }
 }
