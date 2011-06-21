@@ -120,6 +120,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Feed.svc" />
     <Content Include="Global.asax" />
+    <Content Include="googleaba363661bc6cc6a.html" />
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -128,6 +129,7 @@
     <Content Include="Images\favicon.ico" />
     <Content Include="AboutUs.aspx" />
     <Content Include="Images\feed-icon32x32.png" />
+    <Content Include="Images\feed-tiny.jpg" />
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
     <Content Include="MasterPages\main.css" />

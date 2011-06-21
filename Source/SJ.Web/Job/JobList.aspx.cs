@@ -21,5 +21,10 @@ namespace SJ.Web
         {
             grdJobList.DataBind();
         }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Request.AppRelativeCurrentExecutionFilePath);
+        }
     }
 }

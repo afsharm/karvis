@@ -28,7 +28,8 @@
                     &nbsp;
                 </td>
                 <td>
-                    <asp:Button Text="جستجو" runat="server" ID="btnSearch" OnLoad="btnSearch_Click" />
+                    <asp:Button Text="جستجو" runat="server" ID="btnSearch" OnClick="btnSearch_Click" />
+                    <asp:Button Text="از نو" runat="server" ID="btnReset" OnClick="btnReset_Click" />
                 </td>
             </tr>
         </table>

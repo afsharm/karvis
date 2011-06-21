@@ -21,15 +21,26 @@ namespace SJ.Web
         {
             var tagCloud = JobService.ExtractTagCloud();
 
+            Image feedImage = new Image();
+
             foreach (var item in tagCloud)
             {
-                Label label = new Label();
+
+                HyperLink link = new HyperLink();
 
                 string tagName = item.Key;
                 UInt16 tagFrequency = item.Value;
-                label.Text = FormatLtr(tagName, tagFrequency);
+                link.Text = FormatLtr(tagName, tagFrequency);
+                link.NavigateUrl = string.Format("~/Job/JobList.aspx?tag={0}", item.Key);
 
-                divMain.Controls.Add(label);
+                HyperLink feedLink = new HyperLink();
+                feedLink.ImageUrl = "~/images/feed-tiny.jpg";
+                feedLink.NavigateUrl = string.Format("~/feed.svc/bytag?tag={0}&format=rss", item.Key);
+
+                divMain.Controls.Add(link);
+                divMain.Controls.Add(new Label() { Text = "      " });
+                divMain.Controls.Add(feedLink);
+                divMain.Controls.Add(new Label() { Text = "      " });
                 divMain.Controls.Add(new Label() { Text = "      " });
             }
         }
