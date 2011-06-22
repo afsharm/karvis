@@ -61,6 +61,12 @@ namespace SJ.Core
                 case "Title DESC":
                     q = q.OrderBy(j => j.Title).Desc;
                     break;
+                case "Tag":
+                    q = q.OrderBy(j => j.Tag).Asc;
+                    break;
+                case "Tag DESC":
+                    q = q.OrderBy(j => j.Tag).Desc;
+                    break;
                 case "DateAdded":
                     q = q.OrderBy(j => j.DateAdded).Asc;
                     break;
