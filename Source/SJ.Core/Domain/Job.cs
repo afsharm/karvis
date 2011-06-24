@@ -19,6 +19,7 @@ namespace SJ.Core
         public virtual string Title { set; get; }
         public virtual string Description { set; get; }
         public virtual int VisitCount { set; get; }
+        public virtual int FeedCount { set; get; }
         public virtual string Tag { set; get; }
         public virtual DateTime? DateAdded { set; get; }
         public virtual string URL { set; get; }
@@ -52,6 +53,16 @@ namespace SJ.Core
         public static string GetJobUrlPure(object jobID, object jobTitle)
         {
             return string.Format("Job/{0}.aspx/{1}", jobID, jobTitle);
+        }
+
+        public virtual string FeedDescription
+        {
+            get
+            {
+                return string.Format(
+                    "<div>{0}<hr/>{1}<hr/>Visit Count: {2} - Feed Count: {3} - Date: {4}</div>",
+                    Description, Tag, VisitCount, FeedCount, DateAddedPersian);
+            }
         }
     }
 }

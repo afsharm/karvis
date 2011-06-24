@@ -56,6 +56,14 @@
                         <%# Eval("VisitCount") %>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        مشاهده از طریق فید:
+                    </td>
+                    <td>
+                        <%# Eval("FeedCount") %>
+                    </td>
+                </tr>
             </table>
         </ItemTemplate>
     </asp:FormView>

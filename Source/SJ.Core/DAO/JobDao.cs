@@ -148,11 +148,26 @@ namespace SJ.Core
 
         public static IEnumerable<Job> GetAllJobs()
         {
+            return GetAllJobs(false);
+        }
+
+        public static IEnumerable<Job> GetAllJobs(bool updateStat)
+        {
             ISession session = NHHelper.Instance.GetCurrentSession();
 
             var q = session.QueryOver<Job>().OrderBy(j => j.DateAdded).Asc;
 
-            return q.List<Job>();
+            var jobs = q.List<Job>();
+
+            if (updateStat)
+            {
+                using (ITransaction tx = session.BeginTransaction())
+                {
+                    foreach (var job in jobs)
+                        job.FeedCount++;
+                }
+            }
+            return jobs;
         }
 
         public static IList<string> GetAllTags()
@@ -164,9 +179,20 @@ namespace SJ.Core
             return q.List<String>();
         }
 
-        internal static IEnumerable<Job> GetJobsByTag(string tag)
+        internal static IEnumerable<Job> GetJobsByTag(string tag, bool updateStat)
         {
-            return FindAll(null, tag, null, int.MaxValue, 0);
+            var jobs = FindAll(null, tag, null, int.MaxValue, 0);
+
+            if (updateStat)
+            {
+                using (ITransaction tx = NHHelper.Instance.GetCurrentSession().BeginTransaction())
+                {
+                    foreach (var job in jobs)
+                        job.FeedCount++;
+                }
+            }
+
+            return jobs;
         }
     }
 }

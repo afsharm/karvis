@@ -11,6 +11,7 @@
     <property name="Title"/>
     <property name="Description"/>
     <property name="VisitCount"/>
+    <property name="FeedCount"/>
     <property name="Tag"/>
     <property name="DateAdded"/>
     <property name="URL"/>

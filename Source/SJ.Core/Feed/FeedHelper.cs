@@ -17,7 +17,7 @@ namespace SJ.Core
                 GeneralHelper.GetAppEmail(),
                 "همه",
                 "نمایش فهرست همه کارهای ثبت شده در سیستم",
-                JobDao.GetAllJobs(),
+                JobDao.GetAllJobs(true),
                 format
                 );
         }
@@ -32,7 +32,7 @@ namespace SJ.Core
                 GeneralHelper.GetAppEmail(),
                 string.Format("تگ {0}", tag),
                 string.Format("فهرست مشاغل ثبت شده با تگ {0}", tag),
-                JobDao.GetJobsByTag(tag),
+                JobDao.GetJobsByTag(tag, true),
                 format
                 );
         }
@@ -56,7 +56,7 @@ namespace SJ.Core
             {
                 SyndicationItem item = new SyndicationItem(
                     job.Title,
-                    job.Description,
+                    job.FeedDescription,
                     new Uri(job.GetJobUrl()),
                     job.ID.ToString(),
                     job.DateAdded.Value);
