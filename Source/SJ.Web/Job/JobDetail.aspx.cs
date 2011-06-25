@@ -20,6 +20,9 @@ namespace SJ.Web
                     Response.Redirect("JobList.aspx");
 
                 JobDao.IncreaseVisitCount(jobId);
+
+                var hiddenField = (HiddenField)frmJob.FindControl("hdnJobTitle");
+                this.Title = string.Format("کارویس - {0}", hiddenField.Value);
             }
         }
     }

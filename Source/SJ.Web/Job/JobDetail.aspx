@@ -65,6 +65,7 @@
                     </td>
                 </tr>
             </table>
+            <asp:HiddenField ID="hdnJobTitle" runat="server" Value='<%# Eval("Title") %>' />
         </ItemTemplate>
     </asp:FormView>
     <div style='text-align: left'>

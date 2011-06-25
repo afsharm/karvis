@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="SJ.Web.JobList"
-    MasterPageFile="~/MasterPages/MainMaster.Master" %>
+    MasterPageFile="~/MasterPages/MainMaster.Master" Title="کارویس - فهرست مشاغل" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     فهرست مشاغل
