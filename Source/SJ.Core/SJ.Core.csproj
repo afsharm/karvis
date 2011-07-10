@@ -64,11 +64,16 @@
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\JobModel.cs" />
+    <Compile Include="NHibernate\Entity.cs" />
     <Compile Include="Feed\FeedHelper.cs" />
     <Compile Include="Feed\IFeed.cs" />
     <Compile Include="GeneralHelper.cs" />
+    <Compile Include="NHibernate\IRepository.cs" />
     <Compile Include="JobService.cs" />
-    <Compile Include="NHHelper.cs" />
+    <Compile Include="NHibernate\NHHelper.cs" />
+    <Compile Include="NHibernate\NHibernateBase.cs" />
+    <Compile Include="NHibernate\NHibernateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
