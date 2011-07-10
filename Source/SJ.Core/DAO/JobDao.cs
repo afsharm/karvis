@@ -34,7 +34,7 @@ namespace SJ.Core
                 session.Flush();
                 tx.Commit();
             }
-            return job.ID;
+            return job.Id;
         }
 
         public static IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex)
@@ -44,10 +44,10 @@ namespace SJ.Core
             switch (sortOrder)
             {
                 case "ID":
-                    q = q.OrderBy(j => j.ID).Asc;
+                    q = q.OrderBy(j => j.Id).Asc;
                     break;
                 case "ID DESC":
-                    q = q.OrderBy(j => j.ID).Desc;
+                    q = q.OrderBy(j => j.Id).Desc;
                     break;
                 case "VisitCount":
                     q = q.OrderBy(j => j.VisitCount).Asc;

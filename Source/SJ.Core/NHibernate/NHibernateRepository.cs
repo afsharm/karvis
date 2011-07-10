@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace SJ.Core
 {

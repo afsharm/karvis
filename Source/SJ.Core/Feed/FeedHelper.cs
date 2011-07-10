@@ -58,7 +58,7 @@ namespace SJ.Core
                     job.Title,
                     job.FeedDescription,
                     new Uri(job.GetJobUrl()),
-                    job.ID.ToString(),
+                    job.Id.ToString(),
                     job.DateAdded.Value);
 
                 items.Add(item);

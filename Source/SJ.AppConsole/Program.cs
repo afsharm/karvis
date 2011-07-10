@@ -46,7 +46,7 @@ namespace SJ.AppConsole
 
             foreach (Job innerJob in session.QueryOver<Job>().List())
             {
-                Console.WriteLine(string.Format("Job: {0}, {1}", innerJob.ID, innerJob.Title));
+                Console.WriteLine(string.Format("Job: {0}, {1}", innerJob.Id, innerJob.Title));
             }
 
             Console.WriteLine("press enter");

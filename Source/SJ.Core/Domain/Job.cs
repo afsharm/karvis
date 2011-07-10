@@ -8,14 +8,13 @@ using System.Collections;
 
 namespace SJ.Core
 {
-    public class Job
+    public class Job : Entity
     {
         public Job()
         {
             Comments = new HashedSet<Comment>();
         }
 
-        public virtual int ID { set; get; }
         public virtual string Title { set; get; }
         public virtual string Description { set; get; }
         public virtual int VisitCount { set; get; }
@@ -42,7 +41,7 @@ namespace SJ.Core
 
         public virtual string GetJobUrl()
         {
-            return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(this.ID, this.Title));
+            return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(this.Id, this.Title));
         }
 
         public static string GetJobUrl(object jobID, object jobTitle)
