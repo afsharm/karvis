@@ -53,5 +53,25 @@ namespace SJ.Core
         {
             return Transact(() => GetEnumerator());
         }
+
+        public IQueryOver<T, T> QueryOver()
+        {
+            return Transact(() => session.QueryOver<T>());
+        }
+
+        public T Get(object Id)
+        {
+            return Transact(() => session.Get<T>(Id));
+        }
+
+        public T Load(object Id)
+        {
+            return Transact(() => session.Load<T>(Id));
+        }
+
+        public void SaveOrUpdate(T item)
+        {
+            Transact(() => session.SaveOrUpdate(item));
+        }
     }
 }

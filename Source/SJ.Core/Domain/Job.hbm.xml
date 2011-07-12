@@ -4,7 +4,7 @@
 
   <class name="Job">
 
-    <id name="ID">
+    <id name="Id">
       <generator class="identity" />
     </id>
 
@@ -14,7 +14,7 @@
     <property name="FeedCount"/>
     <property name="Tag"/>
     <property name="DateAdded"/>
-    <property name="URL"/>
+    <property name="Url"/>
 
     <set
       cascade="all-delete-orphan"

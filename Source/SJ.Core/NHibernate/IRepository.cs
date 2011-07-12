@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NHibernate;
 
 namespace SJ.Core
 {
@@ -12,5 +13,9 @@ namespace SJ.Core
         bool Contains(T item);
         int Count { get; }
         bool Remove(T item);
+        T Get(object Id);
+        T Load(object Id);
+        void SaveOrUpdate(T item);
+        IQueryOver<T, T> QueryOver();
     }
 }

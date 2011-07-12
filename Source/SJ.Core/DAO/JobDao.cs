@@ -20,7 +20,7 @@ namespace SJ.Core
             {
                 Title = title,
                 Description = description,
-                URL = url,
+                Url = url,
                 Tag = tag,
                 DateAdded = DateTime.UtcNow,
                 VisitCount = 0
@@ -111,15 +111,15 @@ namespace SJ.Core
             return session.Get<Job>(Convert.ToInt32(jobId));
         }
 
-        public static void UpdateJob(string title, string description, string URL, string tag, int ID)
+        public static void UpdateJob(string title, string description, string Url, string tag, int Id)
         {
             ISession session = NHHelper.Instance.GetCurrentSession();
 
-            Job job = session.Load<Job>(ID);
+            Job job = session.Load<Job>(Id);
 
             job.Title = title;
             job.Description = description;
-            job.URL = URL;
+            job.Url = Url;
             job.Tag = tag;
 
             using (ITransaction tx = session.BeginTransaction())

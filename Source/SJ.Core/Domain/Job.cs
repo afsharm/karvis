@@ -21,7 +21,7 @@ namespace SJ.Core
         public virtual int FeedCount { set; get; }
         public virtual string Tag { set; get; }
         public virtual DateTime? DateAdded { set; get; }
-        public virtual string URL { set; get; }
+        public virtual string Url { set; get; }
 
         public virtual string DateAddedPersian
         {
