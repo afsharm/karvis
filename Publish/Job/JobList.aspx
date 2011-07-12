@@ -43,14 +43,14 @@
                 <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
-                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# SJ.Core.Job.GetJobUrl( Eval("ID"), Eval("Title")) %>'
+                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("ID"), Eval("Title")) %>'
                             Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll"
-            EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
+        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobModel"
+            SelectMethod="FindAll" EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
