@@ -19,7 +19,7 @@ namespace SJ.Web
 
         private void ShowTagCloud()
         {
-            var tagCloud = JobService.ExtractTagCloud();
+            var tagCloud = new JobModel().ExtractTagCloud();
 
             Image feedImage = new Image();
 

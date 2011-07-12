@@ -49,8 +49,8 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobDao" SelectMethod="FindAll"
-            EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
+        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobModel"
+            SelectMethod="FindAll" EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />

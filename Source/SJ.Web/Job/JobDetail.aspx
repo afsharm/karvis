@@ -71,7 +71,7 @@
     <div style='text-align: left'>
         <asp:HyperLink Text="بازگشت به فهرست مشاغل" runat="server" NavigateUrl="~/Job/JobList.aspx" />
     </div>
-    <asp:ObjectDataSource runat="server" ID="odsJob" TypeName="SJ.Core.JobDao" SelectMethod="GetJob">
+    <asp:ObjectDataSource runat="server" ID="odsJob" TypeName="SJ.Core.JobModel" SelectMethod="GetJob">
         <SelectParameters>
             <asp:QueryStringParameter Name="jobId" QueryStringField="ID" />
         </SelectParameters>

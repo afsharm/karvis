@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\JobDao.cs" />
     <Compile Include="Domain\Comment.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,7 +69,6 @@
     <Compile Include="Feed\IFeed.cs" />
     <Compile Include="GeneralHelper.cs" />
     <Compile Include="NHibernate\IRepository.cs" />
-    <Compile Include="JobService.cs" />
     <Compile Include="NHibernate\NHHelper.cs" />
     <Compile Include="NHibernate\NHibernateBase.cs" />
     <Compile Include="NHibernate\NHibernateRepository.cs" />

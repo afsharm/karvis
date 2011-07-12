@@ -63,5 +63,10 @@ namespace SJ.Core
             var session = CurrentSessionContext.Unbind(_sessionFactory);
             session.Dispose();
         }
+
+        public ISessionFactory GetSessionFactory()
+        {
+            return _sessionFactory;
+        }
     }
 }

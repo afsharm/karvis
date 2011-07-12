@@ -19,7 +19,7 @@ namespace SJ.Web
                 if (string.IsNullOrEmpty(jobId))
                     Response.Redirect("JobList.aspx");
 
-                JobDao.IncreaseVisitCount(jobId);
+                new JobModel().IncreaseVisitCount(jobId);
 
                 var hiddenField = (HiddenField)frmJob.FindControl("hdnJobTitle");
                 this.Title = string.Format("کارویس - {0}", hiddenField.Value);

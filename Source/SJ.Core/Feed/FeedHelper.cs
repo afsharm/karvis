@@ -17,7 +17,7 @@ namespace SJ.Core
                 GeneralHelper.GetAppEmail(),
                 "همه",
                 "نمایش فهرست همه کارهای ثبت شده در سیستم",
-                JobDao.GetAllJobs(true),
+                new JobModel().GetAllJobs(true),
                 format
                 );
         }
@@ -32,7 +32,7 @@ namespace SJ.Core
                 GeneralHelper.GetAppEmail(),
                 string.Format("تگ {0}", tag),
                 string.Format("فهرست مشاغل ثبت شده با تگ {0}", tag),
-                JobDao.GetJobsByTag(tag, true),
+                new JobModel().GetJobsByTag(tag, true),
                 format
                 );
         }

@@ -12,6 +12,12 @@ namespace SJ.Core
         ISessionFactory _sessionFactory;
         NHibernateRepository<Job> _jobRepository;
 
+        public JobModel()
+        {
+            _sessionFactory = NHHelper.Instance.GetSessionFactory();
+            _jobRepository = new NHibernateRepository<Job>(_sessionFactory);
+        }
+
         public JobModel(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
@@ -198,6 +204,11 @@ namespace SJ.Core
             }
 
             return jobs;
+        }
+
+        public Job GetJob(int jobId)
+        {
+            return _jobRepository.Get(jobId);
         }
     }
 }
