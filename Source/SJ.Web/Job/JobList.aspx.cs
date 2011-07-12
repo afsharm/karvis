@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SJ.Core;
 
 namespace SJ.Web
 {
@@ -25,6 +26,11 @@ namespace SJ.Web
         protected void btnReset_Click(object sender, EventArgs e)
         {
             Response.Redirect(Request.AppRelativeCurrentExecutionFilePath);
+        }
+
+        protected string MyGetJobUrl(object id, object title)
+        {
+            return new JobModel().GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
         }
     }
 }

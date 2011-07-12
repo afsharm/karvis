@@ -38,30 +38,5 @@ namespace SJ.Core
             comment.ParentJob = this;
             Comments.Add(comment);
         }
-
-        public virtual string GetJobUrl()
-        {
-            return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(this.Id, this.Title));
-        }
-
-        public static string GetJobUrl(object jobID, object jobTitle)
-        {
-            return string.Format("~/{0}", GetJobUrlPure(jobID, jobTitle));
-        }
-
-        public static string GetJobUrlPure(object jobID, object jobTitle)
-        {
-            return string.Format("Job/{0}.aspx/{1}", jobID, jobTitle);
-        }
-
-        public virtual string FeedDescription
-        {
-            get
-            {
-                return string.Format(
-                    "<div>{0}<hr/>{1}<hr/>Visit Count: {2} - Feed Count: {3} - Date: {4}</div>",
-                    Description, Tag, VisitCount, FeedCount, DateAddedPersian);
-            }
-        }
     }
 }

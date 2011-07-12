@@ -52,12 +52,14 @@ namespace SJ.Core
 
             List<SyndicationItem> items = new List<SyndicationItem>();
 
+            var jobModel = new JobModel();
+
             foreach (Job job in jobs)
             {
                 SyndicationItem item = new SyndicationItem(
                     job.Title,
-                    job.FeedDescription,
-                    new Uri(job.GetJobUrl()),
+                    jobModel.GetFeedDescription(job),
+                    new Uri(jobModel.GetJobUrl(job)),
                     job.Id.ToString(),
                     job.DateAdded.Value);
 
