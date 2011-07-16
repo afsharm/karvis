@@ -36,7 +36,7 @@ namespace SJ.Core
 
         public string GetJobUrlPure(object jobID, object jobTitle)
         {
-            return string.Format("Job/{0}.aspx/{1}", jobID, jobTitle);
+            return string.Format("Job/{0}.aspx/{1}", jobID, GeneralHelper.GetSeoText(jobTitle.ToString()));
         }
 
         public string GetFeedDescription(Job job)

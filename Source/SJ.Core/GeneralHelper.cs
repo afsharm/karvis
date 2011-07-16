@@ -95,5 +95,13 @@ namespace SJ.Core
         {
             return (int)character > 128;
         }
+
+        /// <summary>
+        /// Converts characters like space and comma to underscore to be better SEO
+        /// </summary>
+        public static string GetSeoText(string text)
+        {
+            return text.Replace(' ', '_');
+        }
     }
 }
