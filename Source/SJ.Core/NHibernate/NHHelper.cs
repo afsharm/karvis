@@ -15,6 +15,7 @@ namespace SJ.Core
         private static NHHelper instance;
 
         ISessionFactory _sessionFactory;
+        ISession _myCurrentSession;
 
         private NHHelper()
         {
@@ -34,6 +35,33 @@ namespace SJ.Core
             }
         }
 
+        public void BeginRequest()
+        {
+            var session = _sessionFactory.OpenSession();
+            CurrentSessionContext.Bind(session);
+        }
+
+        public void EndRequest()
+        {
+            var session = CurrentSessionContext.Unbind(_sessionFactory);
+            session.Dispose();
+        }
+
+        public ISession GetMySession()
+        {
+            return _myCurrentSession;
+        }
+
+        public void SetMySession(ISession mySession)
+        {
+            _myCurrentSession = mySession;
+        }
+
+        public ISessionFactory GetSessionFactory()
+        {
+            return _sessionFactory;
+        }
+
         public ISession GetCurrentSession()
         {
             //todo: previously GetCurrecntSession never returned null
@@ -50,23 +78,6 @@ namespace SJ.Core
             }
 
             return result;
-        }
-
-        public void BeginRequest()
-        {
-            var session = _sessionFactory.OpenSession();
-            CurrentSessionContext.Bind(session);
-        }
-
-        public void EndRequest()
-        {
-            var session = CurrentSessionContext.Unbind(_sessionFactory);
-            session.Dispose();
-        }
-
-        public ISessionFactory GetSessionFactory()
-        {
-            return _sessionFactory;
         }
     }
 }

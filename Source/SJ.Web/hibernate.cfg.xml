@@ -7,7 +7,7 @@
     <property name="connection.connection_string">Data Source=|DataDirectory|SJ.sqlite;Version=3</property>
     <property name="proxyfactory.factory_class">NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
     <property name="show_sql">true</property>
-    <property name="current_session_context_class">SJ.Core.HybridWebSessionContext</property>
+    <property name="current_session_context_class">SJ.Core.HybridWebSessionContext, SJ.Core</property>
     <mapping assembly="SJ.Core" />
   </session-factory>
 </hibernate-configuration>

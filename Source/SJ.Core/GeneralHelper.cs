@@ -101,7 +101,10 @@ namespace SJ.Core
         /// </summary>
         public static string GetSeoText(string text)
         {
-            return text.Replace(' ', '_');
+            return text
+                .Replace(' ', '_')
+                .Replace(',', '_')
+                .Replace('،', '_');
         }
     }
 }
