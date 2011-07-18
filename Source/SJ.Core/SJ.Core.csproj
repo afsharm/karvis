@@ -68,6 +68,7 @@
     <Compile Include="Feed\FeedHelper.cs" />
     <Compile Include="Feed\IFeed.cs" />
     <Compile Include="GeneralHelper.cs" />
+    <Compile Include="NHibernate\HybridWebSessionContext.cs" />
     <Compile Include="NHibernate\IRepository.cs" />
     <Compile Include="NHibernate\NHHelper.cs" />
     <Compile Include="NHibernate\NHibernateBase.cs" />
