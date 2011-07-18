@@ -8,6 +8,8 @@ using NHibernate.Engine;
 
 namespace SJ.Core
 {
+    //idea from here:
+    //http://stackoverflow.com/questions/5854238/nhibernate-session-management-strategy-for-web-application-with-background-worker
     public class HybridWebSessionContext : CurrentSessionContext
     {
         private const string _itemsKey = "HybridWebSessionContext";
