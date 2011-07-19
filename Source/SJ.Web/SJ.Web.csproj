@@ -90,6 +90,7 @@
     <Content Include="Admin\AddEditJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\Monitor.aspx" />
+    <Content Include="Admin\RunCrawler.aspx" />
     <Content Include="ckeditor\adapters\jquery.js" />
     <Content Include="ckeditor\CHANGES.html" />
     <Content Include="ckeditor\ckeditor.js" />
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="Admin\Monitor.aspx.designer.cs">
       <DependentUpon>Monitor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\RunCrawler.aspx.cs">
+      <DependentUpon>RunCrawler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\RunCrawler.aspx.designer.cs">
+      <DependentUpon>RunCrawler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
