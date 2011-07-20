@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace SJ.Core
 {
@@ -20,6 +21,18 @@ namespace SJ.Core
             string htmlText = reader.ReadToEnd();
 
             return htmlText;
+        }
+
+        public IList<string> ExtractEmails(string url)
+        {
+            IList<string> retval = new List<string>();
+            string content = GetWebText(url);
+
+            string emailPattern = "email";
+            if (Regex.IsMatch(content, emailPattern))
+                retval.Add("email found");
+
+            return retval;
         }
     }
 }
