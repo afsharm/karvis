@@ -19,7 +19,10 @@ namespace SJ.Web.Admin
         {
             var crawler = new Crawler();
 
-            var emails = crawler.ExtractEmails("http://afsharm.com/");
+            var emails = crawler.ExtractEmails(txtUrl.Text);
+
+            grdEmails.DataSource = emails;
+            grdEmails.DataBind();
         }
     }
 }

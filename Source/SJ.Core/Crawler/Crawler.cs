@@ -28,9 +28,13 @@ namespace SJ.Core
             IList<string> retval = new List<string>();
             string content = GetWebText(url);
 
-            string emailPattern = "email";
-            if (Regex.IsMatch(content, emailPattern))
-                retval.Add("email found");
+            string MatchEmailPattern = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
+
+            MatchCollection matches = Regex.Matches(content, MatchEmailPattern);
+            foreach (Match match in matches)
+            {
+                retval.Add(match.Value);
+            }
 
             return retval;
         }
