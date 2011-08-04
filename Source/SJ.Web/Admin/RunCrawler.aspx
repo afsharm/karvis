@@ -23,6 +23,13 @@
         </tr>
         <tr>
             <td>
+            </td>
+            <td>
+                <asp:Button Text="Extract jobs" runat="server" ID="btnExtractJobs" OnClick="btnExtractJobs_Click" />
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <asp:GridView runat="server" ID="grdEmails" AutoGenerateColumns="true" />
             </td>
             <td>

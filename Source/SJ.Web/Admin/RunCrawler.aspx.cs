@@ -24,5 +24,16 @@ namespace SJ.Web.Admin
             grdEmails.DataSource = emails;
             grdEmails.DataBind();
         }
+
+        protected void btnExtractJobs_Click(object sender, EventArgs e)
+        {
+            var crawler = new Crawler();
+
+            var rahnama = "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html";
+            var jobs = crawler.ExtractJobs(rahnama);
+
+            grdEmails.DataSource = jobs;
+            grdEmails.DataBind();
+        }
     }
 }
