@@ -11,6 +11,7 @@ namespace SJ.Core
     {
         ISessionFactory _sessionFactory;
         NHibernateRepository<Job> _jobRepository;
+        const int recentJobsCount = 10;
 
         public JobModel()
         {
@@ -169,11 +170,11 @@ namespace SJ.Core
         {
             var q = _jobRepository.QueryOver().OrderBy(j => j.DateAdded).Asc;
 
-            var jobs = q.List<Job>();
-
             if (updateStat)
             {
-                foreach (var job in jobs)
+                var recentJobs = q.Skip(0).Take(recentJobsCount).List<Job>();
+
+                foreach (var job in recentJobs)
                 {
                     job.FeedCount++;
 
@@ -181,6 +182,7 @@ namespace SJ.Core
                 }
             }
 
+            var jobs = q.List<Job>();
             return jobs;
         }
 
