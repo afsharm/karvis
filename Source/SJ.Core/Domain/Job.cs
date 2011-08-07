@@ -12,7 +12,6 @@ namespace SJ.Core
     {
         public Job()
         {
-            Comments = new HashedSet<Comment>();
         }
 
         public virtual string Title { set; get; }
@@ -29,14 +28,6 @@ namespace SJ.Core
             {
                 return GeneralHelper.ConvertToPersianDate(DateAdded);
             }
-        }
-
-        public virtual ISet Comments { set; get; }
-
-        public virtual void AddComment(Comment comment)
-        {
-            comment.ParentJob = this;
-            Comments.Add(comment);
         }
     }
 }

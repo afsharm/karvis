@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Library\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Library\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Fardis.Lib">
       <HintPath>..\..\Library\Fardis.Lib.dll</HintPath>
     </Reference>
@@ -57,10 +63,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crawler\Crawler.cs" />
-    <Compile Include="Domain\Comment.cs">
+    <Compile Include="IoC\IDependencyResolver.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\ConfigHelper.cs" />
+    <Compile Include="IoC\IoC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IoC\LifeStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IoC\WindsorDependencyResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NHibernate\ConfigHelper.cs" />
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -77,9 +92,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Domain\Comment.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Domain\Job.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
