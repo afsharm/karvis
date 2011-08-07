@@ -75,6 +75,10 @@
     <Compile Include="IoC\WindsorDependencyResolver.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\IJobModel.cs" />
+    <Compile Include="MVP\IView.cs" />
+    <Compile Include="MVP\Presenter.cs" />
+    <Compile Include="MVP\TEventArgs.cs" />
     <Compile Include="NHibernate\ConfigHelper.cs" />
     <Compile Include="Domain\Job.cs">
       <SubType>Code</SubType>

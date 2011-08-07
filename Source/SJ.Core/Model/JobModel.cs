@@ -7,7 +7,7 @@ using NHibernate.Criterion;
 
 namespace SJ.Core
 {
-    public class JobModel
+    public class JobModel : IJobModel
     {
         ISessionFactory _sessionFactory;
         NHibernateRepository<Job> _jobRepository;
@@ -152,9 +152,9 @@ namespace SJ.Core
             _jobRepository.SaveOrUpdate(job);
         }
 
-        public void IncreaseVisitCount(string id)
+        void IncreaseVisitCount(int id)
         {
-            Job job = _jobRepository.Load(Convert.ToInt32(id));
+            Job job = _jobRepository.Load(id);
 
             job.VisitCount++;
 
@@ -208,8 +208,11 @@ namespace SJ.Core
             return jobs;
         }
 
-        public Job GetJob(int jobId)
+        public Job GetJob(int jobId, bool updateStat)
         {
+            if (updateStat)
+                IncreaseVisitCount(jobId);
+
             return _jobRepository.Get(jobId);
         }
 

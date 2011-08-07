@@ -216,6 +216,9 @@
     <Compile Include="MasterPages\MainMaster.Master.designer.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="Presenters\JobDetailPresenter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagCloud.aspx.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
@@ -224,6 +227,7 @@
     <Compile Include="TagCloud.aspx.designer.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewInterfaces\IJobDetailView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
