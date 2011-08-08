@@ -8,5 +8,5 @@ namespace SJ.Core
     public interface IView
     {
         event EventHandler ViewInitialized;
-    }
+   }
 }

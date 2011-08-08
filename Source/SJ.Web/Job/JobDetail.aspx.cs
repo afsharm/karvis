@@ -16,19 +16,28 @@ namespace SJ.Web
         {
             if (!IsPostBack)
             {
-                string jobId = Request.QueryString["ID"];
+                presenter = new JobDetailPresenter(this, new JobModel());
+                InvokeViewInitialized(EventArgs.Empty);
 
-                if (string.IsNullOrEmpty(jobId))
+                string jobIdArgument = Request.QueryString["ID"];
+
+                if (string.IsNullOrEmpty(jobIdArgument))
                     Response.Redirect("JobList.aspx");
 
-                SetJob(Convert.ToInt32(jobId));
+                InvokeJobSelectedForDisplay(jobIdArgument);
             }
         }
 
-        public void SetJob(int jobId)
+        void InvokeJobSelectedForDisplay(string jobId)
         {
-            IJobModel jobModel = new JobModel();
-            var job = jobModel.GetJob(jobId, true);
+            if (JobSelectedForDisplay != null)
+                JobSelectedForDisplay(this, new TEventArgs<string>(jobId));
+        }
+
+        public event EventHandler<TEventArgs<string>> JobSelectedForDisplay;
+
+        public void ShowJob(Job job)
+        {
             this.Title = string.Format("کارویس - {0}", job.Title);
 
             lblTitle.Text = job.Title;
@@ -38,6 +47,11 @@ namespace SJ.Web
             lblDateAddedPersian.Text = job.DateAddedPersian;
             lblVisitCount.Text = job.VisitCount.ToString();
             lblFeedCount.Text = job.FeedCount.ToString();
+        }
+
+        private void InvokeViewInitialized(EventArgs e)
+        {
+            if (ViewInitialized != null) ViewInitialized(this, e);
         }
 
         public event EventHandler ViewInitialized;

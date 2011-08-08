@@ -10,6 +10,9 @@ using SJ.Core;
 using NHibernate.Context;
 using NHibernate;
 using NHibernate.Cfg;
+using Castle.Windsor;
+using Castle.Core;
+using Castle.MicroKernel.Registration;
 
 namespace SJ.Web
 {
@@ -18,6 +21,14 @@ namespace SJ.Web
         protected void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
+            ConfigureIoC();
+        }
+
+        private static void ConfigureIoC()
+        {
+            //IWindsorContainer localContainer = new WindsorContainer();
+            //localContainer.Register(Component.For<IJobModel>().ActAs(typeof(JobModel), LifestyleType.Transient));
+            //IoC.RegisterResolver(new WindsorDependencyResolver(localContainer));
         }
 
         protected void Session_Start(object sender, EventArgs e)

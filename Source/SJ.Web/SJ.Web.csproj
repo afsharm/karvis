@@ -36,6 +36,10 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\Library\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="CKEditor.NET">
       <HintPath>..\..\Library\CKEditor.NET.dll</HintPath>
     </Reference>

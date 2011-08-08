@@ -5,75 +5,65 @@
     جزییات دقیق‌تر
 </asp:Content>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
-    <asp:FormView runat="server" ID="frmJob" DataSourceID="odsJob" EnableViewState="false">
-        <ItemTemplate>
-            <table>
-                <tr>
-                    <td>
-                        عنوان:
-                    </td>
-                    <td>
-                        <%# Eval("Title") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        شرح:
-                    </td>
-                    <td>
-                        <%# Eval("Description") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        لینک:
-                    </td>
-                    <td>
-                        <asp:HyperLink runat="server" Text="Link" NavigateUrl='<%# Eval("URL") %>' />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        تگ:
-                    </td>
-                    <td>
-                        <%# Eval("Tag") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        تاریخ ثبت:
-                    </td>
-                    <td>
-                        <%# Eval("DateAddedPersian") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        تعداد مشاهده:
-                    </td>
-                    <td>
-                        <%# Eval("VisitCount") %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        مشاهده از طریق فید:
-                    </td>
-                    <td>
-                        <%# Eval("FeedCount") %>
-                    </td>
-                </tr>
-            </table>
-            <asp:HiddenField ID="hdnJobTitle" runat="server" Value='<%# Eval("Title") %>' />
-        </ItemTemplate>
-    </asp:FormView>
+    <table>
+        <tr>
+            <td>
+                عنوان:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblTitle" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                شرح:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblDescription" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                لینک:
+            </td>
+            <td>
+                <asp:HyperLink runat="server" Text="Link" ID="lnkUrl" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                تگ:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblTag" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                تاریخ ثبت:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblDateAddedPersian" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                تعداد مشاهده:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblVisitCount" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                مشاهده از طریق فید:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblFeedCount" />
+            </td>
+        </tr>
+    </table>
     <div style='text-align: left'>
         <asp:HyperLink Text="بازگشت به فهرست مشاغل" runat="server" NavigateUrl="~/Job/JobList.aspx" />
     </div>
-    <asp:ObjectDataSource runat="server" ID="odsJob" TypeName="SJ.Core.JobModel" SelectMethod="GetJob">
-        <SelectParameters>
-            <asp:QueryStringParameter Name="jobId" QueryStringField="ID" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
 </asp:Content>

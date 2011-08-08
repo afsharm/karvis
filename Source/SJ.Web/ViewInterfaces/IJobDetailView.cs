@@ -8,6 +8,7 @@ namespace SJ.Web
 {
     public interface IJobDetailView : IView
     {
-        void SetJob(int jobId);
+        event EventHandler<TEventArgs<string>> JobSelectedForDisplay;
+        void ShowJob(Job job);
     }
 }
