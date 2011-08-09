@@ -42,7 +42,7 @@ namespace SJ.Web
 
             lblTitle.Text = job.Title;
             lblDescription.Text = job.Description;
-            lnkUrl.Text = job.Url;
+            lnkUrl.NavigateUrl = job.Url;
             lblTag.Text = job.Tag;
             lblDateAddedPersian.Text = job.DateAddedPersian;
             lblVisitCount.Text = job.VisitCount.ToString();
