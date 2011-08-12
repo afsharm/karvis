@@ -35,6 +35,8 @@ namespace SJ.Core
 
         Job GetJob(int jobId, bool updateStat);
 
+        Job GetJob(int jobId);
+
         string GetJobUrl(int id, string title);
     }
 }

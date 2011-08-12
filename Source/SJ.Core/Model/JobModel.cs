@@ -208,6 +208,11 @@ namespace SJ.Core
             return jobs;
         }
 
+        public Job GetJob(int jobId)
+        {
+            return GetJob(jobId, false);
+        }
+
         public Job GetJob(int jobId, bool updateStat)
         {
             if (updateStat)
