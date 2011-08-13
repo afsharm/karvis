@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RunCrawler.aspx.cs" Inherits="SJ.Web.Admin.RunCrawler"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RunCrawler.aspx.cs" Inherits="Karvis.Web.Admin.RunCrawler"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">

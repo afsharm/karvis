@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="SJ.Web.AboutUs"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="Karvis.Web.AboutUs"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">

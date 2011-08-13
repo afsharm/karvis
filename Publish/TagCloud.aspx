@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TagCloud.aspx.cs" Inherits="SJ.Web.TagCloud"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TagCloud.aspx.cs" Inherits="Karvis.Web.TagCloud"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">

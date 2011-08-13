@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="SJ.Web.JobList"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="Karvis.Web.JobList"
     MasterPageFile="~/MasterPages/MainMaster.Master" Title="کارویس - فهرست مشاغل" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
@@ -49,7 +49,7 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="SJ.Core.JobModel"
+        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="Karvis.Core.JobModel"
             SelectMethod="FindAll" EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
