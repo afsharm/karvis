@@ -231,6 +231,9 @@
     <Compile Include="TagCloud.aspx.designer.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewInterfaces\IRunCrawlerView.cs" />
+    <Compile Include="ViewInterfaces\IJobListView.cs" />
+    <Compile Include="ViewInterfaces\IAddEditJobView.cs" />
     <Compile Include="ViewInterfaces\IJobDetailView.cs" />
   </ItemGroup>
   <ItemGroup>
