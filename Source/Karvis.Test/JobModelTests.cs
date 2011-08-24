@@ -7,7 +7,7 @@ namespace Karvis.Test
 {
 
     [TestFixture]
-    public class PersistenceTests : NHibernateFixture
+    public class JobModelTests : NHibernateFixture
     {
 
         [Test]
@@ -109,13 +109,40 @@ namespace Karvis.Test
         [Test]
         public void TestJobModel()
         {
-            JobModel model = new JobModel(SessionFactory);
+            IJobModel model = new JobModel(SessionFactory);
 
             string title = Guid.NewGuid().ToString();
             int jobId = model.AddNewJob(title, string.Empty, string.Empty, string.Empty);
 
             Job retJob = model.GetJob(jobId);
             Assert.AreEqual(title, retJob.Title);
+        }
+
+        [Test]
+        public void FindAllZero()
+        {
+            IJobModel model = new JobModel(SessionFactory);
+
+            int count = model.FindAll(null, null, null, int.MaxValue, 0).Count;
+            Assert.AreEqual(0, count);
+        }
+
+        [Test]
+        public void MassInjectionTest()
+        {
+            IJobModel model = new JobModel(SessionFactory);
+
+            const int max = 300;
+            for (int i = 0; i < max; i++)
+            {
+                model.AddNewJob(string.Empty, string.Empty, string.Empty, string.Empty);
+            }
+
+            int count = 0;
+            foreach (var item in model.GetAllJobs())
+                count++;
+
+            Assert.AreEqual(max, count);
         }
     }
 }

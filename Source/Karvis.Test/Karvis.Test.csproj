@@ -83,7 +83,7 @@
     <Compile Include="GeneralTester.cs" />
     <Compile Include="NHConfigurator.cs" />
     <Compile Include="NHibernateFixture.cs" />
-    <Compile Include="PersistenceTests.cs" />
+    <Compile Include="JobModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConnectionProvider.cs" />
   </ItemGroup>
