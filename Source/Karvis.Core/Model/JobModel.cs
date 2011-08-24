@@ -168,7 +168,7 @@ namespace Karvis.Core
 
         public IEnumerable<Job> GetAllJobs(bool updateStat)
         {
-            var q = _jobRepository.QueryOver().OrderBy(j => j.DateAdded).Asc;
+            var q = _jobRepository.QueryOver().OrderBy(j => j.DateAdded).Desc;
 
             if (updateStat)
             {
@@ -182,7 +182,7 @@ namespace Karvis.Core
                 }
             }
 
-            var jobs = q.List<Job>();
+            var jobs = q.Skip(0).Take(int.MaxValue).List<Job>();
             return jobs;
         }
 
