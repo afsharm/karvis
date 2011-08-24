@@ -46,7 +46,7 @@ namespace Karvis.Core
             var pageContent = GetWebText(url);
 
             // use regular expression to find matching data portion
-            Regex r = new Regex("<div class=\"grid_3 noborder center\">");// + 
+            Regex r = new Regex("div");// + 
             //"<a href="biography.asp\\?MPPID=[0-9]+"><imgsrc="http://" + 
             //"www.premier.gov.on.ca/photos/team/[A-Za-z]+" + 
             //".jpg"width="144" height="171" alt="[A-Za-z .]+'s " + 
