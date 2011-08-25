@@ -42,35 +42,22 @@ namespace Karvis.Core
         public IList<string> ExtractJobs(string url)
         {
             //http://www.codeproject.com/KB/aspnet/WebScraping.aspx
+            IList<string> retval = new List<string>();
+            //var pageContent = GetWebText(url);
+            var pageContent = "<div class=\"listimage\"><img title=\"برنامه‌نويس #C  مسلط به\" src=\"http://www.rahnama.com/images/ricon.jpg\"></div>        ";
 
-            var pageContent = GetWebText(url);
-
-            // use regular expression to find matching data portion
-            Regex r = new Regex("div");// + 
-            //"<a href="biography.asp\\?MPPID=[0-9]+"><imgsrc="http://" + 
-            //"www.premier.gov.on.ca/photos/team/[A-Za-z]+" + 
-            //".jpg"width="144" height="171" alt="[A-Za-z .]+'s " + 
-            //"Biography" /></a></div><div class="grid_3"><h3>" + 
-            //"<a href="biography.asp\\?MPPID=[0-9]+"title="[A-Za-z .]+'s " + 
-            //"Biography">[A-Za-z .]+</a></h3><p>[A-Za-z .,¡¯'-]+" + 
-            //"(<br />[A-Za-z .,¡¯'-]+)+</p><ul>(<li><a href="http://" + 
-            //"[A-Za-z.]+.ca/[0-9A-Za-z./&=;\\?]+">[0-9A-Za-z .,-¡¯;" + 
-            //"&#]+</a></li>)+</ul></div>");
+            //string pattern = "div"
+            Regex r = new Regex(url);
             pageContent = pageContent.Replace("\r", "").Replace("\n", "").Replace("\t", "");
             MatchCollection mcl = r.Matches(pageContent);
 
             // loop through each minister to construct the source XML
             foreach (Match ml in mcl)
             {
-                string xmlNode = ml.Groups[0].Value.Replace("imgsrc", "img src").Replace(
-                  "width", " width").Replace("title", " title").Replace("\\\"", "\"");
-
-                //XmlReader xmlReader = XmlReader.Create(new StringReader(
-                //"<Minister>" + xmlNode + "</Minister>"));
-                //xmlelemRoot.AppendChild(srcDoc.ReadNode(xmlReader));
+                retval.Add(ml.Value);
             }
 
-            return null;
+            return retval;
         }
     }
 }
