@@ -8,28 +8,6 @@
     <table border="0" cellpadding="0" cellspacing="0" style="direction: ltr; text-align: left">
         <tr>
             <td>
-                url:
-            </td>
-            <td>
-                <asp:TextBox runat="server" ID="txtUrl" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <asp:Button Text="Run Crawler" runat="server" ID="bntRunCrawler" OnClick="btnRunCrawler_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <asp:TextBox ID="txtSample" runat="server" Width="700px" />
-            </td>
-        </tr>
-        <tr>
-            <td>
             </td>
             <td>
                 <asp:Button Text="Extract jobs" runat="server" ID="btnExtractJobs" OnClick="btnExtractJobs_Click" />

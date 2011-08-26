@@ -7,13 +7,15 @@ namespace Karvis.Core
 {
     public interface ICrawler
     {
-        IList<string> ExtractEmails(string url);
+        List<string> ExtractEmails(string url);
         HtmlNodeCollection ExtractHtmlJobs(string pageContent);
-        string ExtractJobDescription(global::HtmlAgilityPack.HtmlNode item, string rootUrl);
-        IList<string> ExtractJobs(string url);
+        string ExtractJobDescription(HtmlAgilityPack.HtmlNode item);
+        List<JobDto> ExtractJobs(string url);
+        string ExtractJobUrl(HtmlAgilityPack.HtmlNode item, string rootUrl);
         string ExtractRootUrl(string url);
         string GetWebText(string url);
         Stream GetWebTextStream(string url);
+        JobDto PrepareJobDto(string description, string url);
         string ProcessDescription(string plainDescription);
         string ProcessLink(string plainLink, string rootUrl);
     }

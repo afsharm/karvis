@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Crawler\Crawler.cs" />
     <Compile Include="Crawler\ICrawler.cs" />
+    <Compile Include="Crawler\JobDto.cs" />
     <Compile Include="IoC\IDependencyResolver.cs">
       <SubType>Code</SubType>
     </Compile>

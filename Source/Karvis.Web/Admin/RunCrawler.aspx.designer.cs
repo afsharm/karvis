@@ -13,33 +13,6 @@ namespace Karvis.Web.Admin {
     public partial class RunCrawler {
         
         /// <summary>
-        /// txtUrl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUrl;
-        
-        /// <summary>
-        /// bntRunCrawler control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button bntRunCrawler;
-        
-        /// <summary>
-        /// txtSample control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSample;
-        
-        /// <summary>
         /// btnExtractJobs control.
         /// </summary>
         /// <remarks>

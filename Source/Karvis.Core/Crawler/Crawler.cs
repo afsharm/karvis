@@ -30,12 +30,15 @@ namespace Karvis.Core
             return htmlText;
         }
 
-        public IList<string> ExtractEmails(string url)
+        public List<string> ExtractEmails(string url)
         {
-            IList<string> retval = new List<string>();
             string content = GetWebText(url);
+            return ExtractEmailsByText(content);
+        }
 
-
+        public List<string> ExtractEmailsByText(string content)
+        {
+            List<string> retval = new List<string>();
             string MatchEmailPattern = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
 
             MatchCollection matches = Regex.Matches(content, MatchEmailPattern);
@@ -47,16 +50,43 @@ namespace Karvis.Core
             return retval;
         }
 
-        public IList<string> ExtractJobs(string url)
+        public List<JobDto> ExtractJobs(string url)
         {
-            IList<string> retval = new List<string>();
+            List<JobDto> retval = new List<JobDto>();
+
             string pageContent = GetWebText(url);
             HtmlNodeCollection jobNodes = ExtractHtmlJobs(pageContent);
             string rootUrl = ExtractRootUrl(url);
             foreach (var item in jobNodes)
-                retval.Add(ExtractJobDescription(item, rootUrl));
+                retval.Add(PrepareJobDto(ExtractJobDescription(item), ExtractJobUrl(item, rootUrl)));
 
             return retval;
+        }
+
+        public JobDto PrepareJobDto(string description, string url)
+        {
+            JobDto jobDto = new JobDto()
+            {
+                Description = description,
+                PossibleEmails = ExtractEmailsByText(description),
+                PossibleTags = ExtractPossibleTags(description),
+                Title = ExtractTitle(description),
+                Url = url
+            };
+
+            return jobDto;
+        }
+
+        private string ExtractTitle(string description)
+        {
+            //todo
+            return string.Empty;
+        }
+
+        private List<string> ExtractPossibleTags(string description)
+        {
+            //todo
+            return new List<string>();
         }
 
         public string ExtractRootUrl(string url)
@@ -70,15 +100,20 @@ namespace Karvis.Core
                 return null;
         }
 
-        public string ExtractJobDescription(HtmlNode item, string rootUrl)
+        public string ExtractJobDescription(HtmlNode item)
         {
-            string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
             string plainDescription = item.ChildNodes[4].InnerHtml;
-
-            string processedLink = ProcessLink(plainLink, rootUrl);
             string processedDescription = ProcessDescription(plainDescription);
 
             return processedDescription;
+        }
+
+        public string ExtractJobUrl(HtmlNode item, string rootUrl)
+        {
+            string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+            string processedLink = ProcessLink(plainLink, rootUrl);
+
+            return processedLink;
         }
 
         public string ProcessDescription(string plainDescription)
