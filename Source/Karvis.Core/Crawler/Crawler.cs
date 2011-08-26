@@ -83,12 +83,16 @@ namespace Karvis.Core
 
         public string ProcessDescription(string plainDescription)
         {
-            throw new NotImplementedException();
+            return plainDescription
+                .Replace("<br>", " ")
+                .Replace("</br>", " ")
+                .Replace("<span>", " ")
+                .Replace("</span>", " ");
         }
 
         public string ProcessLink(string plainLink, string rootUrl)
         {
-            throw new NotImplementedException();
+            return string.Format("{0}{1}", rootUrl, plainLink);
         }
 
         public HtmlNodeCollection ExtractHtmlJobs(string pageContent)
