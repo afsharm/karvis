@@ -5,19 +5,26 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using System.Web;
 
 namespace Karvis.Core
 {
     public class Crawler
     {
-        public string GetWebText(string url)
+        public Stream GetWebTextStream(string url)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
 
             request.UserAgent = "Karvis Web Crawler";
             WebResponse response = request.GetResponse();
             Stream stream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(stream);
+            return stream;
+        }
+
+        public string GetWebText(string url)
+        {
+            StreamReader reader = new StreamReader(GetWebTextStream(url));
             string htmlText = reader.ReadToEnd();
 
             return htmlText;
@@ -27,6 +34,7 @@ namespace Karvis.Core
         {
             IList<string> retval = new List<string>();
             string content = GetWebText(url);
+
 
             string MatchEmailPattern = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
 
@@ -43,18 +51,20 @@ namespace Karvis.Core
         {
             //http://www.codeproject.com/KB/aspnet/WebScraping.aspx
             IList<string> retval = new List<string>();
-            //var pageContent = GetWebText(url);
-            var pageContent = "<div class=\"listimage\"><img title=\"برنامه‌نويس #C  مسلط به\" src=\"http://www.rahnama.com/images/ricon.jpg\"></div>        ";
+            string pageContent = GetWebText(url);
 
-            //string pattern = "div"
-            Regex r = new Regex(url);
-            pageContent = pageContent.Replace("\r", "").Replace("\n", "").Replace("\t", "");
-            MatchCollection mcl = r.Matches(pageContent);
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(pageContent);
 
-            // loop through each minister to construct the source XML
-            foreach (Match ml in mcl)
+            //HtmlNodeCollection jobs = ExtractHtmlJobs(
+            //doc.DocumentNode.SelectNodes("//h3")[0].ChildNodes[1].Attributes[0].Value
+            foreach (var item in doc.DocumentNode.SelectNodes("//div[@id='listing']"))
             {
-                retval.Add(ml.Value);
+                //string link = item.ChildNodes[3].ChildNodes[1].Attributes["href"].Value;
+                string link = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+                string description = item.ChildNodes[4].InnerHtml;
+
+                retval.Add(description);
             }
 
             return retval;

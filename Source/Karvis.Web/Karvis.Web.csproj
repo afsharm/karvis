@@ -93,6 +93,7 @@
   <ItemGroup>
     <Content Include="Admin\AddEditJob.aspx" />
     <Content Include="Admin\Config.aspx" />
+    <Content Include="Admin\htmltest.xml" />
     <Content Include="Admin\Monitor.aspx" />
     <Content Include="Admin\RunCrawler.aspx" />
     <Content Include="ckeditor\adapters\jquery.js" />
