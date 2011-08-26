@@ -1,26 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RunCrawler.aspx.cs" Inherits="Karvis.Web.Admin.RunCrawler"
-    MasterPageFile="~/MasterPages/MainMaster.Master" %>
+    MasterPageFile="~/MasterPages/MainMaster.Master" ValidateRequest="false" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     Crawler
 </asp:Content>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td>
-                url:
-            </td>
-            <td>
-                <asp:TextBox runat="server" ID="txtUrl" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <asp:Button Text="Run Crawler" runat="server" ID="bntRunCrawler" OnClick="btnRunCrawler_Click" />
-            </td>
-        </tr>
+    <table border="0" cellpadding="0" cellspacing="0" style="direction: ltr; text-align: left">
         <tr>
             <td>
             </td>
