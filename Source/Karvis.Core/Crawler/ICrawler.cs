@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Karvis.Core
 {
-    interface ICrawler
+    public interface ICrawler
     {
         IList<string> ExtractEmails(string url);
         HtmlNodeCollection ExtractHtmlJobs(string pageContent);

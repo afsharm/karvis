@@ -61,7 +61,13 @@ namespace Karvis.Core
 
         public string ExtractRootUrl(string url)
         {
-            throw new NotImplementedException();
+            Regex regex = new Regex(@"http([s]*)://[\w.]*");
+            MatchCollection matches = regex.Matches(url);
+
+            if (matches.Count > 0)
+                return matches[0].Value;
+            else
+                return null;
         }
 
         public string ExtractJobDescription(HtmlNode item, string rootUrl)
