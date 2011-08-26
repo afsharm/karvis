@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Karvis.Core
 {
-    public class Crawler
+    public class Crawler : ICrawler
     {
         public Stream GetWebTextStream(string url)
         {
@@ -49,25 +49,48 @@ namespace Karvis.Core
 
         public IList<string> ExtractJobs(string url)
         {
-            //http://www.codeproject.com/KB/aspnet/WebScraping.aspx
             IList<string> retval = new List<string>();
             string pageContent = GetWebText(url);
+            HtmlNodeCollection jobNodes = ExtractHtmlJobs(pageContent);
+            string rootUrl = ExtractRootUrl(url);
+            foreach (var item in jobNodes)
+                retval.Add(ExtractJobDescription(item, rootUrl));
 
+            return retval;
+        }
+
+        public string ExtractRootUrl(string url)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ExtractJobDescription(HtmlNode item, string rootUrl)
+        {
+            string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+            string plainDescription = item.ChildNodes[4].InnerHtml;
+
+            string processedLink = ProcessLink(plainLink, rootUrl);
+            string processedDescription = ProcessDescription(plainDescription);
+
+            return processedDescription;
+        }
+
+        public string ProcessDescription(string plainDescription)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ProcessLink(string plainLink, string rootUrl)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HtmlNodeCollection ExtractHtmlJobs(string pageContent)
+        {
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(pageContent);
 
-            //HtmlNodeCollection jobs = ExtractHtmlJobs(
-            //doc.DocumentNode.SelectNodes("//h3")[0].ChildNodes[1].Attributes[0].Value
-            foreach (var item in doc.DocumentNode.SelectNodes("//div[@id='listing']"))
-            {
-                //string link = item.ChildNodes[3].ChildNodes[1].Attributes["href"].Value;
-                string link = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
-                string description = item.ChildNodes[4].InnerHtml;
-
-                retval.Add(description);
-            }
-
-            return retval;
+            return doc.DocumentNode.SelectNodes("//div[@id='listing']");
         }
     }
 }

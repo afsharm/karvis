@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFixture.cs" />
+    <Compile Include="CrawlerTest.cs" />
     <Compile Include="GeneralTester.cs" />
     <Compile Include="NHConfigurator.cs" />
     <Compile Include="NHibernateFixture.cs" />
