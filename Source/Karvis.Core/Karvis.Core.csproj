@@ -65,9 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crawler\ExtractJobsModel.cs" />
-    <Compile Include="Crawler\IExtractJobsModel.cs" />
-    <Compile Include="Crawler\JobDto.cs" />
+    <Compile Include="Model\ExtractJobsModel.cs" />
+    <Compile Include="Model\IExtractJobsModel.cs" />
     <Compile Include="IoC\IDependencyResolver.cs">
       <SubType>Code</SubType>
     </Compile>

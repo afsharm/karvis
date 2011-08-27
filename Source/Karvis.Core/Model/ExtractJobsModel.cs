@@ -12,6 +12,10 @@ namespace Karvis.Core
 {
     public class ExtractJobsModel : IExtractJobsModel
     {
+        public ExtractJobsModel()
+        {
+        }
+
         public Stream GetWebTextStream(string url)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -30,29 +34,27 @@ namespace Karvis.Core
             return htmlText;
         }
 
-        public List<string> ExtractEmails(string url)
+        public string ExtractEmails(string url)
         {
             string content = GetWebText(url);
             return ExtractEmailsByText(content);
         }
 
-        public List<string> ExtractEmailsByText(string content)
+        public string ExtractEmailsByText(string content)
         {
-            List<string> retval = new List<string>();
+            string retval = string.Empty;
             string MatchEmailPattern = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
 
             MatchCollection matches = Regex.Matches(content, MatchEmailPattern);
             foreach (Match match in matches)
-            {
-                retval.Add(match.Value);
-            }
+                retval += match.Value + ", ";
 
             return retval;
         }
 
-        public List<JobDto> ExtractJobs(string url)
+        public List<Job> ExtractJobs(string url)
         {
-            List<JobDto> retval = new List<JobDto>();
+            List<Job> retval = new List<Job>();
 
             string pageContent = GetWebText(url);
             HtmlNodeCollection jobNodes = ExtractHtmlJobs(pageContent);
@@ -63,18 +65,18 @@ namespace Karvis.Core
             return retval;
         }
 
-        public JobDto PrepareJobDto(string description, string url)
+        public Job PrepareJobDto(string description, string url)
         {
-            JobDto jobDto = new JobDto()
+            Job job = new Job()
             {
                 Description = description,
-                PossibleEmails = ExtractEmailsByText(description),
-                PossibleTags = ExtractPossibleTags(description),
+                Emails = ExtractEmailsByText(description),
+                Tag = ExtractPossibleTags(description),
                 Title = ExtractTitle(description),
                 Url = url
             };
 
-            return jobDto;
+            return job;
         }
 
         private string ExtractTitle(string description)
@@ -83,10 +85,10 @@ namespace Karvis.Core
             return string.Empty;
         }
 
-        private List<string> ExtractPossibleTags(string description)
+        private string ExtractPossibleTags(string description)
         {
             //todo
-            return new List<string>();
+            return string.Empty;
         }
 
         public string ExtractRootUrl(string url)

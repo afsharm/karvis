@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExtractJobs.aspx.cs" Inherits="Karvis.Web.Admin.ExtractJobs"
-    MasterPageFile="~/MasterPages/MainMaster.Master" ValidateRequest="false" %>
+    MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     Crawler
