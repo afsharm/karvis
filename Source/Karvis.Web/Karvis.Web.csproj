@@ -95,7 +95,7 @@
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\htmltest.xml" />
     <Content Include="Admin\Monitor.aspx" />
-    <Content Include="Admin\RunCrawler.aspx" />
+    <Content Include="Admin\ExtractJobs.aspx" />
     <Content Include="ckeditor\adapters\jquery.js" />
     <Content Include="ckeditor\CHANGES.html" />
     <Content Include="ckeditor\ckeditor.js" />
@@ -172,12 +172,12 @@
     <Compile Include="Admin\Monitor.aspx.designer.cs">
       <DependentUpon>Monitor.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\RunCrawler.aspx.cs">
-      <DependentUpon>RunCrawler.aspx</DependentUpon>
+    <Compile Include="Admin\ExtractJobs.aspx.cs">
+      <DependentUpon>ExtractJobs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\RunCrawler.aspx.designer.cs">
-      <DependentUpon>RunCrawler.aspx</DependentUpon>
+    <Compile Include="Admin\ExtractJobs.aspx.designer.cs">
+      <DependentUpon>ExtractJobs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -221,6 +221,7 @@
     <Compile Include="MasterPages\MainMaster.Master.designer.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="Presenters\ExtractJobsPresenter.cs" />
     <Compile Include="Presenters\JobDetailPresenter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -232,7 +233,7 @@
     <Compile Include="TagCloud.aspx.designer.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInterfaces\IRunCrawlerView.cs" />
+    <Compile Include="ViewInterfaces\IExtractJobsView.cs" />
     <Compile Include="ViewInterfaces\IJobListView.cs" />
     <Compile Include="ViewInterfaces\IAddEditJobView.cs" />
     <Compile Include="ViewInterfaces\IJobDetailView.cs" />

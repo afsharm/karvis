@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Karvis.Core
 {
-    public class Crawler : ICrawler
+    public class ExtractJobsModel : IExtractJobsModel
     {
         public Stream GetWebTextStream(string url)
         {

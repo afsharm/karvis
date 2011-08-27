@@ -10,7 +10,7 @@
 namespace Karvis.Web.Admin {
     
     
-    public partial class RunCrawler {
+    public partial class ExtractJobs {
         
         /// <summary>
         /// btnExtractJobs control.

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace Karvis.Test
 {
     [TestFixture]
-    public class CrawlerTest
+    public class ExtractJobsModelTest
     {
         [Test]
         public void ExtractRootUrlTest()
@@ -30,10 +30,10 @@ namespace Karvis.Test
                 "http://www.epay.ir",
                 "https://modern.enbank.net" };
 
-            ICrawler crawler = new Crawler();
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel();
 
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(expected[i], crawler.ExtractRootUrl(raw[i]), i.ToString());
+                Assert.AreEqual(expected[i], extractJobsModel.ExtractRootUrl(raw[i]), i.ToString());
         }
 
         [Test]
@@ -48,11 +48,11 @@ namespace Karvis.Test
                 ", استخدام فوری , در یک شرکت معتبر , 4 نفر برنامه نویس , SQL Server-ASP.NET , با تسلط کامل #C , info@behsazan.net"
             };
 
-            ICrawler crawler = new Crawler();
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel();
 
             Regex regex = new Regex("<span>|<br>|</span>|</br>");
             foreach (var item in raw)
-                Assert.AreEqual(0, regex.Matches(crawler.ProcessDescription(item)).Count, string.Format("problem in: {0}", item));
+                Assert.AreEqual(0, regex.Matches(extractJobsModel.ProcessDescription(item)).Count, string.Format("problem in: {0}", item));
         }
     }
 }
