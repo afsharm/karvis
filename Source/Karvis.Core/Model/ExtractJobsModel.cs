@@ -55,28 +55,43 @@ namespace Karvis.Core
         public List<Job> ExtractJobs(string url)
         {
             List<Job> retval = new List<Job>();
+            HtmlNodeCollection textJobs;
+            HtmlNodeCollection imageJobs;
+            ExtractHtmlJobs(url, out textJobs, out imageJobs);
 
-            string pageContent = GetWebText(url);
-            HtmlNodeCollection jobNodes = ExtractHtmlJobs(pageContent);
             string rootUrl = ExtractRootUrl(url);
-            foreach (var item in jobNodes)
-                retval.Add(PrepareJobDto(ExtractJobDescription(item), ExtractJobUrl(item, rootUrl)));
+            foreach (var item in textJobs)
+            {
+                string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+                string processedLink = ProcessLink(plainLink, rootUrl);
+                string title = item.ChildNodes[3].ChildNodes[0].InnerText;
+                string description = ExtractJobDescription(item);
+
+                Job job = new Job()
+                {
+                    Description = description,
+                    Emails = ExtractEmailsByText(description),
+                    Tag = ExtractPossibleTags(description),
+                    Title = title,
+                    Url = processedLink
+                };
+
+                retval.Add(job);
+            }
+
+            foreach (var item in imageJobs)
+            {
+                string link = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["href"].Value;
+                Job job = new Job()
+                {
+                    Url = link,
+                    Title = "آگهی عکسی"
+                };
+
+                retval.Add(job);
+            }
 
             return retval;
-        }
-
-        public Job PrepareJobDto(string description, string url)
-        {
-            Job job = new Job()
-            {
-                Description = description,
-                Emails = ExtractEmailsByText(description),
-                Tag = ExtractPossibleTags(description),
-                Title = ExtractTitle(description),
-                Url = url
-            };
-
-            return job;
         }
 
         private string ExtractTitle(string description)
@@ -110,14 +125,6 @@ namespace Karvis.Core
             return processedDescription;
         }
 
-        public string ExtractJobUrl(HtmlNode item, string rootUrl)
-        {
-            string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
-            string processedLink = ProcessLink(plainLink, rootUrl);
-
-            return processedLink;
-        }
-
         public string ProcessDescription(string plainDescription)
         {
             return plainDescription
@@ -132,12 +139,35 @@ namespace Karvis.Core
             return string.Format("{0}{1}", rootUrl, plainLink);
         }
 
-        public HtmlNodeCollection ExtractHtmlJobs(string pageContent)
+        public void ExtractHtmlJobs(string url, out HtmlNodeCollection textJobs, out HtmlNodeCollection imageJobs)
         {
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(pageContent);
+            textJobs = new HtmlNodeCollection(null);
+            imageJobs = new HtmlNodeCollection(null);
 
-            return doc.DocumentNode.SelectNodes("//div[@id='listing']");
+            string thisUrl = url;
+
+            HtmlDocument doc = new HtmlDocument();
+            bool hasPaging = true;
+            HtmlNodeCollection paging = null;
+            do
+            {
+                string pageContent = GetWebText(thisUrl);
+                doc.LoadHtml(pageContent);
+
+                var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
+                foreach (var item in res)
+                    textJobs.Add(item);
+
+                var imageRes = doc.DocumentNode.SelectNodes("//div[@class='image-container']");
+                foreach (var item in imageRes)
+                    imageJobs.Add(item);
+
+                paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
+                hasPaging = paging != null && paging.Count > 0;
+                if (hasPaging)
+                    thisUrl = ExtractRootUrl(url) + paging[0].Attributes["href"].Value;
+            }
+            while (hasPaging);
         }
     }
 }

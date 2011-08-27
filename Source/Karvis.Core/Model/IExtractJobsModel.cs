@@ -8,10 +8,9 @@ namespace Karvis.Core
     public interface IExtractJobsModel
     {
         string ExtractEmails(string url);
-        HtmlNodeCollection ExtractHtmlJobs(string pageContent);
-        string ExtractJobDescription(HtmlAgilityPack.HtmlNode item);
+        void ExtractHtmlJobs(string url, out HtmlNodeCollection textJobs, out HtmlNodeCollection imageJobs);
+        string ExtractJobDescription(HtmlNode item);
         List<Job> ExtractJobs(string url);
-        string ExtractJobUrl(HtmlAgilityPack.HtmlNode item, string rootUrl);
         string ExtractRootUrl(string url);
         string GetWebText(string url);
         Stream GetWebTextStream(string url);
