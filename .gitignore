@@ -8,3 +8,11 @@ Obj
 *.user
 
 Source/SJ.AppConsole/App_Data/
+
+!Publish/bin/Karvis.Core.dll
+!Publish/bin/Karvis.Core.pdb
+!Publish/bin/Karvis.Web.dll
+!Publish/bin/Karvis.Web.pdb
+!Publish/bin/hibernate.cfg.xml
+
+
