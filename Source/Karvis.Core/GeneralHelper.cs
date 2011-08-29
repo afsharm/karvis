@@ -102,6 +102,7 @@ namespace Karvis.Core
         public static string GetSeoText(string text)
         {
             return text
+                .Replace('.', '_')
                 .Replace(' ', '_')
                 .Replace(',', '_')
                 .Replace('،', '_');
