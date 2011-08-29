@@ -8,5 +8,6 @@ namespace Karvis.Core
     public interface IView
     {
         event EventHandler ViewInitialized;
-   }
+        void ShowMessage(string message);
+    }
 }

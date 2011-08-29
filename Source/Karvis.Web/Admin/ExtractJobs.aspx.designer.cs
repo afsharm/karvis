@@ -13,6 +13,24 @@ namespace Karvis.Web.Admin {
     public partial class ExtractJobs {
         
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
+        /// btnApplyJobs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnApplyJobs;
+        
+        /// <summary>
         /// btnExtractJobs control.
         /// </summary>
         /// <remarks>
@@ -22,12 +40,12 @@ namespace Karvis.Web.Admin {
         protected global::System.Web.UI.WebControls.Button btnExtractJobs;
         
         /// <summary>
-        /// grdEmails control.
+        /// rptPreJob control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdEmails;
+        protected global::System.Web.UI.WebControls.Repeater rptPreJob;
     }
 }

@@ -55,5 +55,10 @@ namespace Karvis.Web
         }
 
         public event EventHandler ViewInitialized;
+
+        public void ShowMessage(string message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

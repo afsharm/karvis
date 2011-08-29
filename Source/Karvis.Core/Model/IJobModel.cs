@@ -24,5 +24,7 @@ namespace Karvis.Core
         Job GetJob(int jobId, bool updateStat);
         Job GetJob(int jobId);
         string GetJobUrl(int id, string title);
+
+        int AddJobBatch(List<Job> jobs);
     }
 }

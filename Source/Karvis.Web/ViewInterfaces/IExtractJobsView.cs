@@ -10,8 +10,8 @@ namespace Karvis.Web
     public interface IExtractJobsView : IView
     {
         event EventHandler<TEventArgs<string>> ExtractJobsButtonPressed;
-        event EventHandler<TEventArgs<string>> InjectJobsButtonPressed;
+        event EventHandler ApplyJobsButtonPressed;
         void ShowJobs(List<Job> jobs);
-        void ReadJobs(HtmlTable htmlTable);
+        List<Job> ReadJobs();
     }
 }

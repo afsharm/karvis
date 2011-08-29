@@ -14,7 +14,7 @@ namespace Karvis.Web.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            presenter = new ExtractJobsPresenter(this, new ExtractJobsModel());
+            presenter = new ExtractJobsPresenter(this, new ExtractJobsModel(), new JobModel());
 
             if (!IsPostBack)
             {
@@ -26,6 +26,11 @@ namespace Karvis.Web.Admin
         {
             if (ViewInitialized != null)
                 ViewInitialized(this, EventArgs.Empty);
+        }
+
+        protected void btnApplyJobs_Click(object sender, EventArgs e)
+        {
+            InvokeApplyJobsButtonPressed();
         }
 
         protected void btnExtractJobs_Click(object sender, EventArgs e)
@@ -43,19 +48,56 @@ namespace Karvis.Web.Admin
                 ExtractJobsButtonPressed(this, new TEventArgs<string>(data));
         }
 
-        public event EventHandler<TEventArgs<string>> InjectJobsButtonPressed;
+        void InvokeApplyJobsButtonPressed()
+        {
+            if (ApplyJobsButtonPressed != null)
+                ApplyJobsButtonPressed(this, EventArgs.Empty);
+        }
+
+        public event EventHandler ApplyJobsButtonPressed;
 
         public void ShowJobs(List<Job> jobs)
         {
-            grdEmails.DataSource = jobs;
-            grdEmails.DataBind();
+            rptPreJob.DataSource = jobs;
+            rptPreJob.DataBind();
         }
 
-        public void ReadJobs(System.Web.UI.HtmlControls.HtmlTable htmlTable)
+        public List<Job> ReadJobs()
         {
-            throw new NotImplementedException();
+            List<Job> retval = new List<Job>();
+
+            foreach (RepeaterItem item in rptPreJob.Items)
+            {
+                CheckBox chkApply = item.FindControl("chkApply") as CheckBox;
+                if (!chkApply.Checked)
+                    continue;
+
+                TextBox txtDescription = item.FindControl("txtDescription") as TextBox;
+                TextBox txtEmails = item.FindControl("txtEmails") as TextBox;
+                TextBox txtTag = item.FindControl("txtTag") as TextBox;
+                TextBox txtTitle = item.FindControl("txtTitle") as TextBox;
+                TextBox txtUrl = item.FindControl("txtUrl") as TextBox;
+
+                Job job = new Job()
+                {
+                    Description = txtDescription.Text,
+                    Emails = txtEmails.Text,
+                    Tag = txtTag.Text,
+                    Title = txtTitle.Text,
+                    Url = txtUrl.Text
+                };
+
+                retval.Add(job);
+            }
+
+            return retval;
         }
 
         public event EventHandler ViewInitialized;
+
+        public void ShowMessage(string message)
+        {
+            lblMessage.Text = message;
+        }
     }
 }

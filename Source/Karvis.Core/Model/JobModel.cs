@@ -225,5 +225,20 @@ namespace Karvis.Core
         {
             return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(id, title));
         }
+
+
+        public int AddJobBatch(List<Job> jobs)
+        {
+            foreach (var job in jobs)
+            {
+                job.DateAdded = DateTime.UtcNow;
+                job.VisitCount = 0;
+                job.FeedCount = 0;
+
+                _jobRepository.Add(job);
+            }
+
+            return jobs.Count;
+        }
     }
 }
