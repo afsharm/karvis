@@ -62,19 +62,7 @@ namespace Karvis.Core
             string rootUrl = ExtractRootUrl(url);
             foreach (var item in textJobs)
             {
-                string plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
-                string processedLink = ProcessLink(plainLink, rootUrl);
-                string title = item.ChildNodes[3].ChildNodes[0].InnerText;
-                string description = ExtractJobDescription(item);
-
-                Job job = new Job()
-                {
-                    Description = description,
-                    Emails = ExtractEmailsByText(description),
-                    Tag = ExtractPossibleTags(description),
-                    Title = title,
-                    Url = processedLink
-                };
+                Job job = CreateTextJob(rootUrl, item);
 
                 retval.Add(job);
             }
@@ -92,6 +80,47 @@ namespace Karvis.Core
             }
 
             return retval;
+        }
+
+        private Job CreateTextJob(string rootUrl, HtmlNode item)
+        {
+            string plainLink;
+            string processedLink;
+            string title;
+            string description;
+            string emails;
+            string tag;
+
+            //to ignore possible error
+            try
+            {
+                plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+                processedLink = ProcessLink(plainLink, rootUrl);
+                title = item.ChildNodes[3].ChildNodes[0].InnerText;
+                description = ExtractJobDescription(item);
+                emails = ExtractEmailsByText(description);
+                tag = ExtractPossibleTags(description);
+            }
+            catch (Exception ex)
+            {
+                plainLink = "N/A";
+                processedLink = "N/A";
+                title = "N/A";
+                description = ex.Message;
+                emails = "N/A";
+                tag = "N/A";
+            }
+
+            Job job = new Job()
+            {
+                Description = description,
+                Emails = emails,
+                Tag = tag,
+                Title = title,
+                Url = processedLink
+            };
+
+            return job;
         }
 
         private string ExtractTitle(string description)
@@ -146,12 +175,12 @@ namespace Karvis.Core
 
             string thisUrl = url;
 
-            HtmlDocument doc = new HtmlDocument();
             bool hasPaging = true;
             HtmlNodeCollection paging = null;
             do
             {
                 string pageContent = GetWebText(thisUrl);
+                HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(pageContent);
 
                 var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
@@ -159,8 +188,9 @@ namespace Karvis.Core
                     textJobs.Add(item);
 
                 var imageRes = doc.DocumentNode.SelectNodes("//div[@class='image-container']");
-                foreach (var item in imageRes)
-                    imageJobs.Add(item);
+                if (imageRes != null) //if any image advertise exists at all
+                    foreach (var item in imageRes)
+                        imageJobs.Add(item);
 
                 paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
                 hasPaging = paging != null && paging.Count > 0;
