@@ -60,12 +60,14 @@ namespace Karvis.Core
             ExtractHtmlJobs(url, out textJobs, out imageJobs);
 
             string rootUrl = ExtractRootUrl(url);
-            foreach (var item in textJobs)
-            {
-                Job job = CreateTextJob(rootUrl, item);
+            retval.AddRange(ExtractTextJobs(textJobs, rootUrl));
+            retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
+            return retval;
+        }
 
-                retval.Add(job);
-            }
+        public List<Job> ExtractImageJobs(HtmlNodeCollection imageJobs, string rootUrl)
+        {
+            List<Job> retval = new List<Job>();
 
             foreach (var item in imageJobs)
             {
@@ -82,7 +84,21 @@ namespace Karvis.Core
             return retval;
         }
 
-        private Job CreateTextJob(string rootUrl, HtmlNode item)
+        public List<Job> ExtractTextJobs(HtmlNodeCollection textJobs, string rootUrl)
+        {
+            List<Job> retval = new List<Job>();
+
+            foreach (var item in textJobs)
+            {
+                Job job = CreateTextJob(rootUrl, item);
+
+                retval.Add(job);
+            }
+
+            return retval;
+        }
+
+        public Job CreateTextJob(string rootUrl, HtmlNode item)
         {
             string plainLink;
             string processedLink;
@@ -99,7 +115,7 @@ namespace Karvis.Core
                 title = item.ChildNodes[3].ChildNodes[0].InnerText;
                 description = ExtractJobDescription(item);
                 emails = ExtractEmailsByText(description);
-                tag = ExtractPossibleTags(description);
+                tag = ExtractTags(description);
             }
             catch (Exception ex)
             {
@@ -123,13 +139,7 @@ namespace Karvis.Core
             return job;
         }
 
-        private string ExtractTitle(string description)
-        {
-            //todo
-            return string.Empty;
-        }
-
-        private string ExtractPossibleTags(string description)
+        public string ExtractTags(string description)
         {
             //todo
             return string.Empty;
@@ -183,14 +193,9 @@ namespace Karvis.Core
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(pageContent);
 
-                var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
-                foreach (var item in res)
-                    textJobs.Add(item);
+                ExtractRawTextJobs(textJobs, doc);
 
-                var imageRes = doc.DocumentNode.SelectNodes("//div[@class='image-container']");
-                if (imageRes != null) //if any image advertise exists at all
-                    foreach (var item in imageRes)
-                        imageJobs.Add(item);
+                ExtractRawImageJobs(imageJobs, doc);
 
                 paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
                 hasPaging = paging != null && paging.Count > 0;
@@ -198,6 +203,21 @@ namespace Karvis.Core
                     thisUrl = ExtractRootUrl(url) + paging[0].Attributes["href"].Value;
             }
             while (hasPaging);
+        }
+
+        private static void ExtractRawImageJobs(HtmlNodeCollection imageJobs, HtmlDocument doc)
+        {
+            var imageRes = doc.DocumentNode.SelectNodes("//div[@class='image-container']");
+            if (imageRes != null) //if any image advertise exists at all
+                foreach (var item in imageRes)
+                    imageJobs.Add(item);
+        }
+
+        private static void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
+        {
+            var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
+            foreach (var item in res)
+                textJobs.Add(item);
         }
     }
 }
