@@ -54,5 +54,29 @@ namespace Karvis.Test
             foreach (var item in raw)
                 Assert.AreEqual(0, regex.Matches(extractJobsModel.ProcessDescription(item)).Count, string.Format("problem in: {0}", item));
         }
+
+        [Test]
+        public void ProcessLinkTest()
+        {
+            const int testCount = 2;
+            string rootUrl = "http://www.rahnama.com";
+
+            string[] raw = new string[testCount]
+            {
+                "/component/mtree/آگهي/5796255/برنامه-نویس-حرفه-ای-نیازمندیم.html",
+                "/123/456"
+            };
+
+            string[] answer = new string[testCount]
+            {
+                "http://www.rahnama.com/component/mtree/آگهي/5796255/برنامه-نویس-حرفه-ای-نیازمندیم.html",
+                "http://www.rahnama.com/123/456"
+            };
+
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel();
+
+            for (int i = 0; i < testCount; i++)
+                Assert.AreEqual(answer[i], extractJobsModel.ProcessLink(raw[i], rootUrl));
+        }
     }
 }
