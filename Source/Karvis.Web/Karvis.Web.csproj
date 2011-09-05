@@ -123,6 +123,7 @@
     <Content Include="ckeditor\skins\kama\skin.js" />
     <Content Include="ckeditor\skins\kama\templates.css" />
     <Content Include="ckeditor\themes\default\theme.js" />
+    <Content Include="CodeBase\ProviderSql.sql" />
     <Content Include="Default.aspx" />
     <Content Include="Feed.svc" />
     <Content Include="Global.asax" />
@@ -138,6 +139,7 @@
     <Content Include="Images\feed-tiny.jpg" />
     <Content Include="Job\JobDetail.aspx" />
     <Content Include="Job\JobList.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="MasterPages\main.css" />
     <Content Include="TagCloud.aspx" />
     <Content Include="Web.config">
@@ -179,6 +181,8 @@
     <Compile Include="Admin\ExtractJobs.aspx.designer.cs">
       <DependentUpon>ExtractJobs.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CodeBase\SQLiteMembershipProvider.cs" />
+    <Compile Include="CodeBase\SQLiteRoleProvider.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -214,6 +218,13 @@
       <DependentUpon>JobList.aspx</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Membership.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterPages\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
