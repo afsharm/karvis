@@ -32,6 +32,10 @@
 <body style='direction: rtl; text-align: right'>
     <form id="form1" runat="server">
     <div id="container">
+        <div style='direction: ltr; text-align: left'>
+            <asp:LoginName ID="LoginName1" FormatString="Welcome {0}!" runat="server" />
+            <asp:LoginStatus ID="LoginStatus1" runat="server" />
+        </div>
         <div class="header">
             <h1>
                 کارویس

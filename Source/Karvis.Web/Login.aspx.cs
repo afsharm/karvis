@@ -14,9 +14,9 @@ namespace Karvis.Web
 
         }
 
-        protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
+        protected void Login1_LoggedIn(object sender, EventArgs e)
         {
-
+            //           Response.Redirect("~/Default.aspx");
         }
     }
 }
