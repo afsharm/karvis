@@ -205,7 +205,7 @@ namespace Karvis.Core
             while (hasPaging);
         }
 
-        private static void ExtractRawImageJobs(HtmlNodeCollection imageJobs, HtmlDocument doc)
+        public void ExtractRawImageJobs(HtmlNodeCollection imageJobs, HtmlDocument doc)
         {
             var imageRes = doc.DocumentNode.SelectNodes("//div[@class='image-container']");
             if (imageRes != null) //if any image advertise exists at all
@@ -213,7 +213,7 @@ namespace Karvis.Core
                     imageJobs.Add(item);
         }
 
-        private static void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
+        public void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
         {
             var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
             foreach (var item in res)

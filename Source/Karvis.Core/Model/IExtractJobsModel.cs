@@ -21,5 +21,7 @@ namespace Karvis.Core
         Stream GetWebTextStream(string url);
         string ProcessDescription(string plainDescription);
         string ProcessLink(string plainLink, string rootUrl);
+        void ExtractRawImageJobs(HtmlNodeCollection imageJobs, HtmlDocument doc);
+        void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc);
     }
 }
