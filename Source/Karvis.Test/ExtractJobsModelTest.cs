@@ -83,7 +83,7 @@ namespace Karvis.Test
         public void ExtractEmailsByTextTest()
         {
             const int testCount = 5;
-            string[] raw = new string[testCount]
+            string[] raw = new string[]
             {
                 "dfsdf kshdfk sdfkjh@dfjsf.com",
                 "yyy@iran.ir, kkkk@lksdf ,,,,,sdf lksd llkjdf @ sdfl k@d.org",
@@ -104,5 +104,32 @@ namespace Karvis.Test
             for (int i = 0; i < testCount; i++)
                 Assert.AreEqual(expected[i], model.ExtractEmailsByText(raw[i]), i.ToString());
         }
+
+        [Test]
+        public void ExtractTagsTest()
+        {
+            const int testCount = 5;
+            string[] raw = new string[]
+            {
+                "dfsdf kshdfk sdfkjh@dfjsf.com",
+                "yyy@iran.ir, kkkk@lksdf ,,,,,sdf lksd llkjdf @ sdfl k@d.org",
+                "",
+                "skdhskhdfkshdfkshdfkskjdf sdkh sdlf ",
+                "abc@zdef.co"//"abc@zdef.co.uk"
+            };
+            string[] expected = new string[testCount]
+            {
+                "sdfkjh@dfjsf.com, ",
+                "yyy@iran.ir, k@d.org, ",
+                "",
+                "",
+                "abc@zdef.co, "//"abc@zdef.co.uk, "
+            };
+
+            IExtractJobsModel model = new ExtractJobsModel();
+            for (int i = 0; i < testCount; i++)
+                Assert.AreEqual(expected[i], model.ExtractTags(raw[i]), i.ToString());
+        }
+
     }
 }
