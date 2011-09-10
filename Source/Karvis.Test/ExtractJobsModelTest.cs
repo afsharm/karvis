@@ -120,7 +120,7 @@ namespace Karvis.Test
             string[] expected = new string[testCount]
             {
                 "PHP, Programming, Javascript, yahoo, com, amir, rajabi, ",
-                "",
+                "",     
                 "",
                 "skdhskhdfkshdfkshdfkskjdf, sdkh, sdlf, ",
                 "abc, zdef, co, "

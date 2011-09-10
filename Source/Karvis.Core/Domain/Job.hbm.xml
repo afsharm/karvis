@@ -15,6 +15,7 @@
     <property name="Tag"/>
     <property name="DateAdded"/>
     <property name="Url"/>
+    <property name="AdSource"/>
   </class>
 
 </hibernate-mapping>

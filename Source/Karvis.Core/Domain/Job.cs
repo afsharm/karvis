@@ -22,6 +22,7 @@ namespace Karvis.Core
         public virtual DateTime? DateAdded { set; get; }
         public virtual string Url { set; get; }
         public virtual string Emails { get; set; }
+        public virtual AdSource AdSource { set; get; }
 
         public virtual string DateAddedPersian
         {
@@ -29,6 +30,6 @@ namespace Karvis.Core
             {
                 return GeneralHelper.ConvertToPersianDate(DateAdded);
             }
-        }        
+        }
     }
 }
