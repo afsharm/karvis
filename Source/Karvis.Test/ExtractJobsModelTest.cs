@@ -111,19 +111,19 @@ namespace Karvis.Test
             const int testCount = 5;
             string[] raw = new string[]
             {
-                "dfsdf kshdfk sdfkjh@dfjsf.com",
-                "yyy@iran.ir, kkkk@lksdf ,,,,,sdf lksd llkjdf @ sdfl k@d.org",
+                ", برنامه نویس PHP , مسلط به , PHP Programming و , پرتال نویسی و طراحی قالب , و Javascript , با تجربه عالی , جهت انجام پروژه های حرفه ای yahoo.com @amir_rajabi88 تلفن: 22674456 ",
+                "",
                 "",
                 "skdhskhdfkshdfkshdfkskjdf sdkh sdlf ",
-                "abc@zdef.co"//"abc@zdef.co.uk"
+                "abc@zdef.co"
             };
             string[] expected = new string[testCount]
             {
-                "sdfkjh@dfjsf.com, ",
-                "yyy@iran.ir, k@d.org, ",
+                "PHP, Programming, Javascript, yahoo, com, amir, rajabi, ",
                 "",
                 "",
-                "abc@zdef.co, "//"abc@zdef.co.uk, "
+                "skdhskhdfkshdfkshdfkskjdf, sdkh, sdlf, ",
+                "abc, zdef, co, "
             };
 
             IExtractJobsModel model = new ExtractJobsModel();

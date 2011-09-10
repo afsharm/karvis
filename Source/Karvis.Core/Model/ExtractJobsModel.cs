@@ -141,8 +141,19 @@ namespace Karvis.Core
 
         public string ExtractTags(string description)
         {
-            //todo
-            return string.Empty;
+            string retval = string.Empty;
+            string MatchEmailPattern = @"[a-zA-Z]+";
+
+            List<string> tags = new List<string>();
+            MatchCollection matches = Regex.Matches(description, MatchEmailPattern);
+            foreach (Match match in matches)
+                if (!tags.Contains(match.Value))
+                    tags.Add(match.Value);
+
+            foreach (var item in tags)
+                retval += item + ", ";
+
+            return retval;
         }
 
         public string ExtractRootUrl(string url)
