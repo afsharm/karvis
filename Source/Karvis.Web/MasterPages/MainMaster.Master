@@ -18,7 +18,7 @@
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-5604714-5']);
+        _gaq.push(['_setAccount', 'UA-5604714-7']);
         _gaq.push(['_trackPageview']);
 
         (function () {
@@ -74,7 +74,7 @@
         </div>
         <div class="footer">
             <p>
-                &#169; 2011 <a href="http://karvis.afsharm.com/">karvis.afsharm.com</a>
+                &#169; 2011 <a href="http://karvis.ir/">karvis.ir</a>
             </p>
         </div>
     </div>
