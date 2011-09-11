@@ -32,6 +32,10 @@
 <body style='direction: rtl; text-align: right'>
     <form id="form1" runat="server">
     <div id="container">
+        <div style='direction: ltr; text-align: left'>
+            <asp:LoginName ID="LoginName1" FormatString="Welcome {0}!" runat="server" />
+            <asp:LoginStatus ID="LoginStatus1" runat="server" />
+        </div>
         <div class="header">
             <h1>
                 کارویس
@@ -49,6 +53,16 @@
         <div class="mainmenu">
             <ul>
                 <li><a href="~/Default.aspx" runat="server">خانه</a></li>
+                <asp:LoginView runat="server">
+                    <RoleGroups>
+                        <asp:RoleGroup Roles="AdminRole">
+                            <ContentTemplate>
+                                <li><a id="A3" href="~/Admin/AddEditJob.aspx" runat="server">اضافه/ویرایش شغل</a></li>
+                                <li><a id="A4" href="~/Admin/ExtractJobs.aspx" runat="server">استخراج</a></li>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                    </RoleGroups>
+                </asp:LoginView>
                 <li><a href="~/Job/JobList.aspx" runat="server">فهرست مشاغل</a></li>
                 <li><a id="A1" href="~/TagCloud.aspx" runat="server">تگ‌ها</a></li>
                 <li><a id="A2" href="~/AboutUs.aspx" runat="server">درباره‌ی ما</a></li>
