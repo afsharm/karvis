@@ -105,7 +105,9 @@ namespace Karvis.Core
                 .Replace('.', '_')
                 .Replace(' ', '_')
                 .Replace(',', '_')
-                .Replace('،', '_');
+                .Replace('،', '_')
+                .Replace('/', '_')
+                .Replace(':', '_');
         }
     }
 }
