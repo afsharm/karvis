@@ -43,7 +43,7 @@ namespace Karvis.Core
         public string ExtractEmailsByText(string content)
         {
             string retval = string.Empty;
-            string MatchEmailPattern = @"(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})";
+            string MatchEmailPattern = @"([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})";
 
             MatchCollection matches = Regex.Matches(content, MatchEmailPattern);
             foreach (Match match in matches)
