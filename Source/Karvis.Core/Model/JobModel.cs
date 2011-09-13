@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using NHibernate.Criterion;
+using Fardis;
 
 namespace Karvis.Core
 {
@@ -37,7 +38,7 @@ namespace Karvis.Core
 
         public string GetJobUrlPure(object jobID, object jobTitle)
         {
-            return string.Format("Job/{0}.aspx/{1}", jobID, GeneralHelper.GetSeoText(jobTitle.ToString()));
+            return string.Format("Job/{0}.aspx/{1}", jobID, FConvert.MakeUrlFriendly(jobTitle.ToString()));
         }
 
         public string GetFeedDescription(Job job)

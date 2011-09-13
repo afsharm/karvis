@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Karvis.Core;
+using Fardis;
 
 namespace Karvis.Test
 {
@@ -15,7 +16,8 @@ namespace Karvis.Test
         {
             var greDate = new DateTime(2011, 8, 7);
             var correctDate = "۱۳۹۰/۵/۱۶";
-            var result = GeneralHelper.ConvertToPersianDate(greDate);
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            var result = dateTimeHelper.ConvertToPersianDatePersianDigit(greDate);
 
             Assert.AreEqual(correctDate, result, "date problem");
         }

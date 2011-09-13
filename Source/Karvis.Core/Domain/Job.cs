@@ -5,6 +5,7 @@ using System.Text;
 using Iesi.Collections.Generic;
 using Iesi.Collections;
 using System.Collections;
+using Fardis;
 
 namespace Karvis.Core
 {
@@ -28,7 +29,8 @@ namespace Karvis.Core
         {
             get
             {
-                return GeneralHelper.ConvertToPersianDate(DateAdded);
+                IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+                return  dateTimeHelper.ConvertToPersianDatePersianDigit(DateAdded);
             }
         }
     }
