@@ -142,10 +142,18 @@ namespace Karvis.Core
         public string ExtractTags(string description)
         {
             string retval = string.Empty;
-            string MatchEmailPattern = @"[a-zA-Z]+";
+            string pattern = @"[a-zA-Z.#+_@]+";
+            string source = description;
+
+            foreach (string email in ExtractEmailsByText(source).Trim().Split(','))
+                if (!string.IsNullOrEmpty(email))
+                    source = source.Replace(email.Trim(), " ");
+
+            if (string.IsNullOrEmpty(source.Trim()))
+                return retval;
 
             List<string> tags = new List<string>();
-            MatchCollection matches = Regex.Matches(description, MatchEmailPattern);
+            MatchCollection matches = Regex.Matches(source, pattern);
             foreach (Match match in matches)
                 if (!tags.Contains(match.Value))
                     tags.Add(match.Value);

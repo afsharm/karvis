@@ -108,22 +108,40 @@ namespace Karvis.Test
         [Test]
         public void ExtractTagsTest()
         {
-            const int testCount = 5;
-            string[] raw = new string[]
+            const int testCount = 14;
+            string[] raw = new string[testCount]
             {
                 ", برنامه نویس PHP , مسلط به , PHP Programming و , پرتال نویسی و طراحی قالب , و Javascript , با تجربه عالی , جهت انجام پروژه های حرفه ای yahoo.com @amir_rajabi88 تلفن: 22674456 ",
                 "",
                 "",
                 "skdhskhdfkshdfkshdfkskjdf sdkh sdlf ",
-                "abc@zdef.co"
+                "abc@zdef.co",
+                "asp.net",
+                "asp.net, vb.net",
+                "C#",
+                "jack@smith.net",
+                ".net",
+                "C++",
+                "A+",
+                " , برنامه نویس مسلط به , SQL,C#,Asp.net  فكس    22461236 Job@Azmdp.com  ",
+                " , برنامه نویس C# و .NET  , مسلط به ASP.NET4وSQL , و WCF و معماری چندلایه  jobs@alphakaran.com  "
             };
             string[] expected = new string[testCount]
             {
-                "PHP, Programming, Javascript, yahoo, com, amir, rajabi, ",
+                "PHP, Programming, Javascript, yahoo.com, @amir_rajabi, ",
                 "",     
                 "",
                 "skdhskhdfkshdfkshdfkskjdf, sdkh, sdlf, ",
-                "abc, zdef, co, "
+                "",
+                "asp.net, ",
+                "asp.net, vb.net, ",
+                "C#, ",
+                "",
+                ".net, ",
+                "C++, ",
+                "A+, ",
+                "SQL, C#, Asp.net, ",
+                "C#, .NET, ASP.NET, SQL, WCF, "
             };
 
             IExtractJobsModel model = new ExtractJobsModel();
