@@ -278,5 +278,15 @@ namespace Karvis.Core
             return FindAll(title: null, tag: null, adSource: adSource, isActive: false,
             sortOrder: "Id", maximumRows: int.MaxValue, startRowIndex: 0);
         }
+
+        public void SaveOrUpdateJob(Job job)
+        {
+            _jobRepository.SaveOrUpdate(job);
+        }
+
+        public void AddJob(Job job)
+        {
+            _jobRepository.Add(job);
+        }
     }
 }

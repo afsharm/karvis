@@ -92,7 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\AddEditJob.aspx" />
+    <Content Include="SubmitJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\htmltest.xml" />
     <Content Include="Admin\Monitor.aspx" />
@@ -127,7 +127,7 @@
     <Content Include="CodeBase\ProviderSql.sql" />
     <Content Include="ContactUs.aspx" />
     <Content Include="Images\contactus.jpg" />
-    <Content Include="SubmitJob.aspx" />
+    <Content Include="Images\email.Png" />
     <Content Include="Default.aspx" />
     <Content Include="Feed.svc" />
     <Content Include="Global.asax" />
@@ -157,12 +157,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AddEditJob.aspx.cs">
-      <DependentUpon>AddEditJob.aspx</DependentUpon>
+    <Compile Include="Presenters\SubmitJobPresenter.cs" />
+    <Compile Include="SubmitJob.aspx.cs">
+      <DependentUpon>SubmitJob.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\AddEditJob.aspx.designer.cs">
-      <DependentUpon>AddEditJob.aspx</DependentUpon>
+    <Compile Include="SubmitJob.aspx.designer.cs">
+      <DependentUpon>SubmitJob.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Config.aspx.cs">
       <DependentUpon>Config.aspx</DependentUpon>
@@ -193,13 +194,6 @@
     </Compile>
     <Compile Include="ContactUs.aspx.designer.cs">
       <DependentUpon>ContactUs.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SubmitJob.aspx.cs">
-      <DependentUpon>SubmitJob.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SubmitJob.aspx.designer.cs">
-      <DependentUpon>SubmitJob.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -264,7 +258,7 @@
     </Compile>
     <Compile Include="ViewInterfaces\IExtractJobsView.cs" />
     <Compile Include="ViewInterfaces\IJobListView.cs" />
-    <Compile Include="ViewInterfaces\IAddEditJobView.cs" />
+    <Compile Include="ViewInterfaces\ISubmitJobView.cs" />
     <Compile Include="ViewInterfaces\IJobDetailView.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,8 @@ namespace Karvis.Core
         string GetJobUrl(int id, string title);
 
         int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew);
+        void SaveOrUpdateJob(Job job);
+        void AddJob(Job job);
 
         IList<Job> FindAllNoneActive(AdSource adSource);
     }

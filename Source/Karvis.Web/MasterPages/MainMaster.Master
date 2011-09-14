@@ -67,7 +67,6 @@
                     <ContentTemplate>
                         <div class="mainmenu">
                             <ul>
-                                <li><a id="A3" href="~/Admin/AddEditJob.aspx" runat="server">اضافه/ویرایش شغل</a></li>
                                 <li><a id="A4" href="~/Admin/ExtractJobs.aspx" runat="server">استخراج</a></li>
                             </ul>
                         </div>
