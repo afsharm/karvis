@@ -16,6 +16,7 @@
     <property name="DateAdded"/>
     <property name="Url"/>
     <property name="AdSource"/>
+    <property name="IsActive"/>
   </class>
 
 </hibernate-mapping>

@@ -62,7 +62,9 @@ namespace Karvis.Core
                 Url = url,
                 Tag = tag,
                 DateAdded = DateTime.UtcNow,
-                VisitCount = 0
+                VisitCount = 0,
+                AdSource = AdSource.Misc,
+                IsActive = true
             };
 
             _jobRepository.Add(job);
@@ -76,9 +78,9 @@ namespace Karvis.Core
             return GeneralHelper.AnalyseTags(tags);
         }
 
-        private IQueryOver<Job, Job> CreateQuery(string title, string tag)
+        private IQueryOver<Job, Job> CreateQuery(string title, string tag, AdSource adSource, bool isActive)
         {
-            var q = _jobRepository.QueryOver();
+            var q = _jobRepository.QueryOver().Where(job => job.IsActive == isActive);
 
             if (!string.IsNullOrEmpty(title))
                 q = q.WhereRestrictionOn(j => j.Title).IsInsensitiveLike(title, MatchMode.Anywhere);
@@ -86,19 +88,28 @@ namespace Karvis.Core
             if (!string.IsNullOrEmpty(tag))
                 q = q.WhereRestrictionOn(j => j.Tag).IsInsensitiveLike(tag, MatchMode.Anywhere);
 
+            if (adSource != AdSource.All)
+                q = q.Where(job => job.AdSource == adSource);
+
             return q;
         }
 
-        public IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex)
+        public IList<Job> FindAll(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex)
         {
-            IQueryOver<Job, Job> q = CreateQuery(title, tag);
+            return FindAll(title, tag, adSource, true, sortOrder, maximumRows, startRowIndex);
+        }
+
+        IList<Job> FindAll(string title, string tag, AdSource adSource, bool isActive,
+            string sortOrder, int maximumRows, int startRowIndex)
+        {
+            IQueryOver<Job, Job> q = CreateQuery(title, tag, adSource, isActive);
 
             switch (sortOrder)
             {
-                case "ID":
+                case "Id":
                     q = q.OrderBy(j => j.Id).Asc;
                     break;
-                case "ID DESC":
+                case "Id DESC":
                     q = q.OrderBy(j => j.Id).Desc;
                     break;
                 case "VisitCount":
@@ -136,9 +147,14 @@ namespace Karvis.Core
             return retval;
         }
 
-        public int FindAllCount(string title, string tag)
+        public int FindAllCount(string title, string tag, AdSource adSource)
         {
-            return CreateQuery(title, tag).RowCount();
+            return FindAllCount(title, tag, adSource, true);
+        }
+
+        private int FindAllCount(string title, string tag, AdSource adSource, bool isActive)
+        {
+            return CreateQuery(title, tag, adSource, isActive).RowCount();
         }
 
         public void UpdateJob(string title, string description, string url, string tag, int id)
@@ -169,7 +185,7 @@ namespace Karvis.Core
 
         public IEnumerable<Job> GetAllJobs(bool updateStat)
         {
-            var q = _jobRepository.QueryOver().OrderBy(j => j.DateAdded).Desc;
+            var q = _jobRepository.QueryOver().Where(job => job.IsActive).OrderBy(j => j.DateAdded).Desc;
 
             if (updateStat)
             {
@@ -189,13 +205,13 @@ namespace Karvis.Core
 
         public IList<string> GetAllTags()
         {
-            var q = _jobRepository.QueryOver().Select(j => j.Tag);
+            var q = _jobRepository.QueryOver().Where(job => job.IsActive).Select(j => j.Tag);
             return q.List<String>();
         }
 
         internal IEnumerable<Job> GetJobsByTag(string tag, bool updateStat)
         {
-            var jobs = FindAll(null, tag, null, int.MaxValue, 0);
+            var jobs = FindAll(null, tag, AdSource.All, null, int.MaxValue, 0);
 
             if (updateStat)
             {
@@ -228,18 +244,38 @@ namespace Karvis.Core
         }
 
 
-        public int AddJobBatch(List<Job> jobs)
+        public int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew)
         {
+
             foreach (var job in jobs)
             {
-                job.DateAdded = DateTime.UtcNow;
-                job.VisitCount = 0;
-                job.FeedCount = 0;
+                Job selectedJob = isNew ? job : _jobRepository.Get(job.PreSavedJobId);
 
-                _jobRepository.Add(job);
+                if (!isNew)
+                {
+                    selectedJob.Description = job.Description;
+                    selectedJob.Emails = job.Emails;
+                    selectedJob.Tag = job.Tag;
+                    selectedJob.Title = job.Title;
+                    selectedJob.Url = job.Url;
+                }
+
+                selectedJob.DateAdded = DateTime.UtcNow;
+                selectedJob.VisitCount = 0;
+                selectedJob.FeedCount = 0;
+                selectedJob.AdSource = adSource;
+                selectedJob.IsActive = isActive;
+
+                _jobRepository.SaveOrUpdate(selectedJob);
             }
 
             return jobs.Count;
+        }
+
+        public IList<Job> FindAllNoneActive(AdSource adSource)
+        {
+            return FindAll(title: null, tag: null, adSource: adSource, isActive: false,
+            sortOrder: "Id", maximumRows: int.MaxValue, startRowIndex: 0);
         }
     }
 }

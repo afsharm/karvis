@@ -18,7 +18,5 @@ namespace Karvis.Core
         {
             this.view = view;
         }
-
-        protected abstract void ViewInitialized(object sender, System.EventArgs e);
     }
 }

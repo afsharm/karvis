@@ -123,7 +123,7 @@ namespace Karvis.Test
         {
             IJobModel model = new JobModel(SessionFactory);
 
-            int count = model.FindAll(null, null, null, int.MaxValue, 0).Count;
+            int count = model.FindAll(null, null, AdSource.All, null, int.MaxValue, 0).Count;
             Assert.AreEqual(0, count);
         }
 

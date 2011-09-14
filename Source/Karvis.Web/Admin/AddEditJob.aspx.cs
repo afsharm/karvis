@@ -16,9 +16,9 @@ namespace Karvis.Web.Admin
             {
                 lblMessage.Text = string.Empty;
 
-                string ID = Request["ID"];
+                string Id = Request["Id"];
 
-                if (!string.IsNullOrEmpty(ID))
+                if (!string.IsNullOrEmpty(Id))
                 {
                     hdnID.Value = ID;
                     frmJob.ChangeMode(FormViewMode.Edit);

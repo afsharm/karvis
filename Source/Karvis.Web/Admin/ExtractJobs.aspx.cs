@@ -56,7 +56,7 @@ namespace Karvis.Web.Admin
 
         public event EventHandler ApplyJobsButtonPressed;
 
-        public void ShowJobs(List<Job> jobs)
+        public void ShowJobs(IList<Job> jobs)
         {
             rptPreJob.DataSource = jobs;
             rptPreJob.DataBind();
@@ -77,6 +77,10 @@ namespace Karvis.Web.Admin
                 TextBox txtTag = item.FindControl("txtTag") as TextBox;
                 TextBox txtTitle = item.FindControl("txtTitle") as TextBox;
                 TextBox txtUrl = item.FindControl("txtUrl") as TextBox;
+                Label lblId = item.FindControl("lblId") as Label;
+
+                int preSavedJobId = 0;
+                int.TryParse(lblId.Text, out preSavedJobId);
 
                 Job job = new Job()
                 {
@@ -84,7 +88,8 @@ namespace Karvis.Web.Admin
                     Emails = txtEmails.Text,
                     Tag = txtTag.Text,
                     Title = txtTitle.Text,
-                    Url = txtUrl.Text
+                    Url = txtUrl.Text,
+                    PreSavedJobId = preSavedJobId
                 };
 
                 retval.Add(job);
@@ -98,6 +103,52 @@ namespace Karvis.Web.Admin
         public void ShowMessage(string message)
         {
             lblMessage.Text = message;
+        }
+
+        private void InvokeTempSaveButtonPressed()
+        {
+            if (TempSaveButtonPressed != null)
+                TempSaveButtonPressed(this, EventArgs.Empty);
+        }
+
+        public event EventHandler TempSaveButtonPressed;
+
+        protected void btnTempSave_Click(object sender, EventArgs e)
+        {
+            InvokeTempSaveButtonPressed();
+        }
+
+        public void DisableExtractButton()
+        {
+            btnExtractJobs.Enabled = false;
+        }
+
+        public void DisableApplyButton()
+        {
+            btnApplyJobs.Enabled = false;
+        }
+
+        public void EnableApplyButton()
+        {
+            btnApplyJobs.Enabled = true;
+        }
+
+
+        public void DisableTempSaveButton()
+        {
+            btnTempSave.Enabled = false;
+        }
+
+        public void EnableTempSaveButton()
+        {
+            btnTempSave.Enabled = true;
+        }
+
+
+        public void CleaJobs()
+        {
+            rptPreJob.DataSource = null;
+            rptPreJob.DataBind();
         }
     }
 }

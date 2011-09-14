@@ -14,6 +14,7 @@ namespace Karvis.Core
         IranTalent = 1,
         Email = 2,
         DeveloperCenter = 3,
-        Misc = 4
+        Misc = 4,
+        All = 5
     }
 }

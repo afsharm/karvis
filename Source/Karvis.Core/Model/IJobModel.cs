@@ -15,8 +15,8 @@ namespace Karvis.Core
         string GetFeedDescription(Job job);
         int AddNewJob(string title, string description, string url, string tag);
         IOrderedEnumerable<KeyValuePair<string, ushort>> ExtractTagCloud();
-        IList<Job> FindAll(string title, string tag, string sortOrder, int maximumRows, int startRowIndex);
-        int FindAllCount(string title, string tag);
+        IList<Job> FindAll(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex);
+        int FindAllCount(string title, string tag, AdSource adSource);
         void UpdateJob(string title, string description, string url, string tag, int id);
         IEnumerable<Job> GetAllJobs();
         IEnumerable<Job> GetAllJobs(bool updateStat);
@@ -25,6 +25,8 @@ namespace Karvis.Core
         Job GetJob(int jobId);
         string GetJobUrl(int id, string title);
 
-        int AddJobBatch(List<Job> jobs);
+        int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew);
+
+        IList<Job> FindAllNoneActive(AdSource adSource);
     }
 }

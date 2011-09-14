@@ -12,6 +12,9 @@
                 <asp:Button Text="اعمال" runat="server" ID="btnApplyJobs" OnClick="btnApplyJobs_Click" />
             </td>
             <td>
+                <asp:Button Text="ثبت موقت" runat="server" ID="btnTempSave" OnClick="btnTempSave_Click" />
+            </td>
+            <td>
                 <asp:Button Text="استخراج" runat="server" ID="btnExtractJobs" OnClick="btnExtractJobs_Click" />
             </td>
         </tr>
@@ -29,6 +32,14 @@
                     </td>
                     <td>
                         <asp:CheckBox runat="server" ID="chkApply" Checked="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        آی دی:
+                    </td>
+                    <td>
+                        <asp:Label runat="server" ID="lblId" Text='<%# Eval("Id") %>' Font-Names="Tahoma" />
                     </td>
                 </tr>
                 <tr>

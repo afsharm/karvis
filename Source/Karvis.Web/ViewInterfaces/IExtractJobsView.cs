@@ -11,7 +11,15 @@ namespace Karvis.Web
     {
         event EventHandler<TEventArgs<string>> ExtractJobsButtonPressed;
         event EventHandler ApplyJobsButtonPressed;
-        void ShowJobs(List<Job> jobs);
+        event EventHandler TempSaveButtonPressed;
+        void ShowJobs(IList<Job> jobs);
+        void DisableExtractButton();
+        void DisableApplyButton();
+        void EnableApplyButton();
+        void DisableTempSaveButton();
+        void EnableTempSaveButton();
         List<Job> ReadJobs();
+
+        void CleaJobs();
     }
 }

@@ -24,14 +24,17 @@ namespace Karvis.Core
         public virtual string Url { set; get; }
         public virtual string Emails { get; set; }
         public virtual AdSource AdSource { set; get; }
+        public virtual bool IsActive { set; get; }
 
         public virtual string DateAddedPersian
         {
             get
             {
                 IDateTimeHelper dateTimeHelper = new DateTimeHelper();
-                return  dateTimeHelper.ConvertToPersianDatePersianDigit(DateAdded);
+                return dateTimeHelper.ConvertToPersianDatePersianDigit(DateAdded);
             }
         }
+
+        public virtual int PreSavedJobId { get; set; }
     }
 }

@@ -25,25 +25,95 @@ namespace Karvis.Web
 
             view.ExtractJobsButtonPressed += view_ExtractJobsButtonPressed;
             view.ApplyJobsButtonPressed += view_ApplyJobsButtonPressed;
+            view.TempSaveButtonPressed += view_TempSaveButtonPressed;
+            view.ViewInitialized += view_ViewInitialized;
+        }
+
+        void view_TempSaveButtonPressed(object sender, EventArgs e)
+        {
+            SaveJobs(false);
         }
 
         void view_ApplyJobsButtonPressed(object sender, EventArgs e)
         {
-            List<Job> jobs = View.ReadJobs();
-            int count = jobModel.AddJobBatch(jobs);
+            View.DisableExtractButton();
+            View.DisableApplyButton();
+            View.DisableTempSaveButton();
 
-            View.ShowMessage(string.Format("{0} کار از سایت راهنما ثبت شد.", count));
+            SaveJobs(true);
+            View.CleaJobs();
         }
 
+        void SaveJobs(bool isActive)
+        {
+            List<Job> jobs = View.ReadJobs();
+
+            //is saved beforely in database or not
+            bool isNew = true;
+            foreach (var job in jobs)
+                if (job.PreSavedJobId > 0)
+                {
+                    isNew = false;
+                    break;
+                }
+
+            //validation
+            foreach (var job in jobs)
+            {
+                if (isNew && job.PreSavedJobId > 0)
+                    throw new ApplicationException("unexpected error is SaveJobs (isNew)");
+
+                if (!isNew && job.PreSavedJobId < 1)
+                    throw new ApplicationException("unexpected error is SaveJobs (!isNew)");
+            }
+
+            int count = jobModel.SaveOrUpdateJobBatch(jobs, AdSource.Hamshahri, isActive, isNew);
+
+            string message =
+                isActive ?
+                    message = string.Format("{0} کار از سایت راهنما ثبت دائم شد.", count)
+                :
+                    message = string.Format("{0} کار از سایت راهنما به طور موقت ثبت شد.", count);
+
+            View.ShowMessage(message);
+
+        }
         void view_ExtractJobsButtonPressed(object sender, TEventArgs<string> e)
         {
+            View.DisableExtractButton();
             var jobs = extractJobsModel.ExtractJobs(e.Data);
-            View.ShowJobs(jobs);
+            View.ShowMessage(string.Format("{0} تا کار استخراج شد", jobs.Count));
+            if (jobs.Count > 0)
+            {
+                View.ShowJobs(jobs);
+                View.EnableTempSaveButton();
+                View.EnableApplyButton();
+            }
         }
 
-        protected override void ViewInitialized(object sender, EventArgs e)
+        void view_ViewInitialized(object sender, EventArgs e)
         {
-            //
+            //extract temp jobs
+            var jobs = jobModel.FindAllNoneActive(adSource: AdSource.Hamshahri);
+
+            if (jobs.Count > 0)
+            {
+                //there are temp jobs
+
+                View.DisableExtractButton();
+                View.EnableTempSaveButton();
+                View.EnableApplyButton();
+
+                View.ShowJobs(jobs);
+                View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobs.Count));
+            }
+            else
+            {
+                //therer are not temp jobs saved 
+
+                View.DisableTempSaveButton();
+                View.DisableApplyButton();
+            }
         }
     }
 }

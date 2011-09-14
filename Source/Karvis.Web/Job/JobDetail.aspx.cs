@@ -19,7 +19,7 @@ namespace Karvis.Web
                 presenter = new JobDetailPresenter(this, new JobModel());
                 InvokeViewInitialized(EventArgs.Empty);
 
-                string jobIdArgument = Request.QueryString["ID"];
+                string jobIdArgument = Request.QueryString["Id"];
 
                 if (string.IsNullOrEmpty(jobIdArgument))
                     Response.Redirect("JobList.aspx");

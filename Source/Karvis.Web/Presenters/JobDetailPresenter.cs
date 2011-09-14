@@ -29,7 +29,7 @@ namespace Karvis.Web
             View.ShowJob(job);
         }
 
-        protected override void ViewInitialized(object sender, EventArgs e)
+        void ViewInitialized(object sender, EventArgs e)
         {
 
         }
