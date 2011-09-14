@@ -135,7 +135,7 @@ namespace Karvis.Core
                     break;
                 case "DateAdded DESC":
                 default:
-                    q = q.OrderBy(j => j.DateAdded).Desc;
+                    q = q.OrderBy(j => j.DateAdded).Desc.OrderBy(job => job.Id).Desc;
                     break;
             }
 
@@ -246,9 +246,10 @@ namespace Karvis.Core
 
         public int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew)
         {
-
-            foreach (var job in jobs)
+            //I wan old id should saved sooner in database
+            for (int i = 0; i < jobs.Count; i++)
             {
+                Job job = jobs[i];
                 Job selectedJob = isNew ? job : _jobRepository.Get(job.PreSavedJobId);
 
                 if (!isNew)
