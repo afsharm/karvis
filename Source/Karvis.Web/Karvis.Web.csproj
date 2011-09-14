@@ -125,6 +125,9 @@
     <Content Include="ckeditor\skins\kama\templates.css" />
     <Content Include="ckeditor\themes\default\theme.js" />
     <Content Include="CodeBase\ProviderSql.sql" />
+    <Content Include="ContactUs.aspx" />
+    <Content Include="Images\contactus.jpg" />
+    <Content Include="SubmitJob.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Feed.svc" />
     <Content Include="Global.asax" />
@@ -184,6 +187,20 @@
     </Compile>
     <Compile Include="CodeBase\SQLiteMembershipProvider.cs" />
     <Compile Include="CodeBase\SQLiteRoleProvider.cs" />
+    <Compile Include="ContactUs.aspx.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactUs.aspx.designer.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubmitJob.aspx.cs">
+      <DependentUpon>SubmitJob.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubmitJob.aspx.designer.cs">
+      <DependentUpon>SubmitJob.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>

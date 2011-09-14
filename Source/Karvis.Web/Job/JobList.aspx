@@ -2,7 +2,7 @@
     MasterPageFile="~/MasterPages/MainMaster.Master" Title="کارویس - فهرست مشاغل" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
-    فهرست مشاغل
+    فهرست مشاغل/جستجو
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
