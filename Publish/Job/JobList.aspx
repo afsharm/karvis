@@ -2,7 +2,7 @@
     MasterPageFile="~/MasterPages/MainMaster.Master" Title="کارویس - فهرست مشاغل" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
-    فهرست مشاغل
+    فهرست مشاغل/جستجو
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
@@ -36,14 +36,14 @@
         <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false"
             AllowPaging="true" AllowSorting="true">
             <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
+                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
                 <asp:BoundField DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
                 <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
-                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("ID"), Eval("Title")) %>'
+                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
                             Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -54,6 +54,7 @@
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
+                <asp:Parameter Name="adSource" />
             </SelectParameters>
         </asp:ObjectDataSource>
     </div>
