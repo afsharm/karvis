@@ -99,6 +99,11 @@ namespace Karvis.Core
             return FindAll(title, tag, adSource, true, sortOrder, maximumRows, startRowIndex);
         }
 
+        public IList<Job> FindAllNoneActive(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex)
+        {
+            return FindAll(title, tag, adSource, false, sortOrder, maximumRows, startRowIndex);
+        }
+
         IList<Job> FindAll(string title, string tag, AdSource adSource, bool isActive,
             string sortOrder, int maximumRows, int startRowIndex)
         {
@@ -150,6 +155,11 @@ namespace Karvis.Core
         public int FindAllCount(string title, string tag, AdSource adSource)
         {
             return FindAllCount(title, tag, adSource, true);
+        }
+
+        public int FindAllCountNoneActive(string title, string tag, AdSource adSource)
+        {
+            return FindAllCount(title, tag, adSource, false);
         }
 
         private int FindAllCount(string title, string tag, AdSource adSource, bool isActive)

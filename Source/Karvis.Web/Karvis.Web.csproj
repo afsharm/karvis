@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AdminJobList.aspx" />
     <Content Include="SubmitJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\htmltest.xml" />
@@ -157,6 +158,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminJobList.aspx.cs">
+      <DependentUpon>AdminJobList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminJobList.aspx.designer.cs">
+      <DependentUpon>AdminJobList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presenters\SubmitJobPresenter.cs" />
     <Compile Include="SubmitJob.aspx.cs">
       <DependentUpon>SubmitJob.aspx</DependentUpon>
