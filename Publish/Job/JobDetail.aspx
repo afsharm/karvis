@@ -40,6 +40,14 @@
         </tr>
         <tr>
             <td>
+                منبع:
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblAdSource" />
+            </td>
+        </tr>
+        <tr>
+            <td>
                 تاریخ ثبت:
             </td>
             <td>
