@@ -44,6 +44,7 @@ namespace Karvis.Web
             lblDescription.Text = job.Description;
             lnkUrl.NavigateUrl = job.Url;
             lblTag.Text = job.Tag;
+            lblAdSource.Text = job.AdSourceDescription;
             lblDateAddedPersian.Text = job.DateAddedPersian;
             lblVisitCount.Text = job.VisitCount.ToString();
             lblFeedCount.Text = job.FeedCount.ToString();

@@ -52,6 +52,20 @@
         </tr>
         <tr>
             <td>
+                <asp:Label Text="منبع:" runat="server" ID="lblAdSource" />
+            </td>
+            <td>
+                <asp:DropDownList runat="server" ID="ddlAdSource">
+                    <asp:ListItem Value="DeveloperCenter" Text="Developer Center" />
+                    <asp:ListItem Value="Email" Text="ایمیل" />
+                    <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
+                    <asp:ListItem Value="IranTalent" Text="Iran Talent" />
+                    <asp:ListItem Value="Misc" Text="متفرقه" Selected="True" />
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <asp:Label Text="فعال:" runat="server" ID="lblActive" />
             </td>
             <td>

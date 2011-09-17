@@ -80,6 +80,7 @@ namespace Karvis.Web
             txtURL.Text = job.Url;
             ckDescription.Text = job.Description;
             hdnJobId.Value = job.Id.ToString();
+            ddlAdSource.SelectedValue = job.AdSource.ToString();
         }
 
         public Job ReadJob()
@@ -90,7 +91,8 @@ namespace Karvis.Web
                 Tag = txtTag.Text,
                 IsActive = chkIsActive.Checked,
                 Title = txtTitle.Text,
-                Url = txtURL.Text
+                Url = txtURL.Text,
+                AdSource = (AdSource)Enum.Parse(typeof(AdSource), ddlAdSource.SelectedValue)
             };
 
             int preSavedJobId = 0;
@@ -131,7 +133,7 @@ namespace Karvis.Web
 
         public void DisableAutorizedSections()
         {
-            lblActive.Visible = btnEdit.Visible = chkIsActive.Visible = false;
+            lblActive.Visible = btnEdit.Visible = chkIsActive.Visible = ddlAdSource.Visible = lblAdSource.Visible = false;
         }
 
         public void ShowMessage(string message)
@@ -143,8 +145,9 @@ namespace Karvis.Web
         {
             lblMessage.Text = txtTag.Text = txtTitle.Text = txtURL.Text = ckDescription.Text = lblId.Text = string.Empty;
             chkIsActive.Checked = false;
+            ddlAdSource.SelectedIndex = -1;
             txtTag.Enabled = txtTitle.Enabled = txtURL.Enabled = chkIsActive.Enabled =
-               btnSaveUpdate.Enabled = true;
+               btnSaveUpdate.Enabled = ddlAdSource.Enabled = true;
             ckDescription.ReadOnly = false;
 
             txtTitle.Focus();
@@ -159,14 +162,14 @@ namespace Karvis.Web
         public void Freez()
         {
             txtTag.Enabled = txtTitle.Enabled = txtURL.Enabled = chkIsActive.Enabled =
-               btnSaveUpdate.Enabled = false;
+               btnSaveUpdate.Enabled = ddlAdSource.Enabled = false;
             ckDescription.ReadOnly = true;
         }
 
         public void UnFreez()
         {
             txtTag.Enabled = txtTitle.Enabled = txtURL.Enabled = chkIsActive.Enabled =
-               btnSaveUpdate.Enabled = true;
+               btnSaveUpdate.Enabled = ddlAdSource.Enabled = true;
             ckDescription.ReadOnly = false;
         }
 

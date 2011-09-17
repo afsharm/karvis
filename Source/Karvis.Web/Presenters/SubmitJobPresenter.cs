@@ -90,6 +90,7 @@ namespace Karvis.Web
                 loadedJob.Title = job.Title;
                 loadedJob.Url = job.Url;
                 loadedJob.IsActive = job.IsActive;
+                loadedJob.AdSource = job.AdSource;
 
                 jobModel.SaveOrUpdateJob(loadedJob);
                 View.ShowJob(loadedJob);

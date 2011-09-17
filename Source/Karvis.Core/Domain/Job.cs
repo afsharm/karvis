@@ -36,5 +36,32 @@ namespace Karvis.Core
         }
 
         public virtual int PreSavedJobId { get; set; }
+
+
+        public virtual string AdSourceDescription
+        {
+            get
+            {
+                switch (AdSource)
+                {
+                    case AdSource.Hamshahri:
+                        return "نیازمندی‌های همشهری";
+                    case AdSource.IranTalent:
+                        return "IranTalent.com";
+                    case AdSource.Email:
+                        return "ایمیل";
+                    case AdSource.DeveloperCenter:
+                        return "DeveloperCenter.ir";
+                    case AdSource.Misc:
+                        return "متفرقه";
+                    case AdSource.All:
+                        return "مهم نیست";
+                    case AdSource.Karvis:
+                        return "سایت کارویس";
+                    default:
+                        return "N/A";
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace Karvis.Core
         Email = 2,
         DeveloperCenter = 3,
         Misc = 4,
-        All = 5
+        All = 5,
+        Karvis = 6
     }
 }

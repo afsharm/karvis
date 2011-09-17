@@ -14,8 +14,6 @@
                 <td>
                     <asp:TextBox runat="server" ID="txtTitle" />
                 </td>
-            </tr>
-            <tr>
                 <td>
                     تگ:
                 </td>
@@ -24,6 +22,19 @@
                 </td>
             </tr>
             <tr>
+                <td>
+                    منبع:
+                </td>
+                <td>
+                    <asp:DropDownList runat="server" ID="ddlAdSource">
+                        <asp:ListItem Value="All" Text="مهم نیست" Selected="True" />
+                        <asp:ListItem Value="DeveloperCenter" Text="Developer Center" />
+                        <asp:ListItem Value="Email" Text="ایمیل" />
+                        <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
+                        <asp:ListItem Value="IranTalent" Text="Iran Talent" />
+                        <asp:ListItem Value="Misc" Text="متفرقه" />
+                    </asp:DropDownList>
+                </td>
                 <td>
                     &nbsp;
                 </td>
@@ -41,6 +52,7 @@
                 <asp:BoundField DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
                 <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
+                <asp:BoundField DataField="AdSource" HeaderText="منبع" SortExpression="AdSource" />
                 <asp:TemplateField HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
@@ -54,7 +66,7 @@
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
-                <asp:Parameter Name="adSource" />
+                <asp:ControlParameter PropertyName="SelectedValue" ControlID="ddlAdSource" Name="adSource" />
             </SelectParameters>
         </asp:ObjectDataSource>
     </div>

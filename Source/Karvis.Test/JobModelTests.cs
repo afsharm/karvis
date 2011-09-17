@@ -112,7 +112,7 @@ namespace Karvis.Test
             IJobModel model = new JobModel(SessionFactory);
 
             string title = Guid.NewGuid().ToString();
-            int jobId = model.AddNewJob(title, string.Empty, string.Empty, string.Empty);
+            int jobId = model.AddNewJob(title, string.Empty, string.Empty, string.Empty, AdSource.Misc);
 
             Job retJob = model.GetJob(jobId);
             Assert.AreEqual(title, retJob.Title);
@@ -135,7 +135,7 @@ namespace Karvis.Test
             const int max = 300;
             for (int i = 0; i < max; i++)
             {
-                model.AddNewJob(string.Empty, string.Empty, string.Empty, string.Empty);
+                model.AddNewJob(string.Empty, string.Empty, string.Empty, string.Empty, AdSource.Misc);
             }
 
             int count = 0;
@@ -143,6 +143,31 @@ namespace Karvis.Test
                 count++;
 
             Assert.AreEqual(max, count);
+        }
+
+        [Test]
+        public void AdSourceTest()
+        {
+            IJobModel model = new JobModel(SessionFactory);
+
+            var job = new Job { AdSource = AdSource.Email };
+
+            model.AddJob(job);
+
+            var retJob = model.GetJob(job.Id);
+
+            Assert.AreEqual(job.AdSource, retJob.AdSource);
+
+
+            var job2 = new Job { AdSource = AdSource.IranTalent };
+
+            model.AddJob(job2);
+
+            var retJob2 = model.GetJob(job2.Id);
+
+            Assert.AreEqual(job2.AdSource, retJob2.AdSource);
+
+
         }
     }
 }

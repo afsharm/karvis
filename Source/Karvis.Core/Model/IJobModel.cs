@@ -13,13 +13,13 @@ namespace Karvis.Core
         string GetJobUrl(object jobID, object jobTitle);
         string GetJobUrlPure(object jobID, object jobTitle);
         string GetFeedDescription(Job job);
-        int AddNewJob(string title, string description, string url, string tag);
+        int AddNewJob(string title, string description, string url, string tag, AdSource adSource);
         IOrderedEnumerable<KeyValuePair<string, ushort>> ExtractTagCloud();
         IList<Job> FindAll(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex);
         int FindAllCount(string title, string tag, AdSource adSource);
         IList<Job> FindAllNoneActive(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex);
         int FindAllCountNoneActive(string title, string tag, AdSource adSource);
-        void UpdateJob(string title, string description, string url, string tag, int id);
+        void UpdateJob(string title, string description, string url, string tag, int id, AdSource adSource);
         IEnumerable<Job> GetAllJobs();
         IEnumerable<Job> GetAllJobs(bool updateStat);
         IList<string> GetAllTags();

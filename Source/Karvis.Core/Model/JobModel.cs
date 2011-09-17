@@ -44,11 +44,11 @@ namespace Karvis.Core
         public string GetFeedDescription(Job job)
         {
             return string.Format(
-                "<div>{0}<hr/>{1}<hr/>Visit Count: {2} - Feed Count: {3} - Date: {4}</div>",
-                job.Description, job.Tag, job.VisitCount, job.FeedCount, job.DateAddedPersian);
+                "<div>{0}<hr/>{1}<hr/>Visit Count: {2} - Feed Count: {3} - Date: {4} - Ad Source: {5} </div>",
+                job.Description, job.Tag, job.VisitCount, job.FeedCount, job.DateAddedPersian, job.AdSource);
         }
 
-        public int AddNewJob(string title, string description, string url, string tag)
+        public int AddNewJob(string title, string description, string url, string tag, AdSource adSource)
         {
             url = url.ToLower();
 
@@ -63,7 +63,7 @@ namespace Karvis.Core
                 Tag = tag,
                 DateAdded = DateTime.UtcNow,
                 VisitCount = 0,
-                AdSource = AdSource.Misc,
+                AdSource = adSource,
                 IsActive = true
             };
 
@@ -135,6 +135,12 @@ namespace Karvis.Core
                 case "Tag DESC":
                     q = q.OrderBy(j => j.Tag).Desc;
                     break;
+                case "AdSource":
+                    q = q.OrderBy(j => j.AdSource).Asc;
+                    break;
+                case "AdSource DESC":
+                    q = q.OrderBy(j => j.AdSource).Desc;
+                    break;
                 case "DateAdded":
                     q = q.OrderBy(j => j.DateAdded).Asc;
                     break;
@@ -172,7 +178,7 @@ namespace Karvis.Core
             return CreateQuery(title, tag, adSource, isActive).RowCount();
         }
 
-        public void UpdateJob(string title, string description, string url, string tag, int id)
+        public void UpdateJob(string title, string description, string url, string tag, int id, AdSource adSource)
         {
             Job job = _jobRepository.Load(id);
 
@@ -180,6 +186,7 @@ namespace Karvis.Core
             job.Description = description;
             job.Url = url;
             job.Tag = tag;
+            job.AdSource = adSource;
 
             _jobRepository.SaveOrUpdate(job);
         }
