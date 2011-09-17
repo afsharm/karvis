@@ -32,5 +32,6 @@ namespace Karvis.Core
         void AddJob(Job job);
 
         IList<Job> FindAllNoneActive(AdSource adSource);
+        void DeleteJob(int Id);
     }
 }

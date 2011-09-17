@@ -162,6 +162,11 @@ namespace Karvis.Core
             return FindAllCount(title, tag, adSource, false);
         }
 
+        public void DeleteJob(int Id)
+        {
+            _jobRepository.Remove(_jobRepository.Load(Id));
+        }
+
         private int FindAllCount(string title, string tag, AdSource adSource, bool isActive)
         {
             return CreateQuery(title, tag, adSource, isActive).RowCount();
@@ -271,9 +276,7 @@ namespace Karvis.Core
                     selectedJob.Url = job.Url;
                 }
 
-                selectedJob.DateAdded = DateTime.UtcNow;
-                selectedJob.VisitCount = 0;
-                selectedJob.FeedCount = 0;
+                AddComplementaryInfo(selectedJob);
                 selectedJob.AdSource = adSource;
                 selectedJob.IsActive = isActive;
 
@@ -281,6 +284,13 @@ namespace Karvis.Core
             }
 
             return jobs.Count;
+        }
+
+        private void AddComplementaryInfo(Job job)
+        {
+            job.DateAdded = DateTime.UtcNow;
+            job.VisitCount = 0;
+            job.FeedCount = 0;
         }
 
         public IList<Job> FindAllNoneActive(AdSource adSource)
@@ -296,6 +306,7 @@ namespace Karvis.Core
 
         public void AddJob(Job job)
         {
+            AddComplementaryInfo(job);
             _jobRepository.Add(job);
         }
     }

@@ -34,7 +34,7 @@
             </tr>
         </table>
         <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true">
+            AllowPaging="true" AllowSorting="true" DataKeyNames="Id">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
@@ -47,11 +47,12 @@
                             Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:CommandField ShowDeleteButton="true" />
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="Karvis.Core.JobModel"
             SelectMethod="FindAllNoneActive" EnablePaging="true" SelectCountMethod="FindAllCountNoneActive"
-            SortParameterName="sortOrder">
+            SortParameterName="sortOrder" DeleteMethod="DeleteJob">
             <SelectParameters>
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
                 <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
