@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\AdSource.cs" />
+    <Compile Include="Domain\SearchCriteriaDto.cs" />
     <Compile Include="Model\ExtractJobsModel.cs" />
     <Compile Include="Model\IExtractJobsModel.cs" />
     <Compile Include="IoC\IDependencyResolver.cs">

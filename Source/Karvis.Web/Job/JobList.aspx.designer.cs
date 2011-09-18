@@ -58,21 +58,21 @@ namespace Karvis.Web {
         protected global::System.Web.UI.WebControls.Button btnReset;
         
         /// <summary>
-        /// grdJobList control.
+        /// hdnSortExpression control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdJobList;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSortExpression;
         
         /// <summary>
-        /// odsJobList control.
+        /// dgJobList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsJobList;
+        protected global::System.Web.UI.WebControls.DataGrid dgJobList;
     }
 }

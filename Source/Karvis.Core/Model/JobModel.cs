@@ -109,42 +109,42 @@ namespace Karvis.Core
         {
             IQueryOver<Job, Job> q = CreateQuery(title, tag, adSource, isActive);
 
-            switch (sortOrder)
+            switch (sortOrder.ToLower())
             {
-                case "Id":
+                case "id":
                     q = q.OrderBy(j => j.Id).Asc;
                     break;
-                case "Id DESC":
+                case "id desc":
                     q = q.OrderBy(j => j.Id).Desc;
                     break;
-                case "VisitCount":
+                case "visitcount":
                     q = q.OrderBy(j => j.VisitCount).Asc;
                     break;
-                case "VisitCount DESC":
+                case "visitcount desc":
                     q = q.OrderBy(j => j.VisitCount).Desc;
                     break;
-                case "Title":
+                case "title":
                     q = q.OrderBy(j => j.Title).Asc;
                     break;
-                case "Title DESC":
+                case "title desc":
                     q = q.OrderBy(j => j.Title).Desc;
                     break;
-                case "Tag":
+                case "tag":
                     q = q.OrderBy(j => j.Tag).Asc;
                     break;
-                case "Tag DESC":
+                case "tag desc":
                     q = q.OrderBy(j => j.Tag).Desc;
                     break;
-                case "AdSource":
+                case "adsource":
                     q = q.OrderBy(j => j.AdSource).Asc;
                     break;
-                case "AdSource DESC":
+                case "adsource desc":
                     q = q.OrderBy(j => j.AdSource).Desc;
                     break;
-                case "DateAdded":
+                case "dateadded":
                     q = q.OrderBy(j => j.DateAdded).Asc;
                     break;
-                case "DateAdded DESC":
+                case "dateadded desc":
                 default:
                     q = q.OrderBy(j => j.DateAdded).Desc.OrderBy(job => job.Id).Desc;
                     break;

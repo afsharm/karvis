@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\AdminJobList.aspx" />
+    <Content Include="sand.aspx" />
     <Content Include="SubmitJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\htmltest.xml" />
@@ -165,7 +166,15 @@
     <Compile Include="Admin\AdminJobList.aspx.designer.cs">
       <DependentUpon>AdminJobList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Presenters\JobListPresenter.cs" />
     <Compile Include="Presenters\SubmitJobPresenter.cs" />
+    <Compile Include="sand.aspx.cs">
+      <DependentUpon>sand.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sand.aspx.designer.cs">
+      <DependentUpon>sand.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SubmitJob.aspx.cs">
       <DependentUpon>SubmitJob.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
