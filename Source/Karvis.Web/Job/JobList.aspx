@@ -6,6 +6,7 @@
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
+        <asp:Label Text="" runat="server" ID="lblMessage" />
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -32,6 +33,7 @@
                         <asp:ListItem Value="Email" Text="ایمیل" />
                         <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
                         <asp:ListItem Value="IranTalent" Text="Iran Talent" />
+                        <asp:ListItem Value="Kavris" Text="کارویس" />
                         <asp:ListItem Value="Misc" Text="متفرقه" />
                     </asp:DropDownList>
                 </td>
@@ -47,7 +49,7 @@
         <asp:HiddenField runat="server" ID="hdnSortExpression" />
         <asp:DataGrid runat="server" ID="dgJobList" AutoGenerateColumns="false" AllowPaging="true"
             AllowSorting="true" AllowCustomPaging="true" OnPageIndexChanged="dgJobList_PageIndexChanged"
-            OnSortCommand="dgJobList_SortCommand">
+            OnSortCommand="dgJobList_SortCommand" DataKeyField="Id" OnDeleteCommand="dgJobList_DeleteCommand">
             <Columns>
                 <asp:BoundColumn DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundColumn DataField="Title" HeaderText="عنوان" SortExpression="Title" />
@@ -59,6 +61,18 @@
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
                             Text="جزییات" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn HeaderText="ویرایش">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="HyperLink3" NavigateUrl='<%# MyGetJobUrlModify( Eval("Id"), Eval("Title")) %>'
+                            Text="ویرایش" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn HeaderText="حذف">
+                    <ItemTemplate>
+                        <asp:LinkButton runat="server" ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>'
+                            Text="حذف" />
                     </ItemTemplate>
                 </asp:TemplateColumn>
             </Columns>

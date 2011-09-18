@@ -25,6 +25,14 @@ namespace Karvis.Web
             view.SearchButtonClicked += view_SearchButtonClicked;
             view.SortChanged += view_SortChanged;
             view.ViewInitialized += view_ViewInitialized;
+            view.DeleteButtonPressed += view_DeleteButtonPressed;
+        }
+
+        void view_DeleteButtonPressed(object sender, TEventArgs<int> e)
+        {
+            jobModel.DeleteJob(e.Data);
+            ShowFirstPage();
+            View.ShowMessage("حذف شد");
         }
 
         void view_ViewInitialized(object sender, EventArgs e)
@@ -38,7 +46,7 @@ namespace Karvis.Web
             const string DESC = " desc";
             int descLength = DESC.Length;
             string newValue = e.Data;
-            
+
             if (oldValue == newValue)
                 newValue += DESC;
             if (oldValue.EndsWith(DESC))

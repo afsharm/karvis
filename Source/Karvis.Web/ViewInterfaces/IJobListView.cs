@@ -13,6 +13,7 @@ namespace Karvis.Web
         event EventHandler<TEventArgs<int>> PageIndexChanged;
         event EventHandler<TEventArgs<string>> SortChanged;
         event EventHandler<TEventArgs<string>> JobSelectedForDetail;
+        event EventHandler<TEventArgs<int>> DeleteButtonPressed;
 
         SearchCriteriaDto GetSearchCriteria();
         string GetSortExpression();

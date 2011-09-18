@@ -14,6 +14,7 @@ namespace Karvis.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             presenter = new JobListPresenter(this, new JobModel());
+            lblMessage.Text = string.Empty;
 
             if (!IsPostBack)
             {
@@ -28,6 +29,8 @@ namespace Karvis.Web
                 }
 
                 InvokeViewInitialized();
+                int lastColumn = dgJobList.Columns.Count;
+                dgJobList.Columns[lastColumn - 1].Visible = true;
             }
         }
 
@@ -36,12 +39,22 @@ namespace Karvis.Web
             InvokeSearchButtonClicked();
         }
 
+        protected void dgJobList_DeleteCommand(object source, DataGridCommandEventArgs e)
+        {
+            InvokeDeleteButtonPressed(Convert.ToInt32(e.CommandArgument));
+        }
+
         protected void btnReset_Click(object sender, EventArgs e)
         {
             Response.Redirect(Request.AppRelativeCurrentExecutionFilePath);
         }
 
         protected string MyGetJobUrl(object id, object title)
+        {
+            return new JobModel().GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
+        }
+
+        protected string MyGetJobUrlModify(object id, object title)
         {
             return new JobModel().GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
         }
@@ -131,9 +144,16 @@ namespace Karvis.Web
                 ViewInitialized(this, EventArgs.Empty);
         }
 
+        public event EventHandler<TEventArgs<int>> DeleteButtonPressed;
+        private void InvokeDeleteButtonPressed(int jobId)
+        {
+            if (DeleteButtonPressed != null)
+                DeleteButtonPressed(this, new TEventArgs<int>(jobId));
+        }
+
         public void ShowMessage(string message)
         {
-            //
+            lblMessage.Text = message;
         }
     }
 }
