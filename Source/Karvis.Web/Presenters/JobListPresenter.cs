@@ -42,9 +42,6 @@ namespace Karvis.Web
 
         void view_ViewInitialized(object sender, EventArgs e)
         {
-            if (!View.IsUserAuthorized())
-                View.DisableAutorizedSections();
-
             ShowFirstPage();
         }
 
@@ -66,6 +63,9 @@ namespace Karvis.Web
 
         void ShowFirstPage()
         {
+            if (!View.IsUserAuthorized())
+                View.DisableAutorizedSections();
+
             SearchCriteriaDto crit = View.GetSearchCriteria();
             ShowPages(crit, 0);
         }
