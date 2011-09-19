@@ -56,11 +56,12 @@
             </td>
             <td>
                 <asp:DropDownList runat="server" ID="ddlAdSource">
-                    <asp:ListItem Value="DeveloperCenter" Text="Developer Center" />
+                    <asp:ListItem Value="Hamshahri" Text="همشهری" />
+                    <asp:ListItem Value="DeveloperCenter" Text="DeveloperCenter" />
+                    <asp:ListItem Value="IranTalent" Text="IranTalent" />
+                    <asp:ListItem Value="Karvis" Text="کارویس" Selected="True" />
                     <asp:ListItem Value="Email" Text="ایمیل" />
-                    <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
-                    <asp:ListItem Value="IranTalent" Text="Iran Talent" />
-                    <asp:ListItem Value="Misc" Text="متفرقه" Selected="True" />
+                    <asp:ListItem Value="Misc" Text="متفرقه" />
                 </asp:DropDownList>
             </td>
         </tr>
@@ -78,4 +79,6 @@
     <asp:Button ID="btnNew" Text="جدید" runat="server" OnClick="btnNew_Click" />
     <asp:Button ID="btnEdit" Text="ویرایش" runat="server" OnClick="btnEdit_Click" />
     <asp:HiddenField ID="hdnJobId" runat="server" />
+    <hr />
+    تگ باید به انگلیسی باشد
 </asp:Content>

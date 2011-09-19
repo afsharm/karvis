@@ -6,6 +6,7 @@
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="MainHolder">
     <div>
+        <asp:Label Text="" runat="server" ID="lblMessage" />
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -27,11 +28,12 @@
                 </td>
                 <td>
                     <asp:DropDownList runat="server" ID="ddlAdSource">
-                        <asp:ListItem Value="All" Text="مهم نیست" Selected="True" />
-                        <asp:ListItem Value="DeveloperCenter" Text="Developer Center" />
+                        <asp:ListItem Value="All" Text="همه" Selected="True" />
+                        <asp:ListItem Value="Hamshahri" Text="همشهری" />
+                        <asp:ListItem Value="DeveloperCenter" Text="DeveloperCenter" />
+                        <asp:ListItem Value="IranTalent" Text="IranTalent" />
+                        <asp:ListItem Value="Karvis" Text="کارویس" />
                         <asp:ListItem Value="Email" Text="ایمیل" />
-                        <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
-                        <asp:ListItem Value="IranTalent" Text="Iran Talent" />
                         <asp:ListItem Value="Misc" Text="متفرقه" />
                     </asp:DropDownList>
                 </td>
@@ -43,31 +45,57 @@
                     <asp:Button Text="از نو" runat="server" ID="btnReset" OnClick="btnReset_Click" />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    وضعیت فعال:
+                </td>
+                <td>
+                    <asp:RadioButtonList runat="server" ID="rblIsActive">
+                        <asp:ListItem Text="مهم نیست" Value="All" Selected="True" />
+                        <asp:ListItem Text="فعال" Value="Active" />
+                        <asp:ListItem Text="غیر فعال" Value="NotActive" />
+                    </asp:RadioButtonList>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
         </table>
-        <asp:GridView runat="server" ID="grdJobList" DataSourceID="odsJobList" AutoGenerateColumns="false"
-            AllowPaging="true" AllowSorting="true">
+        <asp:HiddenField runat="server" ID="hdnSortExpression" />
+        <asp:DataGrid runat="server" ID="dgJobList" AutoGenerateColumns="false" AllowPaging="true"
+            AllowSorting="true" AllowCustomPaging="true" OnPageIndexChanged="dgJobList_PageIndexChanged"
+            OnSortCommand="dgJobList_SortCommand" DataKeyField="Id" OnDeleteCommand="dgJobList_DeleteCommand">
             <Columns>
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
-                <asp:BoundField DataField="Title" HeaderText="عنوان" SortExpression="Title" />
-                <asp:BoundField DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
-                <asp:BoundField DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
-                <asp:BoundField DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
-                <asp:BoundField DataField="AdSource" HeaderText="منبع" SortExpression="AdSource" />
-                <asp:TemplateField HeaderText="اطلاعات بیشتر">
+                <asp:BoundColumn DataField="Id" HeaderText="Id" SortExpression="Id" />
+                <asp:BoundColumn DataField="Title" HeaderText="عنوان" SortExpression="Title" />
+                <asp:BoundColumn DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
+                <asp:BoundColumn DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
+                <asp:BoundColumn DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
+                <asp:BoundColumn DataField="AdSourceDescription" HeaderText="منبع" SortExpression="AdSource" />
+                <asp:BoundColumn DataField="IsActive" HeaderText="فعال" SortExpression="IsActive" />
+                <asp:TemplateColumn HeaderText="ویرایش">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="HyperLink3" NavigateUrl='<%# MyGetJobUrlModify( Eval("Id")) %>'
+                            Text="ویرایش" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn HeaderText="حذف">
+                    <ItemTemplate>
+                        <asp:LinkButton runat="server" ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>'
+                            Text="حذف" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn HeaderText="اطلاعات بیشتر">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
                             Text="جزییات" runat="server" />
                     </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateColumn>
             </Columns>
-        </asp:GridView>
-        <asp:ObjectDataSource runat="server" ID="odsJobList" TypeName="Karvis.Core.JobModel"
-            SelectMethod="FindAll" EnablePaging="true" SelectCountMethod="FindAllCount" SortParameterName="sortOrder">
-            <SelectParameters>
-                <asp:ControlParameter PropertyName="Text" ControlID="txtTitle" Name="title" />
-                <asp:ControlParameter PropertyName="Text" ControlID="txtTag" Name="tag" />
-                <asp:ControlParameter PropertyName="SelectedValue" ControlID="ddlAdSource" Name="adSource" />
-            </SelectParameters>
-        </asp:ObjectDataSource>
+            <PagerStyle Mode="NumericPages" PageButtonCount="20" HorizontalAlign="Center" />
+        </asp:DataGrid>
     </div>
 </asp:Content>
