@@ -21,5 +21,7 @@ namespace Karvis.Web
         void ShowJobs(IList<Job> jobs, int virtualItemCount, int currentPageIndex);
         void Redirect(string url);
         void UpdateSortExpression(string sortExpression);
+        bool IsUserAuthorized();
+        void DisableAutorizedSections();
     }
 }

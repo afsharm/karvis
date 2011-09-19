@@ -165,5 +165,22 @@ namespace Karvis.Web
         {
             lblMessage.Text = message;
         }
+
+        public bool IsUserAuthorized()
+        {
+            if (this.User != null && this.User.Identity != null
+                && this.User.Identity.IsAuthenticated && this.User.IsInRole("AdminRole"))
+                return true;
+
+            return false;
+        }
+
+        public void DisableAutorizedSections()
+        {
+            int columnCount = dgJobList.Columns.Count;
+
+            dgJobList.Columns[columnCount - 2].Visible = false;
+            dgJobList.Columns[columnCount - 3].Visible = false;
+        }
     }
 }

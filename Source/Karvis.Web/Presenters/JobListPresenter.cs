@@ -37,6 +37,9 @@ namespace Karvis.Web
 
         void view_ViewInitialized(object sender, EventArgs e)
         {
+            if (!View.IsUserAuthorized())
+                View.DisableAutorizedSections();
+
             ShowFirstPage();
         }
 

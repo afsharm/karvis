@@ -57,12 +57,6 @@
                 <asp:BoundColumn DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundColumn DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:BoundColumn DataField="AdSource" HeaderText="منبع" SortExpression="AdSource" />
-                <asp:TemplateColumn HeaderText="اطلاعات بیشتر">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
-                            Text="جزییات" runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateColumn>
                 <asp:TemplateColumn HeaderText="ویرایش">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink3" NavigateUrl='<%# MyGetJobUrlModify( Eval("Id")) %>'
@@ -73,6 +67,12 @@
                     <ItemTemplate>
                         <asp:LinkButton runat="server" ID="btnDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>'
                             Text="حذف" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+                <asp:TemplateColumn HeaderText="اطلاعات بیشتر">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="HyperLink2" NavigateUrl='<%# MyGetJobUrl( Eval("Id"), Eval("Title")) %>'
+                            Text="جزییات" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateColumn>
             </Columns>
