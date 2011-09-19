@@ -260,6 +260,11 @@ namespace Karvis.Core
             return _jobRepository.Get(jobId);
         }
 
+        public string GetJobUrlModify(int id)
+        {
+            return string.Format("{0}SubmitJob.aspx?id={1}", GeneralHelper.GetAppUrl(), id);
+        }
+
         public string GetJobUrl(int id, string title)
         {
             return string.Format("{0}{1}", GeneralHelper.GetAppUrl(), GetJobUrlPure(id, title));

@@ -11,10 +11,16 @@ namespace Karvis.Web
     public partial class JobList : System.Web.UI.Page, IJobListView
     {
         JobListPresenter presenter;
+        IJobModel jobModel;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             presenter = new JobListPresenter(this, new JobModel());
             lblMessage.Text = string.Empty;
+
+            //mvp can not be applied
+            if (jobModel == null)
+                jobModel = new JobModel();
 
             if (!IsPostBack)
             {
@@ -51,12 +57,16 @@ namespace Karvis.Web
 
         protected string MyGetJobUrl(object id, object title)
         {
-            return new JobModel().GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
+            //mvp can not helpe here
+
+            return jobModel.GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
         }
 
-        protected string MyGetJobUrlModify(object id, object title)
+        protected string MyGetJobUrlModify(object id)
         {
-            return new JobModel().GetJobUrl(Convert.ToInt32(id), Convert.ToString(title));
+            //mvp can not helpe here
+
+            return jobModel.GetJobUrlModify(Convert.ToInt32(id));
         }
 
         protected void dgJobList_SortCommand(object source, DataGridSortCommandEventArgs e)

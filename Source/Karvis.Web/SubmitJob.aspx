@@ -60,7 +60,7 @@
                     <asp:ListItem Value="Email" Text="ایمیل" />
                     <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
                     <asp:ListItem Value="IranTalent" Text="Iran Talent" />
-                    <asp:ListItem Value="Kavris" Text="کارویس" />
+                    <asp:ListItem Value="Karvis" Text="کارویس" />
                     <asp:ListItem Value="Misc" Text="متفرقه" Selected="True" />
                 </asp:DropDownList>
             </td>
