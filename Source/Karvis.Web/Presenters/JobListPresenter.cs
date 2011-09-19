@@ -20,7 +20,6 @@ namespace Karvis.Web
         {
             this.jobModel = jobModel;
 
-            view.JobSelectedForDetail += view_JobSelectedForDetail;
             view.PageIndexChanged += view_PageIndexChanged;
             view.SearchButtonClicked += view_SearchButtonClicked;
             view.SortChanged += view_SortChanged;
@@ -30,6 +29,12 @@ namespace Karvis.Web
 
         void view_DeleteButtonPressed(object sender, TEventArgs<int> e)
         {
+            if (!View.IsUserAuthorized())
+            {
+                View.ShowMessage("شما دسترسی لازم را ندارید");
+                return;
+            }
+
             jobModel.DeleteJob(e.Data);
             ShowFirstPage();
             View.ShowMessage("حذف شد");
@@ -71,6 +76,8 @@ namespace Karvis.Web
             int pageSize = View.GetPageSize();
 
             bool? isActive = ConvertIsActiveValue(crit.ActiveStatus);
+            if (!View.IsUserAuthorized())
+                isActive = true;
 
             var jobs = jobModel.FindAll(crit.Title, crit.Tag, crit.AdSource, isActive, sortExpression, pageSize, pageIndex * pageSize);
             int count = jobModel.FindAllCount(crit.Title, crit.Tag, crit.AdSource, isActive);
@@ -99,11 +106,6 @@ namespace Karvis.Web
         {
             SearchCriteriaDto crit = View.GetSearchCriteria();
             ShowPages(crit, e.Data);
-        }
-
-        void view_JobSelectedForDetail(object sender, TEventArgs<string> e)
-        {
-            View.Redirect(e.Data);
         }
     }
 }

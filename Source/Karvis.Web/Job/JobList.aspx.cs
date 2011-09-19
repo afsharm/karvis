@@ -100,13 +100,6 @@ namespace Karvis.Web
                 SortChanged(this, new TEventArgs<string>(sortExpression));
         }
 
-        public event EventHandler<TEventArgs<string>> JobSelectedForDetail;
-        void InvokeJobSelectedForDetail(string jobId)
-        {
-            if (JobSelectedForDetail != null)
-                JobSelectedForDetail(this, new TEventArgs<string>(jobId));
-        }
-
         public SearchCriteriaDto GetSearchCriteria()
         {
             SearchCriteriaDto crit = new SearchCriteriaDto
