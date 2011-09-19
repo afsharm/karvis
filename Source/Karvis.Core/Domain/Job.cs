@@ -45,13 +45,13 @@ namespace Karvis.Core
                 switch (AdSource)
                 {
                     case AdSource.Hamshahri:
-                        return "نیازمندی‌های همشهری";
+                        return "‌همشهری";
                     case AdSource.IranTalent:
-                        return "IranTalent.com";
+                        return "IranTalent";
                     case AdSource.Email:
                         return "ایمیل";
                     case AdSource.DeveloperCenter:
-                        return "DeveloperCenter.ir";
+                        return "DeveloperCenter";
                     case AdSource.Misc:
                         return "متفرقه";
                     case AdSource.All:

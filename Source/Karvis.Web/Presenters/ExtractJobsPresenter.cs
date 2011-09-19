@@ -94,9 +94,9 @@ namespace Karvis.Web
         void view_ViewInitialized(object sender, EventArgs e)
         {
             //extract temp jobs
-            var jobs = jobModel.FindAllNoneActive(adSource: AdSource.Hamshahri);
+            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.Hamshahri);
 
-            if (jobs.Count > 0)
+            if (jobCount > 0)
             {
                 //there are temp jobs
 
@@ -104,8 +104,9 @@ namespace Karvis.Web
                 View.EnableTempSaveButton();
                 View.EnableApplyButton();
 
+                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.Hamshahri, false, string.Empty, int.MaxValue, 0);
                 View.ShowJobs(jobs);
-                View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobs.Count));
+                View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobCount));
             }
             else
             {

@@ -16,8 +16,8 @@ namespace Karvis.Web
             {
                 int pageIndex = 0;
                 var model = new JobModel();
-                dgSand.DataSource = model.FindAll(string.Empty, string.Empty, AdSource.All, hdnSortExpression.Value, dgSand.PageSize, pageIndex);
-                dgSand.VirtualItemCount = model.FindAllCount(string.Empty, string.Empty, AdSource.All);
+                dgSand.DataSource = model.FindAll(string.Empty, string.Empty, AdSource.All, true, hdnSortExpression.Value, dgSand.PageSize, pageIndex);
+                dgSand.VirtualItemCount = model.FindAllCount(string.Empty, string.Empty, AdSource.All, true);
                 dgSand.CurrentPageIndex = pageIndex;
                 dgSand.DataBind();
             }
@@ -38,8 +38,8 @@ namespace Karvis.Web
 
             int pageIndex = 0;
             var model = new JobModel();
-            dgSand.DataSource = model.FindAll(string.Empty, string.Empty, AdSource.All, hdnSortExpression.Value, dgSand.PageSize, pageIndex);
-            dgSand.VirtualItemCount = model.FindAllCount(string.Empty, string.Empty, AdSource.All);
+            dgSand.DataSource = model.FindAll(string.Empty, string.Empty, AdSource.All, true, hdnSortExpression.Value, dgSand.PageSize, pageIndex);
+            dgSand.VirtualItemCount = model.FindAllCount(string.Empty, string.Empty, AdSource.All, true);
             dgSand.CurrentPageIndex = pageIndex;
             dgSand.DataBind();
 
@@ -48,10 +48,10 @@ namespace Karvis.Web
         protected void dgSand_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
             var model = new JobModel();
-            var list = model.FindAll(string.Empty, string.Empty, AdSource.All, hdnSortExpression.Value,
+            var list = model.FindAll(string.Empty, string.Empty, AdSource.All, true, hdnSortExpression.Value,
                 dgSand.PageSize, e.NewPageIndex * dgSand.PageSize);
             dgSand.DataSource = list;
-            var count = model.FindAllCount(string.Empty, string.Empty, AdSource.All);
+            var count = model.FindAllCount(string.Empty, string.Empty, AdSource.All, true);
             dgSand.VirtualItemCount = count;
             dgSand.CurrentPageIndex = e.NewPageIndex;
             dgSand.DataBind();

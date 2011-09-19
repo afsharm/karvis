@@ -69,9 +69,25 @@ namespace Karvis.Web
         {
             string sortExpression = View.GetSortExpression();
             int pageSize = View.GetPageSize();
-            var jobs = jobModel.FindAll(crit.Title, crit.Tag, crit.AdSource, sortExpression, pageSize, pageIndex * pageSize);
-            int count = jobModel.FindAllCount(crit.Title, crit.Tag, crit.AdSource);
+
+            bool? isActive = ConvertIsActiveValue(crit.ActiveStatus);
+
+            var jobs = jobModel.FindAll(crit.Title, crit.Tag, crit.AdSource, isActive, sortExpression, pageSize, pageIndex * pageSize);
+            int count = jobModel.FindAllCount(crit.Title, crit.Tag, crit.AdSource, isActive);
             View.ShowJobs(jobs, count, pageIndex);
+        }
+
+        private bool? ConvertIsActiveValue(string activeStatus)
+        {
+            switch (activeStatus)
+            {
+                case "Active":
+                    return true;
+                case "NotActive":
+                    return false;
+                default:
+                    return null;
+            }
         }
 
         void view_SearchButtonClicked(object sender, EventArgs e)

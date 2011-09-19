@@ -10,5 +10,7 @@ namespace Karvis.Core
         public string Title { get; set; }
         public string Tag { get; set; }
         public AdSource AdSource { get; set; }
+
+        public string ActiveStatus { get; set; }
     }
 }

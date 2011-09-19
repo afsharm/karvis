@@ -113,7 +113,8 @@ namespace Karvis.Web
             {
                 Title = txtTitle.Text,
                 Tag = txtTag.Text,
-                AdSource = (AdSource)Enum.Parse(typeof(AdSource), ddlAdSource.SelectedValue)
+                AdSource = (AdSource)Enum.Parse(typeof(AdSource), ddlAdSource.SelectedValue),
+                ActiveStatus = rblIsActive.SelectedValue
             };
 
             return crit;
@@ -181,6 +182,9 @@ namespace Karvis.Web
 
             dgJobList.Columns[columnCount - 2].Visible = false;
             dgJobList.Columns[columnCount - 3].Visible = false;
+            dgJobList.Columns[columnCount - 4].Visible = false;
+
+            rblIsActive.Visible = false;
         }
     }
 }

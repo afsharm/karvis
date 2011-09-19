@@ -78,9 +78,12 @@ namespace Karvis.Core
             return GeneralHelper.AnalyseTags(tags);
         }
 
-        private IQueryOver<Job, Job> CreateQuery(string title, string tag, AdSource adSource, bool isActive)
+        private IQueryOver<Job, Job> CreateQuery(string title, string tag, AdSource adSource, bool? isActive)
         {
-            var q = _jobRepository.QueryOver().Where(job => job.IsActive == isActive);
+            var q = _jobRepository.QueryOver();
+
+            if (isActive != null)
+                q = q.Where(job => job.IsActive == isActive);
 
             if (!string.IsNullOrEmpty(title))
                 q = q.WhereRestrictionOn(j => j.Title).IsInsensitiveLike(title, MatchMode.Anywhere);
@@ -94,17 +97,7 @@ namespace Karvis.Core
             return q;
         }
 
-        public IList<Job> FindAll(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex)
-        {
-            return FindAll(title, tag, adSource, true, sortOrder, maximumRows, startRowIndex);
-        }
-
-        public IList<Job> FindAllNoneActive(string title, string tag, AdSource adSource, string sortOrder, int maximumRows, int startRowIndex)
-        {
-            return FindAll(title, tag, adSource, false, sortOrder, maximumRows, startRowIndex);
-        }
-
-        IList<Job> FindAll(string title, string tag, AdSource adSource, bool isActive,
+        public IList<Job> FindAll(string title, string tag, AdSource adSource, bool? isActive,
             string sortOrder, int maximumRows, int startRowIndex)
         {
             IQueryOver<Job, Job> q = CreateQuery(title, tag, adSource, isActive);
@@ -145,6 +138,14 @@ namespace Karvis.Core
                     q = q.OrderBy(j => j.DateAdded).Asc;
                     break;
                 case "dateadded desc":
+                    q = q.OrderBy(j => j.DateAdded).Desc;
+                    break;
+                case "isactive":
+                    q = q.OrderBy(j => j.IsActive).Asc;
+                    break;
+                case "isactive desc":
+                    q = q.OrderBy(j => j.IsActive).Desc;
+                    break;
                 default:
                     q = q.OrderBy(j => j.DateAdded).Desc.OrderBy(job => job.Id).Desc;
                     break;
@@ -158,22 +159,12 @@ namespace Karvis.Core
             return retval;
         }
 
-        public int FindAllCount(string title, string tag, AdSource adSource)
-        {
-            return FindAllCount(title, tag, adSource, true);
-        }
-
-        public int FindAllCountNoneActive(string title, string tag, AdSource adSource)
-        {
-            return FindAllCount(title, tag, adSource, false);
-        }
-
         public void DeleteJob(int Id)
         {
             _jobRepository.Remove(_jobRepository.Load(Id));
         }
 
-        private int FindAllCount(string title, string tag, AdSource adSource, bool isActive)
+        public int FindAllCount(string title, string tag, AdSource adSource, bool? isActive)
         {
             return CreateQuery(title, tag, adSource, isActive).RowCount();
         }
@@ -233,7 +224,7 @@ namespace Karvis.Core
 
         internal IEnumerable<Job> GetJobsByTag(string tag, bool updateStat)
         {
-            var jobs = FindAll(null, tag, AdSource.All, null, int.MaxValue, 0);
+            var jobs = FindAll(null, tag, AdSource.All, true, null, int.MaxValue, 0);
 
             if (updateStat)
             {
@@ -305,12 +296,6 @@ namespace Karvis.Core
             job.FeedCount = 0;
         }
 
-        public IList<Job> FindAllNoneActive(AdSource adSource)
-        {
-            return FindAll(title: null, tag: null, adSource: adSource, isActive: false,
-            sortOrder: "Id", maximumRows: int.MaxValue, startRowIndex: 0);
-        }
-
         public void SaveOrUpdateJob(Job job)
         {
             _jobRepository.SaveOrUpdate(job);
@@ -320,6 +305,11 @@ namespace Karvis.Core
         {
             AddComplementaryInfo(job);
             _jobRepository.Add(job);
+        }
+
+        public int FindNoneActiveCount(AdSource adSource)
+        {
+            return FindAllCount(string.Empty, string.Empty, adSource, false);
         }
     }
 }

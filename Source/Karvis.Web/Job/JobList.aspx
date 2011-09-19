@@ -28,12 +28,12 @@
                 </td>
                 <td>
                     <asp:DropDownList runat="server" ID="ddlAdSource">
-                        <asp:ListItem Value="All" Text="مهم نیست" Selected="True" />
-                        <asp:ListItem Value="DeveloperCenter" Text="Developer Center" />
-                        <asp:ListItem Value="Email" Text="ایمیل" />
-                        <asp:ListItem Value="Hamshahri" Text="نیازمندی‌های همشهری" />
-                        <asp:ListItem Value="IranTalent" Text="Iran Talent" />
+                        <asp:ListItem Value="All" Text="همه" Selected="True" />
+                        <asp:ListItem Value="Hamshahri" Text="همشهری" />
+                        <asp:ListItem Value="DeveloperCenter" Text="DeveloperCenter" />
+                        <asp:ListItem Value="IranTalent" Text="IranTalent" />
                         <asp:ListItem Value="Karvis" Text="کارویس" />
+                        <asp:ListItem Value="Email" Text="ایمیل" />
                         <asp:ListItem Value="Misc" Text="متفرقه" />
                     </asp:DropDownList>
                 </td>
@@ -43,6 +43,24 @@
                 <td>
                     <asp:Button Text="جستجو" runat="server" ID="btnSearch" OnClick="btnSearch_Click" />
                     <asp:Button Text="از نو" runat="server" ID="btnReset" OnClick="btnReset_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    وضعیت فعال:
+                </td>
+                <td>
+                    <asp:RadioButtonList runat="server" ID="rblIsActive">
+                        <asp:ListItem Text="مهم نیست" Value="All" Selected="True" />
+                        <asp:ListItem Text="فعال" Value="Active" />
+                        <asp:ListItem Text="غیر فعال" Value="NotActive" />
+                    </asp:RadioButtonList>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
                 </td>
             </tr>
         </table>
@@ -56,7 +74,8 @@
                 <asp:BoundColumn DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
                 <asp:BoundColumn DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundColumn DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
-                <asp:BoundColumn DataField="AdSource" HeaderText="منبع" SortExpression="AdSource" />
+                <asp:BoundColumn DataField="AdSourceDescription" HeaderText="منبع" SortExpression="AdSource" />
+                <asp:BoundColumn DataField="IsActive" HeaderText="فعال" SortExpression="IsActive" />
                 <asp:TemplateColumn HeaderText="ویرایش">
                     <ItemTemplate>
                         <asp:HyperLink ID="HyperLink3" NavigateUrl='<%# MyGetJobUrlModify( Eval("Id")) %>'
