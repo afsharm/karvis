@@ -92,8 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sand.aspx" />
-    <Content Include="SubmitJob.aspx" />
+    <Content Include="Job\SubmitJob.aspx" />
     <Content Include="Admin\Config.aspx" />
     <Content Include="Admin\htmltest.xml" />
     <Content Include="Admin\Monitor.aspx" />
@@ -160,18 +159,11 @@
   <ItemGroup>
     <Compile Include="Presenters\JobListPresenter.cs" />
     <Compile Include="Presenters\SubmitJobPresenter.cs" />
-    <Compile Include="sand.aspx.cs">
-      <DependentUpon>sand.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="sand.aspx.designer.cs">
-      <DependentUpon>sand.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SubmitJob.aspx.cs">
+    <Compile Include="Job\SubmitJob.aspx.cs">
       <DependentUpon>SubmitJob.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SubmitJob.aspx.designer.cs">
+    <Compile Include="Job\SubmitJob.aspx.designer.cs">
       <DependentUpon>SubmitJob.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Config.aspx.cs">
