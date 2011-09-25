@@ -44,20 +44,30 @@ namespace Karvis.Core
             {
                 switch (AdSource)
                 {
-                    case AdSource.Hamshahri:
-                        return "‌همشهری";
-                    case AdSource.IranTalent:
-                        return "IranTalent";
+                    case AdSource.rahnama_com:
+                        return "نیازمندی‌های ‌همشهری";
+                    case AdSource.irantalent_com:
+                        return "IranTalent.com";
                     case AdSource.Email:
                         return "ایمیل";
-                    case AdSource.DeveloperCenter:
-                        return "DeveloperCenter";
+                    case AdSource.developercenter_ir:
+                        return "DeveloperCenter.ir";
                     case AdSource.Misc:
                         return "متفرقه";
                     case AdSource.All:
                         return "مهم نیست";
-                    case AdSource.Karvis:
+                    case AdSource.karvis_ir:
                         return "سایت کارویس";
+                    case AdSource.itjobs_ir:
+                        return "ITJobs.ir";
+                    case AdSource.agahi_ir:
+                        return "Agahi.ir";
+                    case AdSource.istgah_com:
+                        return "Istgah.com";
+                    case AdSource.nofaـir:
+                        return "Nofa.ir";
+                    case AdSource.unp_ir:
+                        return "UNP.ir";
                     default:
                         return "N/A";
                 }

@@ -159,7 +159,7 @@ namespace Karvis.Test
             Assert.AreEqual(job.AdSource, retJob.AdSource);
 
 
-            var job2 = new Job { AdSource = AdSource.IranTalent };
+            var job2 = new Job { AdSource = AdSource.irantalent_com };
 
             model.AddJob(job2);
 

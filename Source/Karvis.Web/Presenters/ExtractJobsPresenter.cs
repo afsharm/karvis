@@ -67,7 +67,7 @@ namespace Karvis.Web
                     throw new ApplicationException("unexpected error is SaveJobs (!isNew)");
             }
 
-            int count = jobModel.SaveOrUpdateJobBatch(jobs, AdSource.Hamshahri, isActive, isNew);
+            int count = jobModel.SaveOrUpdateJobBatch(jobs, AdSource.rahnama_com, isActive, isNew);
 
             string message =
                 isActive ?
@@ -94,7 +94,7 @@ namespace Karvis.Web
         void view_ViewInitialized(object sender, EventArgs e)
         {
             //extract temp jobs
-            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.Hamshahri);
+            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.rahnama_com);
 
             if (jobCount > 0)
             {
@@ -104,7 +104,7 @@ namespace Karvis.Web
                 View.EnableTempSaveButton();
                 View.EnableApplyButton();
 
-                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.Hamshahri, false, string.Empty, int.MaxValue, 0);
+                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.rahnama_com, false, string.Empty, int.MaxValue, 0);
                 View.ShowJobs(jobs);
                 View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobCount));
             }

@@ -29,11 +29,16 @@
                 <td>
                     <asp:DropDownList runat="server" ID="ddlAdSource">
                         <asp:ListItem Value="All" Text="همه" Selected="True" />
-                        <asp:ListItem Value="Hamshahri" Text="همشهری" />
-                        <asp:ListItem Value="DeveloperCenter" Text="DeveloperCenter" />
-                        <asp:ListItem Value="IranTalent" Text="IranTalent" />
-                        <asp:ListItem Value="Karvis" Text="کارویس" />
+                        <asp:ListItem Value="rahnama_com" Text="نیازمندی‌های ‌همشهری" />
+                        <asp:ListItem Value="irantalent_com" Text="IranTalent.com" />
                         <asp:ListItem Value="Email" Text="ایمیل" />
+                        <asp:ListItem Value="developercenter_ir" Text="DeveloperCenter.ir" />
+                        <asp:ListItem Value="karvis_ir" Text="سایت کارویس" />
+                        <asp:ListItem Value="itjobs_ir" Text="ITJobs.ir" />
+                        <asp:ListItem Value="agahi_ir" Text="Agahi.ir" />
+                        <asp:ListItem Value="istgah_com" Text="Istgah.com" />
+                        <asp:ListItem Value="nofaـir" Text="Nofa.ir" />
+                        <asp:ListItem Value="unp_ir" Text="UNP.ir" />
                         <asp:ListItem Value="Misc" Text="متفرقه" />
                     </asp:DropDownList>
                 </td>
