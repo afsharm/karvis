@@ -52,8 +52,10 @@ namespace Karvis.Core
             return retval;
         }
 
-        public List<Job> ExtractJobs(string url)
+        public List<Job> ExtractJobs(AdSource siteSource)
         {
+            string url = ExtractSiteSourceUrl(siteSource);
+
             List<Job> retval = new List<Job>();
             HtmlNodeCollection textJobs;
             HtmlNodeCollection imageJobs;
@@ -63,6 +65,34 @@ namespace Karvis.Core
             retval.AddRange(ExtractTextJobs(textJobs, rootUrl));
             retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
             return retval;
+        }
+
+        private string ExtractSiteSourceUrl(AdSource siteSource)
+        {
+            switch (siteSource)
+            {
+                case AdSource.rahnama_com:
+                    return "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html";
+                case AdSource.agahi_ir:
+                    return "http://www.agahi.ir/category/14";
+
+                case AdSource.irantalent_com:
+                case AdSource.developercenter_ir:
+                case AdSource.itjobs_ir:
+                case AdSource.istgah_com:
+                case AdSource.nofaـir:
+                case AdSource.unp_ir:
+                    throw new ApplicationException("This site source has not been implemented yet");
+
+                case AdSource.Misc:
+                case AdSource.All:
+                case AdSource.karvis_ir:
+                case AdSource.Email:
+                    throw new ApplicationException("This site source can not be extrcted");
+
+                default:
+                    throw new ArgumentException("Unknown site source");
+            }
         }
 
         public List<Job> ExtractImageJobs(HtmlNodeCollection imageJobs, string rootUrl)
@@ -79,6 +109,7 @@ namespace Karvis.Core
                 };
 
                 retval.Add(job);
+
             }
 
             return retval;

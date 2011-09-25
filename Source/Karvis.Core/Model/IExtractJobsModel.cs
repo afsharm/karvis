@@ -13,7 +13,7 @@ namespace Karvis.Core
         void ExtractHtmlJobs(string url, out HtmlNodeCollection textJobs, out HtmlNodeCollection imageJobs);
         List<Job> ExtractImageJobs(HtmlNodeCollection imageJobs, string rootUrl);
         string ExtractJobDescription(HtmlNode item);
-        List<Job> ExtractJobs(string url);
+        List<Job> ExtractJobs(AdSource siteSource);
         string ExtractRootUrl(string url);
         string ExtractTags(string description);
         List<Job> ExtractTextJobs(HtmlNodeCollection textJobs, string rootUrl);

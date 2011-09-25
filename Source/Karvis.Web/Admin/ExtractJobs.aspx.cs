@@ -35,9 +35,8 @@ namespace Karvis.Web.Admin
 
         protected void btnExtractJobs_Click(object sender, EventArgs e)
         {
-            var rahnama = "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html";
-
-            InvokeExtractJobsButtonPressed(rahnama);
+            string siteSource = ddlSiteSource.SelectedValue;
+            InvokeExtractJobsButtonPressed(siteSource);
         }
 
         public event EventHandler<TEventArgs<string>> ExtractJobsButtonPressed;

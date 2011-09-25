@@ -81,7 +81,9 @@ namespace Karvis.Web
         void view_ExtractJobsButtonPressed(object sender, TEventArgs<string> e)
         {
             View.DisableExtractButton();
-            var jobs = extractJobsModel.ExtractJobs(e.Data);
+
+            AdSource siteSource = (AdSource)Enum.Parse(typeof(AdSource), e.Data);
+            var jobs = extractJobsModel.ExtractJobs(siteSource);
             View.ShowMessage(string.Format("{0} تا کار استخراج شد", jobs.Count));
             if (jobs.Count > 0)
             {
