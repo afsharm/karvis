@@ -59,11 +59,16 @@ namespace Karvis.Core
             List<Job> retval = new List<Job>();
             HtmlNodeCollection textJobs;
             HtmlNodeCollection imageJobs;
-            ExtractHtmlJobs(url, out textJobs, out imageJobs);
+            HtmlNodeCollection agahiContacts;
+            ExtractHtmlJobs(siteSource, url, out textJobs, out imageJobs, out agahiContacts);
 
             string rootUrl = ExtractRootUrl(url);
-            retval.AddRange(ExtractTextJobs(textJobs, rootUrl));
-            retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
+
+            retval.AddRange(ExtractTextJobs(siteSource, textJobs, agahiContacts, rootUrl));
+
+            if (siteSource == AdSource.rahnama_com)
+                retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
+
             return retval;
         }
 
@@ -115,21 +120,30 @@ namespace Karvis.Core
             return retval;
         }
 
-        public List<Job> ExtractTextJobs(HtmlNodeCollection textJobs, string rootUrl)
+        public List<Job> ExtractTextJobs(AdSource siteSource, HtmlNodeCollection textJobs, HtmlNodeCollection agahiContacts, string rootUrl)
         {
             List<Job> retval = new List<Job>();
 
-            foreach (var item in textJobs)
+            for (int i = 0; i < textJobs.Count; i++)
             {
-                Job job = CreateTextJob(rootUrl, item);
-
+                var item = textJobs[i];
+                Job job = null;
+                switch (siteSource)
+                {
+                    case AdSource.rahnama_com:
+                        job = CreateTextJobRahnama(rootUrl, item);
+                        break;
+                    case AdSource.agahi_ir:
+                        job = ExtractJobAgahi(item, agahiContacts[i]);
+                        break;
+                }
                 retval.Add(job);
             }
 
             return retval;
         }
 
-        public Job CreateTextJob(string rootUrl, HtmlNode item)
+        public Job CreateTextJobRahnama(string rootUrl, HtmlNode item)
         {
             string plainLink;
             string processedLink;
@@ -164,7 +178,50 @@ namespace Karvis.Core
                 Emails = emails,
                 Tag = tag,
                 Title = title,
-                Url = processedLink
+                Url = processedLink,
+                AdSource = AdSource.rahnama_com
+            };
+
+            return job;
+        }
+
+
+        public Job ExtractJobAgahi(HtmlNode item, HtmlNode contact)
+        {
+            string processedLink;
+            string title;
+            string description;
+            string emails;
+            string tag;
+
+            //to ignore possible error
+            try
+            {
+                processedLink = item.ChildNodes[1].Attributes["href"].Value;
+                title = item.ChildNodes[1].ChildNodes[3].InnerText;
+                string originalDate = item.ChildNodes[3].InnerText;
+                description = string.Format("{0}, original date: {1}, contact: {2}", 
+                    item.ChildNodes[6].InnerText, originalDate, contact.InnerText);
+                emails = ExtractEmailsByText(description);
+                tag = ExtractTags(description);
+            }
+            catch (Exception ex)
+            {
+                processedLink = "N/A";
+                title = "N/A";
+                description = ex.Message;
+                emails = "N/A";
+                tag = "N/A";
+            }
+
+            Job job = new Job()
+            {
+                Description = description,
+                Emails = emails,
+                Tag = tag,
+                Title = title,
+                Url = processedLink,
+                AdSource = AdSource.agahi_ir
             };
 
             return job;
@@ -228,31 +285,79 @@ namespace Karvis.Core
             return string.Format("{0}{1}", rootUrl, plainLink);
         }
 
-        public void ExtractHtmlJobs(string url, out HtmlNodeCollection textJobs, out HtmlNodeCollection imageJobs)
+        public void ExtractHtmlJobs(AdSource siteSource, string url, out HtmlNodeCollection textJobs,
+            out HtmlNodeCollection imageJobs, out HtmlNodeCollection agahiContactJobs)
         {
             textJobs = new HtmlNodeCollection(null);
             imageJobs = new HtmlNodeCollection(null);
+            agahiContactJobs = new HtmlNodeCollection(null);
 
             string thisUrl = url;
 
-            bool hasPaging = true;
-            HtmlNodeCollection paging = null;
+            bool hasPaging = false;
             do
             {
                 string pageContent = GetWebText(thisUrl);
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(pageContent);
 
-                ExtractRawTextJobs(textJobs, doc);
-
-                ExtractRawImageJobs(imageJobs, doc);
-
-                paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
-                hasPaging = paging != null && paging.Count > 0;
-                if (hasPaging)
-                    thisUrl = ExtractRootUrl(url) + paging[0].Attributes["href"].Value;
+                switch (siteSource)
+                {
+                    case AdSource.rahnama_com:
+                        ExtractRahnamaRawTextJobs(textJobs, doc);
+                        ExtractRawImageJobs(imageJobs, doc);
+                        hasPaging = HasPagingRahnama(doc, url, ref thisUrl);
+                        break;
+                    case AdSource.agahi_ir:
+                        ExtractAgahiRawTextJobs(textJobs, agahiContactJobs, doc);
+                        hasPaging = HasPagingAgahi(doc, ref thisUrl);
+                        break;
+                }
             }
             while (hasPaging);
+        }
+
+        private bool HasPagingRahnama(HtmlDocument doc, string originalUrl, ref string nextPageUrl)
+        {
+            HtmlNodeCollection paging = null;
+
+            paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
+            bool hasPaging = paging != null && paging.Count > 0;
+
+            if (hasPaging)
+                nextPageUrl = ExtractRootUrl(originalUrl) + paging[0].Attributes["href"].Value;
+
+            return hasPaging;
+        }
+
+        private bool HasPagingAgahi(HtmlDocument doc, ref string nextPageUrl)
+        {
+            var list = doc.DocumentNode.SelectNodes("//div[@class='paging_div']")[0].ChildNodes;
+
+            bool hasPaging = false;
+            bool found = false;
+            int counter = 0;
+            for (int i = 2; i < list.Count; i = i + 2)
+            {
+                HtmlAttributeCollection attributes = list[i].Attributes;
+
+                var cssClass = attributes["class"].Value;
+                if (!found && cssClass != "paging_item_selected")
+                    continue;
+                else
+                    found = true;
+
+                counter++;
+
+                if (counter > 1)
+                {
+                    nextPageUrl = attributes["href"].Value;
+                    hasPaging = true;
+                    break;
+                }
+            }
+
+            return hasPaging;
         }
 
         public void ExtractRawImageJobs(HtmlNodeCollection imageJobs, HtmlDocument doc)
@@ -263,11 +368,31 @@ namespace Karvis.Core
                     imageJobs.Add(item);
         }
 
+        public void ExtractRahnamaRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
+        {
+            var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
+            foreach (var item in res)
+                textJobs.Add(item);
+        }
+
         public void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
         {
             var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
             foreach (var item in res)
                 textJobs.Add(item);
+        }
+
+        public void ExtractAgahiRawTextJobs(HtmlNodeCollection body, HtmlNodeCollection contacts, HtmlDocument doc)
+        {
+            string description = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes[4].InnerHtml;
+            string title = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes[6].InnerHtml;
+
+            var jobs = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes;
+            for (int i = 4; i < jobs.Count - 2; i = i + 8)
+            {
+                body.Add(jobs[i]);
+                contacts.Add(jobs[i + 2]);
+            }
         }
     }
 }
