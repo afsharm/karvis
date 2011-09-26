@@ -67,7 +67,7 @@ namespace Karvis.Web
                     throw new ApplicationException("unexpected error is SaveJobs (!isNew)");
             }
 
-            int count = jobModel.SaveOrUpdateJobBatch(jobs, AdSource.rahnama_com, isActive, isNew);
+            int count = jobModel.SaveOrUpdateJobBatch(jobs, isActive, isNew);
 
             string message =
                 isActive ?

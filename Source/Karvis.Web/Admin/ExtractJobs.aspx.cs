@@ -77,6 +77,7 @@ namespace Karvis.Web.Admin
                 TextBox txtTitle = item.FindControl("txtTitle") as TextBox;
                 TextBox txtUrl = item.FindControl("txtUrl") as TextBox;
                 Label lblId = item.FindControl("lblId") as Label;
+                HiddenField hdnAdSource = item.FindControl("hdnAdSource") as HiddenField;
 
                 int preSavedJobId = 0;
                 int.TryParse(lblId.Text, out preSavedJobId);
@@ -88,7 +89,8 @@ namespace Karvis.Web.Admin
                     Tag = txtTag.Text,
                     Title = txtTitle.Text,
                     Url = txtUrl.Text,
-                    PreSavedJobId = preSavedJobId
+                    PreSavedJobId = preSavedJobId,
+                    AdSource = (AdSource)Enum.Parse(typeof(AdSource), hdnAdSource.Value)
                 };
 
                 retval.Add(job);

@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Web;
+using Fardis;
 
 namespace Karvis.Core
 {
@@ -60,11 +61,12 @@ namespace Karvis.Core
             HtmlNodeCollection textJobs;
             HtmlNodeCollection imageJobs;
             HtmlNodeCollection agahiContacts;
-            ExtractHtmlJobs(siteSource, url, out textJobs, out imageJobs, out agahiContacts);
+            HtmlNodeCollection agahiComplementary;
+            ExtractHtmlJobs(siteSource, url, out textJobs, out imageJobs, out agahiContacts, out agahiComplementary);
 
             string rootUrl = ExtractRootUrl(url);
 
-            retval.AddRange(ExtractTextJobs(siteSource, textJobs, agahiContacts, rootUrl));
+            retval.AddRange(ExtractTextJobs(siteSource, textJobs, agahiContacts, agahiComplementary, rootUrl));
 
             if (siteSource == AdSource.rahnama_com)
                 retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
@@ -121,7 +123,8 @@ namespace Karvis.Core
             return retval;
         }
 
-        public List<Job> ExtractTextJobs(AdSource siteSource, HtmlNodeCollection textJobs, HtmlNodeCollection agahiContacts, string rootUrl)
+        public List<Job> ExtractTextJobs(AdSource siteSource, HtmlNodeCollection textJobs,
+            HtmlNodeCollection agahiContacts, HtmlNodeCollection agahiComplementary, string rootUrl)
         {
             List<Job> retval = new List<Job>();
 
@@ -135,9 +138,14 @@ namespace Karvis.Core
                         job = CreateTextJobRahnama(rootUrl, item);
                         break;
                     case AdSource.agahi_ir:
-                        job = ExtractJobAgahi(item, agahiContacts[i]);
+                        job = ExtractJobAgahi(item, agahiContacts[i], agahiComplementary[i]);
                         break;
                 }
+
+                //ignoring old ads (Agahi.ir)
+                if (job == null)
+                    break;
+
                 retval.Add(job);
             }
 
@@ -187,7 +195,7 @@ namespace Karvis.Core
         }
 
 
-        public Job ExtractJobAgahi(HtmlNode item, HtmlNode contact)
+        public Job ExtractJobAgahi(HtmlNode item, HtmlNode contact, HtmlNode complementary)
         {
             string processedLink;
             string title;
@@ -201,10 +209,19 @@ namespace Karvis.Core
                 processedLink = item.ChildNodes[1].Attributes["href"].Value;
                 title = item.ChildNodes[1].ChildNodes[3].InnerText;
                 string originalDate = item.ChildNodes[3].InnerText;
+
+                //ignoring old ads
+                IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+                DateTime dateTime = dateTimeHelper.ConvertPersianToGregorianDate(originalDate);
+                if (dateTime < DateTime.Now.AddDays(-2))
+                    return null;
+
                 description = string.Format("{0}, original date: {1}, contact: {2}",
                     item.ChildNodes[6].InnerText, originalDate, contact.InnerText);
                 emails = ExtractEmailsByText(description);
                 tag = ExtractTags(description);
+
+                //todo: use complementary in future
             }
             catch (Exception ex)
             {
@@ -287,11 +304,12 @@ namespace Karvis.Core
         }
 
         public void ExtractHtmlJobs(AdSource siteSource, string url, out HtmlNodeCollection textJobs,
-            out HtmlNodeCollection imageJobs, out HtmlNodeCollection agahiContactJobs)
+            out HtmlNodeCollection imageJobs, out HtmlNodeCollection agahiContactJobs, out HtmlNodeCollection agahiComplementary)
         {
             textJobs = new HtmlNodeCollection(null);
             imageJobs = new HtmlNodeCollection(null);
             agahiContactJobs = new HtmlNodeCollection(null);
+            agahiComplementary = new HtmlNodeCollection(null);
 
             string thisUrl = url;
 
@@ -310,7 +328,7 @@ namespace Karvis.Core
                         hasPaging = HasPagingRahnama(doc, url, ref thisUrl);
                         break;
                     case AdSource.agahi_ir:
-                        ExtractAgahiRawTextJobs(textJobs, agahiContactJobs, doc);
+                        ExtractAgahiRawTextJobs(textJobs, agahiContactJobs, agahiComplementary, doc);
                         hasPaging = HasPagingAgahi(doc, ref thisUrl);
                         break;
                 }
@@ -383,7 +401,8 @@ namespace Karvis.Core
                 textJobs.Add(item);
         }
 
-        public void ExtractAgahiRawTextJobs(HtmlNodeCollection body, HtmlNodeCollection contacts, HtmlDocument doc)
+        public void ExtractAgahiRawTextJobs(HtmlNodeCollection body, HtmlNodeCollection contacts,
+            HtmlNodeCollection complementary, HtmlDocument doc)
         {
             string description = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes[4].InnerHtml;
             string title = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes[6].InnerHtml;
@@ -393,7 +412,25 @@ namespace Karvis.Core
             {
                 body.Add(jobs[i]);
                 contacts.Add(jobs[i + 2]);
+
+                //todo: complementary will be enabled in future
+                //string url = body[0].ChildNodes[1].Attributes[0].Value;
+                //HtmlNode inner = ExtractInner(url);
+                //complementary.Add(inner);
+                complementary.Add(null);
             }
+        }
+
+        private HtmlNode ExtractInner(string url)
+        {
+            string inner = GetWebText(url);
+            string pageContent = GetWebText(url);
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(pageContent);
+
+            var res = doc.DocumentNode.SelectSingleNode("//div[@style='padding-top:20px;background:none;']");
+
+            return res;
         }
     }
 }

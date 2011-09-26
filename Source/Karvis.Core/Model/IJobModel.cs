@@ -20,7 +20,7 @@ namespace Karvis.Core
 
         int AddNewJob(string title, string description, string url, string tag, AdSource adSource);
         void UpdateJob(string title, string description, string url, string tag, int id, AdSource adSource);
-        int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew);
+        int SaveOrUpdateJobBatch(List<Job> jobs, bool isActive, bool isNew);
         void SaveOrUpdateJob(Job job);
         void AddJob(Job job);
         void DeleteJob(int Id);

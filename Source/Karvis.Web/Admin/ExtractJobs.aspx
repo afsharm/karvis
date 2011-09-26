@@ -102,6 +102,7 @@
                     </td>
                 </tr>
             </table>
+            <asp:HiddenField runat="server" ID="hdnAdSource" Value='<%# Eval("AdSource") %>' />
         </ItemTemplate>
     </asp:Repeater>
 </asp:Content>

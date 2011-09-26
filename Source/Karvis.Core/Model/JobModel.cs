@@ -266,7 +266,7 @@ namespace Karvis.Core
         }
 
 
-        public int SaveOrUpdateJobBatch(List<Job> jobs, AdSource adSource, bool isActive, bool isNew)
+        public int SaveOrUpdateJobBatch(List<Job> jobs, bool isActive, bool isNew)
         {
             //I wan old id should saved sooner in database
             for (int i = 0; i < jobs.Count; i++)
@@ -284,7 +284,6 @@ namespace Karvis.Core
                 }
 
                 AddComplementaryInfo(selectedJob);
-                selectedJob.AdSource = adSource;
                 selectedJob.IsActive = isActive;
 
                 _jobRepository.SaveOrUpdate(selectedJob);
