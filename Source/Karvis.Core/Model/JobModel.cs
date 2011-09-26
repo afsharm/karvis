@@ -102,6 +102,10 @@ namespace Karvis.Core
         {
             IQueryOver<Job, Job> q = CreateQuery(title, tag, adSource, isActive);
 
+            //avoiding null reference
+            if (sortOrder == null)
+                sortOrder = string.Empty;
+
             switch (sortOrder.ToLower())
             {
                 case "id":
