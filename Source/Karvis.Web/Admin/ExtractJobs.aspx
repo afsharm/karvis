@@ -16,6 +16,7 @@
         <asp:ListItem Value="istgah_com" Text="Istgah.com" />
         <asp:ListItem Value="nofaـir" Text="Nofa.ir" />
         <asp:ListItem Value="unp_ir" Text="UNP.ir" />
+        <asp:ListItem Value="banki_ir" Text="Banki.ir" />
     </asp:DropDownList>
     <br />
     <table border="0" cellpadding="0" cellspacing="0" style="direction: ltr; text-align: left">

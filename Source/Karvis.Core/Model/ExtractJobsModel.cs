@@ -87,6 +87,7 @@ namespace Karvis.Core
                 case AdSource.istgah_com:
                 case AdSource.nofaـir:
                 case AdSource.unp_ir:
+                case AdSource.banki_ir:
                     throw new ApplicationException("This site source has not been implemented yet");
 
                 case AdSource.Misc:
@@ -200,7 +201,7 @@ namespace Karvis.Core
                 processedLink = item.ChildNodes[1].Attributes["href"].Value;
                 title = item.ChildNodes[1].ChildNodes[3].InnerText;
                 string originalDate = item.ChildNodes[3].InnerText;
-                description = string.Format("{0}, original date: {1}, contact: {2}", 
+                description = string.Format("{0}, original date: {1}, contact: {2}",
                     item.ChildNodes[6].InnerText, originalDate, contact.InnerText);
                 emails = ExtractEmailsByText(description);
                 tag = ExtractTags(description);

@@ -68,6 +68,8 @@ namespace Karvis.Core
                         return "Nofa.ir";
                     case AdSource.unp_ir:
                         return "UNP.ir";
+                    case AdSource.banki_ir:
+                        return "Banki.ir";
                     default:
                         return "N/A";
                 }
