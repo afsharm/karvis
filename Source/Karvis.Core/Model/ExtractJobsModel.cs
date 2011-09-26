@@ -166,7 +166,7 @@ namespace Karvis.Core
             {
                 plainLink = item.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
                 processedLink = ProcessLink(plainLink, rootUrl);
-                title = item.ChildNodes[3].ChildNodes[0].InnerText;
+                title = ExtractTitle(item.ChildNodes[3].ChildNodes[0].InnerText);
                 description = ExtractJobDescription(item);
                 emails = ExtractEmailsByText(description);
                 tag = ExtractTags(description);
@@ -194,6 +194,10 @@ namespace Karvis.Core
             return job;
         }
 
+        private string ExtractTitle(string source)
+        {
+            return FConvert.ToPersianTotal(FConvert.ReplaceControlCharacters(source, " "));
+        }
 
         public Job ExtractJobAgahi(HtmlNode item, HtmlNode contact, HtmlNode complementary)
         {
@@ -251,6 +255,58 @@ namespace Karvis.Core
             string pattern = @"[a-zA-Z.#+_@]+";
             string source = description;
 
+            source = FConvert.ToPersianYehKeh(source);
+            source = source.ToLower();
+
+            source = source.Replace(",", " ");
+
+            //todo: remove spaces more than one
+
+            //correcting mispelling
+            source = source
+                .Replace("#c", "C#")
+                .Replace("net.", ".Net")
+                .Replace("++c", "C++")
+                .Replace("++vc", "VC++");
+
+            //persian translation
+            source = source
+                .Replace("وب", "Web")
+                .Replace("و ب", "Web")
+                .Replace("آقا", "Male")
+                .Replace("خانم", "Female")
+                .Replace("طراح قالب", "Template Designer")
+                .Replace("دلفی", "Delphi")
+                .Replace("تحلیل گر", "Analyst")
+                .Replace("تحلیل‌گر", "Analyst")
+                .Replace("طراح", "Software Designer")
+                .Replace("جاوا", "Java")
+                .Replace("بانک اطلاعاتی", "database")
+                .Replace("اوراکل", "Oracle")
+                .Replace("فلش", "Flash")
+                .Replace("جوملا", "Joomla")
+                .Replace("وردپرس", "Wordpress")
+                .Replace("ورد پرس", "WordPress")
+                .Replace("اتوران", "Autoran")
+                .Replace("اتو ران", "Autoran")
+                .Replace("مدیر پروژه", "Project Manager")
+                .Replace("پاره وقت", "Part Time")
+                .Replace("شبکه", "Network")
+                .Replace("پروژه‌ای", "Project Based")
+                .Replace("پروژه ای", "Project Based")
+                .Replace("موبایل", "mobile")
+                .Replace("آژاکس", "Ajax")
+                .Replace("ویندوز", "Windows")
+                .Replace("لینوکس", "Linux")
+                .Replace("تست", "Test")
+                .Replace("آزمون", "Test")
+                .Replace("آزمونگر", "Test")
+                .Replace("آزمون گر", "Test")
+                .Replace("میکرو کنترلر", "Microcontroller")
+                .Replace("میکروکنترلر", "Microcontroller")
+                .Replace("دات نت", ".Net")
+                .Replace("دات‌نت", ".Net");
+
             foreach (string email in ExtractEmailsByText(source).Trim().Split(','))
                 if (!string.IsNullOrEmpty(email))
                     source = source.Replace(email.Trim(), " ");
@@ -261,7 +317,7 @@ namespace Karvis.Core
             List<string> tags = new List<string>();
             MatchCollection matches = Regex.Matches(source, pattern);
             foreach (Match match in matches)
-                if (!tags.Contains(match.Value))
+                if (!string.IsNullOrEmpty(match.Value) && match.Value.Length > 1 && !tags.Contains(match.Value))
                     tags.Add(match.Value);
 
             foreach (var item in tags)
