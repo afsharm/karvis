@@ -6,6 +6,18 @@
 </asp:Content>
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
     <asp:Label runat="server" ID="lblMessage" />
+    <br />
+    <asp:DropDownList runat="server" ID="ddlSiteSource">
+        <asp:ListItem Value="rahnama_com" Text="نیازمندی‌های ‌همشهری" Selected="True" />
+        <asp:ListItem Value="agahi_ir" Text="Agahi.ir" />
+        <asp:ListItem Value="irantalent_com" Text="IranTalent.com" />
+        <asp:ListItem Value="developercenter_ir" Text="DeveloperCenter.ir" />
+        <asp:ListItem Value="itjobs_ir" Text="ITJobs.ir" />
+        <asp:ListItem Value="istgah_com" Text="Istgah.com" />
+        <asp:ListItem Value="nofaـir" Text="Nofa.ir" />
+        <asp:ListItem Value="unp_ir" Text="UNP.ir" />
+    </asp:DropDownList>
+    <br />
     <table border="0" cellpadding="0" cellspacing="0" style="direction: ltr; text-align: left">
         <tr>
             <td>
