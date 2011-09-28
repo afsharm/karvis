@@ -71,9 +71,9 @@ namespace Karvis.Web
 
             string message =
                 isActive ?
-                    message = string.Format("{0} کار از سایت راهنما ثبت دائم شد.", count)
+                    message = string.Format("{0} کار ثبت دائم شد.", count)
                 :
-                    message = string.Format("{0} کار از سایت راهنما به طور موقت ثبت شد.", count);
+                    message = string.Format("{0} کار به طور موقت ثبت شد.", count);
 
             View.ShowMessage(message);
 
@@ -98,7 +98,7 @@ namespace Karvis.Web
         void view_ViewInitialized(object sender, EventArgs e)
         {
             //extract temp jobs
-            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.rahnama_com);
+            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.All);
 
             if (jobCount > 0)
             {
@@ -108,7 +108,7 @@ namespace Karvis.Web
                 View.EnableTempSaveButton();
                 View.EnableApplyButton();
 
-                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.rahnama_com, false, string.Empty, int.MaxValue, 0);
+                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.All, false, string.Empty, int.MaxValue, 0);
                 View.ShowJobs(jobs);
                 View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobCount));
             }
