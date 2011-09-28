@@ -21,6 +21,7 @@ namespace Karvis.Core
         public virtual int FeedCount { set; get; }
         public virtual string Tag { set; get; }
         public virtual DateTime? DateAdded { set; get; }
+        public virtual DateTime? OriginalDate { set; get; }
         public virtual string Url { set; get; }
         public virtual string Emails { get; set; }
         public virtual AdSource AdSource { set; get; }
@@ -64,7 +65,7 @@ namespace Karvis.Core
                         return "Agahi.ir";
                     case AdSource.istgah_com:
                         return "Istgah.com";
-                    case AdSource.nofaـir:
+                    case AdSource.nofa_ir:
                         return "Nofa.ir";
                     case AdSource.unp_ir:
                         return "UNP.ir";

@@ -64,7 +64,7 @@
                     <asp:ListItem Value="itjobs_ir" Text="ITJobs.ir" />
                     <asp:ListItem Value="agahi_ir" Text="Agahi.ir" />
                     <asp:ListItem Value="istgah_com" Text="Istgah.com" />
-                    <asp:ListItem Value="nofaـir" Text="Nofa.ir" />
+                    <asp:ListItem Value="nofa_ir" Text="Nofa.ir" />
                     <asp:ListItem Value="unp_ir" Text="UNP.ir" />
                     <asp:ListItem Value="banki_ir" Text="Banki.ir" />
                     <asp:ListItem Value="Misc" Text="متفرقه" />

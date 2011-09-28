@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IKarvisCrawler.cs" />
+    <Compile Include="Common\KarvisCrawler.cs" />
     <Compile Include="Domain\AdSource.cs" />
     <Compile Include="Domain\SearchCriteriaDto.cs" />
     <Compile Include="Model\ExtractJobsModel.cs" />

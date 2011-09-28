@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExtractJobs.aspx.cs" Inherits="Karvis.Web.Admin.ExtractJobs"
-    MasterPageFile="~/MasterPages/MainMaster.Master" %>
+    MasterPageFile="~/MasterPages/MainMaster.Master" ValidateRequest="false" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
     Extract Jobs
@@ -14,7 +14,7 @@
         <asp:ListItem Value="developercenter_ir" Text="DeveloperCenter.ir" />
         <asp:ListItem Value="itjobs_ir" Text="ITJobs.ir" />
         <asp:ListItem Value="istgah_com" Text="Istgah.com" />
-        <asp:ListItem Value="nofaـir" Text="Nofa.ir" />
+        <asp:ListItem Value="nofa_ir" Text="Nofa.ir" />
         <asp:ListItem Value="unp_ir" Text="UNP.ir" />
         <asp:ListItem Value="banki_ir" Text="Banki.ir" />
     </asp:DropDownList>

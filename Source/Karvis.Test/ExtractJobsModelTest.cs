@@ -76,7 +76,7 @@ namespace Karvis.Test
             IExtractJobsModel extractJobsModel = new ExtractJobsModel();
 
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(answer[i], extractJobsModel.ProcessLink(raw[i], rootUrl));
+                Assert.AreEqual(answer[i], extractJobsModel.GetAbsoluteUrl(raw[i], rootUrl));
         }
 
         [Test]
@@ -101,8 +101,9 @@ namespace Karvis.Test
             };
 
             IExtractJobsModel model = new ExtractJobsModel();
+            IKarvisCrawler crawler = new KarvisCrawler();
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(expected[i], model.ExtractEmailsByText(raw[i]), i.ToString());
+                Assert.AreEqual(expected[i], crawler.ExtractEmailsByText(raw[i]), i.ToString());
         }
 
         [Test]

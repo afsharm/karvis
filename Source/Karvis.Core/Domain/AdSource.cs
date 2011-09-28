@@ -20,7 +20,7 @@ namespace Karvis.Core
         itjobs_ir = 7, //itjobs.ir
         agahi_ir = 8, //agahi.ir
         istgah_com = 9, //istgah.com
-        nofaـir = 10, //nofa.ir,
+        nofa_ir = 10, //nofa.ir,
         unp_ir = 11, // unp.ir,
         banki_ir = 12
     }
