@@ -19,20 +19,29 @@ namespace Karvis.Core
         /// <summary>
         /// Date/Time convertion
         /// </summary>
-        IDateTimeHelper dateTimeHelper;
+        IDateTimeHelper _dateTimeHelper;
 
         /// <summary>
         /// crawling web addresses
         /// </summary>
-        IKarvisCrawler crawler;
+        IKarvisCrawler _crawler;
+
+        IJobModel _jobModel;
+
+        /// <summary>
+        /// preloaded job urls that are saved in database previously. 
+        /// Loading them in first step helps to increase performance
+        /// </summary>
+        IList<string> preUrls;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public ExtractJobsModel()
+        public ExtractJobsModel(IKarvisCrawler karvisCrawler, IDateTimeHelper dateTimeHelper, IJobModel jobModel)
         {
-            dateTimeHelper = new DateTimeHelper();
-            crawler = new KarvisCrawler();
+            _dateTimeHelper = dateTimeHelper;
+            _crawler = karvisCrawler;
+            _jobModel = jobModel;
         }
 
         /// <summary>
@@ -48,6 +57,9 @@ namespace Karvis.Core
             string[] urls = GetSiteSourceUrl(siteSource);
 
             List<Job> retval = new List<Job>();
+
+            //TO PREVENT DUPLICATE URLS
+            preUrls = _jobModel.GetJobUrlsByAdSource(siteSource);
 
             foreach (string url in urls)
             {
@@ -155,7 +167,7 @@ namespace Karvis.Core
             do
             {
                 //loading content of url
-                string pageContent = crawler.GetWebText(currentUrl);
+                string pageContent = _crawler.GetWebText(currentUrl);
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(pageContent);
 
@@ -228,11 +240,17 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                jobs.Add(job);
+                if (!JobUrlExists(job.Url))
+                    jobs.Add(job);
             }
 
             //not stopper condition has been encountered
             return true;
+        }
+
+        private bool JobUrlExists(string jobUrl)
+        {
+            return preUrls.Contains(jobUrl);
         }
 
         /// <summary>
@@ -396,7 +414,7 @@ namespace Karvis.Core
                 .Replace("دات‌نت", ".Net");
 
             //remove email from tags
-            foreach (string email in crawler.ExtractEmailsByText(source).Trim().Split(','))
+            foreach (string email in _crawler.ExtractEmailsByText(source).Trim().Split(','))
                 if (!string.IsNullOrEmpty(email))
                     source = source.Replace(email.Trim(), " ");
 
@@ -464,7 +482,7 @@ namespace Karvis.Core
         public void ProcessJob(Job job)
         {
             job.Description = ProcessDescription(job.Description);
-            job.Emails = crawler.ExtractEmailsByText(job.Description);
+            job.Emails = _crawler.ExtractEmailsByText(job.Description);
             job.Tag = ExtractTags(job.Description);
             job.Title = ProcessTitle(job.Title);
         }
@@ -481,7 +499,7 @@ namespace Karvis.Core
                 absoluteUrl = item.ChildNodes[1].Attributes["href"].Value;
                 title = item.ChildNodes[1].ChildNodes[3].InnerText;
                 string originalDateString = item.ChildNodes[3].InnerText;
-                originalDate = dateTimeHelper.ConvertPersianToGregorianDate(originalDateString);
+                originalDate = _dateTimeHelper.ConvertPersianToGregorianDate(originalDateString);
 
                 description = string.Format("{0}, original date: {1}, contact: {2}",
                     item.ChildNodes[6].InnerText, originalDate, contact.InnerText);
@@ -597,7 +615,8 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                jobs.Add(job);
+                if (!JobUrlExists(job.Url))
+                    jobs.Add(job);
             }
 
             return true;
@@ -614,7 +633,7 @@ namespace Karvis.Core
                 string relativeUrl = item.ChildNodes[1].ChildNodes[1].ChildNodes[0].ChildNodes[1].Attributes[2].Value;
                 absoluteUrl = GetAbsoluteUrl("/" + relativeUrl, rootUrl);
                 string originalDate = item.ChildNodes[1].ChildNodes[3].ChildNodes[0].ChildNodes[1].InnerText;
-                DateTime originalDateGregorian = dateTimeHelper.ConvertPersianToGregorianDate(originalDate);
+                DateTime originalDateGregorian = _dateTimeHelper.ConvertPersianToGregorianDate(originalDate);
 
                 title = item.ChildNodes[1].ChildNodes[1].ChildNodes[0].ChildNodes[1].InnerText;
                 description = item.ChildNodes[5].ChildNodes[1].ChildNodes[1].ChildNodes[1].InnerText;
@@ -673,7 +692,8 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                jobs.Add(job);
+                if (!JobUrlExists(job.Url))
+                    jobs.Add(job);
             }
 
             return true;

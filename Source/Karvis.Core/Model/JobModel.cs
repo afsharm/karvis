@@ -5,6 +5,7 @@ using System.Text;
 using NHibernate;
 using NHibernate.Criterion;
 using Fardis;
+using NHibernate.Linq;
 
 namespace Karvis.Core
 {
@@ -325,6 +326,19 @@ namespace Karvis.Core
                 return res[0].Url;
             else
                 return null;
+        }
+
+        public bool ExistsJobUrl(string jobUrl)
+        {
+            var q = _jobRepository.QueryOver().Where(j => j.Url.ToLower().Trim() == jobUrl.ToLower().Trim());
+
+            return q.RowCount() > 0;
+        }
+
+        public IList<string> GetJobUrlsByAdSource(AdSource siteSource)
+        {
+            var q = _jobRepository.QueryOver().Where(j => j.AdSource == siteSource).Select(j => j.Url);
+            return q.List<string>();
         }
     }
 }

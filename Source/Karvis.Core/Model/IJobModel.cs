@@ -35,5 +35,9 @@ namespace Karvis.Core
         int FindNoneActiveCount(AdSource adSource);
 
         string GetLastJobUrl(AdSource siteSource);
+
+        bool ExistsJobUrl(string jobUrl);
+
+        IList<string> GetJobUrlsByAdSource(AdSource siteSource);
     }
 }

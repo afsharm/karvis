@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Karvis.Core;
+using Fardis;
 
 namespace Karvis.Web.Admin
 {
@@ -14,7 +15,8 @@ namespace Karvis.Web.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            presenter = new ExtractJobsPresenter(this, new ExtractJobsModel(), new JobModel());
+            presenter = new ExtractJobsPresenter(this,
+                new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel()), new JobModel());
 
             if (!IsPostBack)
             {
