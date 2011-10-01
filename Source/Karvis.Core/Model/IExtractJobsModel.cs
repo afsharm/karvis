@@ -7,20 +7,20 @@ namespace Karvis.Core
 {
     public interface IExtractJobsModel
     {
-        List<Job> ExtractJobs(AdSource siteSource, string lastUrl, DateTime? lastDate, int? countLimit);
+        List<Job> ExtractJobs(AdSource siteSource, int? limitDays, int? countLimit);
         List<Job> ExtractSingleUrlJobs(AdSource siteSource, string url, string rootUrl,
-            string stopperUrl, DateTime? stopperDate, int? stopperRecordCount);
-        bool ExtractRahnamaJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, string stopperUrl, DateTime? stopperDate, int? stopperRecordCount, bool isImageJob);
+            int? limitDays, int? stopperRecordCount);
+        bool ExtractRahnamaJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, int? limitDays, int? stopperRecordCount, bool isImageJob);
         Job ExtractRahnamaTextJob(string rootUrl, HtmlNode item);
         Job ExtractRahnamaImageJob(HtmlNode item);
         string GetAbsoluteUrl(string plainLink, string rootUrl);
 
         Job ExtractNofaJob(string rootUrl, HtmlNode item);
 
-        bool ExtractAgahiJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, string stopperUrl, DateTime? stopperDate, int? stopperRecordCount);
+        bool ExtractAgahiJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, int? limitDays, int? stopperRecordCount);
         Job ExtractAgahiJob(HtmlNode item, HtmlNode contact);
 
-        bool ExtractNofaJobs(List<Job> realJobs, HtmlDocument doc, string stopperUrl, DateTime? stopperDate, int? stopperRecordCount, string rootUrl);
+        bool ExtractNofaJobs(List<Job> realJobs, HtmlDocument doc, int? limitDays, int? stopperRecordCount, string rootUrl);
         void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc);
         string ExtractRootUrl(string url);
         string ExtractTags(string description);

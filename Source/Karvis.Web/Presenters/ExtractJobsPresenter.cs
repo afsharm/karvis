@@ -78,14 +78,14 @@ namespace Karvis.Web
             View.ShowMessage(message);
 
         }
+
         void view_ExtractJobsButtonPressed(object sender, TEventArgs<string> e)
         {
             View.DisableExtractButton();
 
             AdSource siteSource = (AdSource)Enum.Parse(typeof(AdSource), e.Data);
 
-            //todo: correct limits
-            var jobs = extractJobsModel.ExtractJobs(siteSource, null, null, null);
+            var jobs = extractJobsModel.ExtractJobs(siteSource, 14, 100);
             View.ShowMessage(string.Format("{0} تا کار استخراج شد", jobs.Count));
             if (jobs.Count > 0)
             {

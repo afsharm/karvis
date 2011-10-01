@@ -33,5 +33,7 @@ namespace Karvis.Core
         string GetFeedDescription(Job job);
 
         int FindNoneActiveCount(AdSource adSource);
+
+        string GetLastJobUrl(AdSource siteSource);
     }
 }

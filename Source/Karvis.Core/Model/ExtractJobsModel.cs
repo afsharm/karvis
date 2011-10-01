@@ -40,10 +40,9 @@ namespace Karvis.Core
         /// Extractor retrives records until reachs one of three stoppers
         /// </summary>
         /// <param name="siteSource">Advertising sources</param>
-        /// <param name="stopperUrl">a job URL that stops Extractor from retrieving more job records</param>
         /// <param name="stopperDate">Extractor does not retrive records with original date older than stopperDate</param>
         /// <param name="stopperRecordCount">Extractor extract just as specified stopper record count</param>
-        public List<Job> ExtractJobs(AdSource siteSource, string stopperUrl, DateTime? stopperDate, int? stopperRecordCount)
+        public List<Job> ExtractJobs(AdSource siteSource, int? limitDays, int? stopperRecordCount)
         {
             //url(s) of the specified advertise source
             string[] urls = GetSiteSourceUrl(siteSource);
@@ -53,7 +52,7 @@ namespace Karvis.Core
             foreach (string url in urls)
             {
                 string rootUrl = ExtractRootUrl(url);
-                var jobs = ExtractSingleUrlJobs(siteSource, url, rootUrl, stopperUrl, stopperDate, stopperRecordCount);
+                var jobs = ExtractSingleUrlJobs(siteSource, url, rootUrl, limitDays, stopperRecordCount);
 
                 retval.AddRange(jobs);
 
@@ -76,25 +75,46 @@ namespace Karvis.Core
                 case AdSource.rahnama_com:
                     return new string[] 
                         {
-                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html",
-                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35310/%D9%85%D9%87%D9%86%D8%AF%D8%B3-%D9%83%D8%A7%D9%85%D9%BE%D9%8A%D9%88%D8%AA%D8%B1.html"
+                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html",//برنامه نویس
+                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35310/%D9%85%D9%87%D9%86%D8%AF%D8%B3-%D9%83%D8%A7%D9%85%D9%BE%D9%8A%D9%88%D8%AA%D8%B1.html" //مهندس کامپیوتر
                         };
                 case AdSource.agahi_ir:
                     return new string[] 
                         { 
-                            "http://www.agahi.ir/category/14" 
+                            "http://www.agahi.ir/category/43"  //برنامه نویس
                         };
                 case AdSource.nofa_ir:
                     return new string[]
                     {
-                        "http://www.nofa.ir/JobSR-t13.aspx"
+                        "http://www.nofa.ir/JobSR-t12.aspx", //برنامه نویس سیستم
+                        "http://www.nofa.ir/JobSR-t13.aspx", //برنامه نویس تحت وب
+                        "http://www.nofa.ir/JobSR-t14.aspx", //طراح وب
+                        "http://www.nofa.ir/JobSR-t18.aspx" //تکنسین کامپیوتر
+                    };
+                case AdSource.unp_ir:
+                    return new string[]
+                    {
+                        "http://www.unp.ir/education_82.htm", //استخدام مهندس برق و کامپیوتر
+                        "http://www.unp.ir/education_83.htm", //استخدام برنامه نویس
+                        "http://www.unp.ir/education_119.htm" //کار پاره وقت - نیمه وقت
+                    };
+                case AdSource.itjobs_ir:
+                    return new string[]
+                    {
+                        "http://itjobs.ir/Search.aspx?Keyword=&JobTitle=-1&State=-1&ContractType=-1&Mode=0"
+                    };
+                case AdSource.istgah_com:
+                    return new string[]
+                    {
+                        "http://www.istgah.com/firekeys/key_19132/", //برنامه نویس PHP
+                        "http://www.istgah.com/firekeys/key_4967/", //استخدام برنامه نویس
+                        "http://www.istgah.com/firekeys/key_883/", //php
+                        "http://www.istgah.com/firekeys/key_39667/", //استخدام کامپیوتر
+                        "http://www.istgah.com/firekeys/key_264/" //برنامه نویس
                     };
 
                 case AdSource.irantalent_com:
                 case AdSource.developercenter_ir:
-                case AdSource.itjobs_ir:
-                case AdSource.istgah_com:
-                case AdSource.unp_ir:
                 case AdSource.banki_ir:
                     throw new ApplicationException("This site source has not been implemented yet");
 
@@ -113,7 +133,7 @@ namespace Karvis.Core
         /// Extract jobs from specified single url
         /// </summary>
         public List<Job> ExtractSingleUrlJobs(AdSource siteSource, string url, string rootUrl,
-            string stopperUrl, DateTime? stopperDate, int? stopperRecordCount)
+            int? limitDays, int? stopperRecordCount)
         {
             //textJobs = new HtmlNodeCollection(null);
             //imageJobs = new HtmlNodeCollection(null);
@@ -145,25 +165,25 @@ namespace Karvis.Core
                         //rahnama_com has 2 type of advertises: text and image
 
                         //text jobs
-                        canContinue = ExtractRahnamaJobs(retval, doc, rootUrl, stopperUrl,
-                            stopperDate, stopperRecordCount, false);
+                        canContinue = ExtractRahnamaJobs(retval, doc, rootUrl,
+                            limitDays, stopperRecordCount, false);
 
                         //image jobs
-                        canContinue = ExtractRahnamaJobs(retval, doc, rootUrl, stopperUrl,
-                            stopperDate, stopperRecordCount, true);
+                        canContinue = ExtractRahnamaJobs(retval, doc, rootUrl,
+                            limitDays, stopperRecordCount, true);
 
                         //repeat the process if another pages exists
                         hasPaging = HasPagingRahnama(doc, url, ref currentUrl, rootUrl);
                         break;
                     case AdSource.agahi_ir:
                         //agahi_ir jobs
-                        canContinue = ExtractAgahiJobs(retval, doc, rootUrl, stopperUrl, stopperDate, stopperRecordCount);
+                        canContinue = ExtractAgahiJobs(retval, doc, rootUrl, limitDays, stopperRecordCount);
 
                         //paging
                         hasPaging = HasPagingAgahi(doc, ref currentUrl);
                         break;
                     case AdSource.nofa_ir:
-                        canContinue = ExtractNofaJobs(retval, doc, stopperUrl, stopperDate, stopperRecordCount, rootUrl);
+                        canContinue = ExtractNofaJobs(retval, doc, limitDays, stopperRecordCount, rootUrl);
                         hasPaging = HasPagingNofa(doc, ref currentUrl);
                         break;
                 }
@@ -177,7 +197,7 @@ namespace Karvis.Core
         /// Extract rahnama_com text jobs
         /// </summary>
         public bool ExtractRahnamaJobs(List<Job> jobs, HtmlDocument doc, string rootUrl,
-            string stopperUrl, DateTime? stopperDate, int? stopperRecordCount, bool isImageJob)
+            int? limitDays, int? stopperRecordCount, bool isImageJob)
         {
             string xPath = isImageJob ? RahnamaImageJobXPath : RahnamaTextJobXPath;
 
@@ -204,11 +224,8 @@ namespace Karvis.Core
                     job = ExtractRahnamaTextJob(rootUrl, rawJob);
 
                 //stop extracting if stopperDate has reached
-                if (job.OriginalDate != null && stopperDate != null && job.OriginalDate.Value < stopperDate.Value)
-                    return false;
-
-                //stop extracting if stopperUrl has been found
-                if (stopperUrl != null && job.Url == stopperUrl)
+                if (job.OriginalDate != null && limitDays != null &&
+                    (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
                 jobs.Add(job);
@@ -562,7 +579,7 @@ namespace Karvis.Core
         /// extract jobs from nofa_ir
         /// </summary>
         public bool ExtractNofaJobs(List<Job> jobs, HtmlDocument doc,
-            string stopperUrl, DateTime? stopperDate, int? stopperRecordCount, string rootUrl)
+            int? limitDays, int? stopperRecordCount, string rootUrl)
         {
             var list = doc.DocumentNode.SelectNodes("//table[@id='Table22']");
 
@@ -576,11 +593,8 @@ namespace Karvis.Core
                 Job job = ExtractNofaJob(rootUrl, node);
 
                 //stop extracting if stopperDate has reached
-                if (job.OriginalDate != null && stopperDate != null && job.OriginalDate.Value < stopperDate.Value)
-                    return false;
-
-                //stop extracting if stopperUrl has been found
-                if (stopperUrl != null && job.Url == stopperUrl)
+                if (job.OriginalDate != null && limitDays != null &&
+                    (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
                 jobs.Add(job);
@@ -637,7 +651,7 @@ namespace Karvis.Core
         /// extract jobs from agahi_ir
         /// </summary>
         public bool ExtractAgahiJobs(List<Job> jobs, HtmlDocument doc, string rootUrl,
-            string stopperUrl, DateTime? stopperDate, int? stopperRecordCount)
+            int? limitDays, int? stopperRecordCount)
         {
             var jobsHtml = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes;
             int recordCounter = 0;
@@ -655,11 +669,8 @@ namespace Karvis.Core
                 Job job = ExtractAgahiJob(bodyNode, contactNode);
 
                 //stop extracting if stopperDate has reached
-                if (job.OriginalDate != null && stopperDate != null && job.OriginalDate.Value < stopperDate.Value)
-                    return false;
-
-                //stop extracting if stopperUrl has been found
-                if (stopperUrl != null && job.Url == stopperUrl)
+                if (job.OriginalDate != null && limitDays != null &&
+                    (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
                 jobs.Add(job);

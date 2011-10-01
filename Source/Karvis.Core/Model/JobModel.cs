@@ -314,5 +314,17 @@ namespace Karvis.Core
         {
             return FindAllCount(string.Empty, string.Empty, adSource, false);
         }
+
+        public string GetLastJobUrl(AdSource siteSource)
+        {
+            var q = _jobRepository.QueryOver().Where(j => j.AdSource == siteSource && j.IsActive).OrderBy(j => j.DateAdded).Desc;
+
+            var res = q.Take(1).List();
+
+            if (res != null && res.Count > 0)
+                return res[0].Url;
+            else
+                return null;
+        }
     }
 }
