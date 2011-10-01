@@ -67,11 +67,6 @@ namespace Karvis.Core
                 var jobs = ExtractSingleUrlJobs(siteSource, url, rootUrl, limitDays, stopperRecordCount);
 
                 retval.AddRange(jobs);
-
-                //retval.AddRange(ExtractTextJobs(siteSource, textJobs, agahiContacts, agahiComplementary, rootUrl));
-
-                //if (siteSource == AdSource.rahnama_com)
-                //    retval.AddRange(ExtractImageJobs(imageJobs, rootUrl));
             }
 
             return retval;
@@ -147,11 +142,6 @@ namespace Karvis.Core
         public List<Job> ExtractSingleUrlJobs(AdSource siteSource, string url, string rootUrl,
             int? limitDays, int? stopperRecordCount)
         {
-            //textJobs = new HtmlNodeCollection(null);
-            //imageJobs = new HtmlNodeCollection(null);
-            //agahiContactJobs = new HtmlNodeCollection(null);
-            //agahiComplementary = new HtmlNodeCollection(null);
-
             List<Job> retval = new List<Job>();
 
             //url changes over pagings
@@ -288,6 +278,7 @@ namespace Karvis.Core
             ProcessJob(job);
             return job;
         }
+
         /// <summary>
         /// extract rahnam_com text job from raw html
         /// </summary>
@@ -450,35 +441,6 @@ namespace Karvis.Core
             return retval;
         }
 
-        //public List<Job> ExtractTextJobs(AdSource siteSource, HtmlNodeCollection textJobs,
-        //    HtmlNodeCollection agahiContacts, HtmlNodeCollection agahiComplementary, string rootUrl)
-        //{
-        //    List<Job> retval = new List<Job>();
-
-        //    for (int i = 0; i < textJobs.Count; i++)
-        //    {
-        //        var item = textJobs[i];
-        //        Job job = null;
-        //        switch (siteSource)
-        //        {
-        //            case AdSource.rahnama_com:
-        //                job = ExtractRahnamaJob(rootUrl, item);
-        //                break;
-        //            case AdSource.agahi_ir:
-        //                job = ExtractAgahiJob(item, agahiContacts[i], agahiComplementary[i]);
-        //                break;
-        //        }
-
-        //        //ignoring old ads (Agahi.ir)
-        //        if (job == null)
-        //            break;
-
-        //        retval.Add(job);
-        //    }
-
-        //    return retval;
-        //}
-
         public void ProcessJob(Job job)
         {
             job.Description = ProcessDescription(job.Description);
@@ -616,10 +578,55 @@ namespace Karvis.Core
                     return false;
 
                 if (!JobUrlExists(job.Url))
+                {
+                    ExtractNofaJobComplementary(job);
                     jobs.Add(job);
+                }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Nofa jobs have their information in 2 pages. This
+        /// method extract complementary informtion.
+        /// </summary>
+        private void ExtractNofaJobComplementary(Job job)
+        {
+            string pageContent = _crawler.GetWebText(job.Url);
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(pageContent);
+
+            try
+            {
+                job.Title = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobName']")[0].InnerText;
+
+                string i1 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblDesc']")[0].InnerText;
+                string i2 = doc.DocumentNode.SelectNodes("//a[@id='BaseMasterPage1__ctl0__ctl4_lblCompanyName']")[0].InnerText;
+                string i3 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblRegDate']")[0].InnerText;
+                string i4 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbltel']")[0].InnerText;
+                string i5 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblWebSite']")[0].InnerText;
+                string i6 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobType']")[0].InnerText;
+                string i7 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbladdress']")[0].InnerText;
+                string i8 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblState']")[0].InnerText;
+                string i9 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblCity']")[0].InnerText;
+                string i10 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbledu']")[0].InnerText;
+                string i11 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbllsum']")[0].InnerText;
+                string i12 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblsex']")[0].InnerText;
+                string i13 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmarr']")[0].InnerText;
+                string i14 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmili']")[0].InnerText;
+                string i15 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblage']")[0].InnerText;
+                string i16 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblant']")[0].InnerText;
+
+                job.Description = string.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7} - {8} - {9} - {10} - {11} - {12} - {13} - {14} - {15}",
+                    i1, i2, i3, i4, i5, i6, i7, i8, i9, 10, i11, i12, i13, i14, i15, i16);
+
+                ProcessJob(job);
+            }
+            catch (Exception ex)
+            {
+                job.Description = ex.Message;
+            }
         }
 
         public Job ExtractNofaJob(string rootUrl, HtmlNode item)
