@@ -14,7 +14,7 @@ namespace Karvis.Core
     public class ExtractJobsModel : IExtractJobsModel
     {
         const string RahnamaTextJobXPath = "//div[@id='listing']";
-        const string RahnamaImageJobXPath = "//div[@class='image-container']";
+        const string RahnamaImageJobXPath = "//a[@onclick='return hs.expand(this)']";
 
         /// <summary>
         /// Date/Time convertion
@@ -290,7 +290,7 @@ namespace Karvis.Core
 
             try
             {
-                absoluteUrl = rawHtmlJob.ChildNodes[1].ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["href"].Value;
+                absoluteUrl = rawHtmlJob.Attributes["href"].Value;
                 title = "آگهی عکسی";
                 description = "<img src=\"" + absoluteUrl + "\" />";
             }
