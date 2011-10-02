@@ -83,7 +83,7 @@ namespace Karvis.Web
             View.ShowMessage(message);
 
             var loadedJobs = jobModel.FindAll(string.Empty, string.Empty, View.GetSiteSource(),
-                false, string.Empty, int.MaxValue, 0);
+                false, "Id", int.MaxValue, 0);
 
             if (loadedJobs.Count > 0)
                 View.ShowJobs(loadedJobs);
@@ -119,8 +119,8 @@ namespace Karvis.Web
                 View.EnableApplyButton();
                 View.SetState(ExtractStatus.TempLoad);
 
-                var jobs = jobModel.FindAll(string.Empty, string.Empty, View.GetSiteSource(), 
-                    false, string.Empty, int.MaxValue, 0);
+                var jobs = jobModel.FindAll(string.Empty, string.Empty, View.GetSiteSource(),
+                    false, "Id", int.MaxValue, 0);
 
                 View.ShowJobs(jobs);
                 View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobCount));
