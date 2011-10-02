@@ -23,6 +23,7 @@ namespace Karvis.Core
         //delete button in job list must show a confirmation
         //each tag in job list or job detail must convert to a link to search page
         //more items must be showed in first page of job list
+        //add barnamehnevis.org to adsources
 
         const string RahnamaTextJobXPath = "//div[@id='listing']";
         const string RahnamaImageJobXPath = "//a[@onclick='return hs.expand(this)']";
