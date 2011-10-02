@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    namespace="Karvis.Core" assembly="Karvis.Core">
+
+  <class name="IgnoredJob">
+
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+
+    <property name="Url"/>
+    <property name="AdSource"/>
+  </class>
+
+</hibernate-mapping>

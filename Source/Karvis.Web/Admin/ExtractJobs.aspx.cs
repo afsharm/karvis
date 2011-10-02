@@ -16,7 +16,8 @@ namespace Karvis.Web.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             presenter = new ExtractJobsPresenter(this,
-                new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel()), new JobModel());
+                new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(),
+                    new IgnoredJobModel()), new JobModel(), new IgnoredJobModel());
 
             if (!IsPostBack)
             {
@@ -101,6 +102,20 @@ namespace Karvis.Web.Admin
             return retval;
         }
 
+        public List<string> ReadIgnoredJobs()
+        {
+            List<string> retval = new List<string>();
+
+            foreach (RepeaterItem item in rptPreJob.Items)
+            {
+                CheckBox chkApply = item.FindControl("chkApply") as CheckBox;
+                if (!chkApply.Checked)
+                    retval.Add((item.FindControl("txtUrl") as TextBox).Text);
+            }
+
+            return retval;
+        }
+
         public event EventHandler ViewInitialized;
 
         public void ShowMessage(string message)
@@ -148,10 +163,16 @@ namespace Karvis.Web.Admin
         }
 
 
-        public void CleaJobs()
+        public void ClearJobs()
         {
             rptPreJob.DataSource = null;
             rptPreJob.DataBind();
+        }
+
+
+        public AdSource GetSiteSource()
+        {
+            return (AdSource)Enum.Parse(typeof(AdSource), ddlSiteSource.SelectedValue);
         }
     }
 }

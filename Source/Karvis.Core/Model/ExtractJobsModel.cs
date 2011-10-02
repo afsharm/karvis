@@ -38,21 +38,25 @@ namespace Karvis.Core
         IKarvisCrawler _crawler;
 
         IJobModel _jobModel;
+        IIgnoredJobModel _ignoredJobModel;
 
         /// <summary>
         /// preloaded job urls that are saved in database previously. 
         /// Loading them in first step helps to increase performance
         /// </summary>
         IList<string> preUrls;
+        IList<string> preIgnoredUrlJobs;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public ExtractJobsModel(IKarvisCrawler karvisCrawler, IDateTimeHelper dateTimeHelper, IJobModel jobModel)
+        public ExtractJobsModel(IKarvisCrawler karvisCrawler, IDateTimeHelper dateTimeHelper,
+            IJobModel jobModel, IIgnoredJobModel ignoredJobModel)
         {
             _dateTimeHelper = dateTimeHelper;
             _crawler = karvisCrawler;
             _jobModel = jobModel;
+            _ignoredJobModel = ignoredJobModel;
         }
 
         /// <summary>
@@ -71,6 +75,7 @@ namespace Karvis.Core
 
             //TO PREVENT DUPLICATE URLS
             preUrls = _jobModel.GetJobUrlsByAdSource(siteSource);
+            preIgnoredUrlJobs = _ignoredJobModel.GetIgnoredJobs(siteSource);
 
             foreach (string url in urls)
             {
@@ -251,7 +256,7 @@ namespace Karvis.Core
 
         private bool JobUrlExists(string jobUrl)
         {
-            return preUrls.Contains(jobUrl);
+            return preUrls.Contains(jobUrl) || preIgnoredUrlJobs.Contains(jobUrl);
         }
 
         /// <summary>

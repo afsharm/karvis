@@ -68,7 +68,10 @@
     <Compile Include="Common\IKarvisCrawler.cs" />
     <Compile Include="Common\KarvisCrawler.cs" />
     <Compile Include="Domain\AdSource.cs" />
+    <Compile Include="Domain\IgnoredJob.cs" />
     <Compile Include="Domain\SearchCriteriaDto.cs" />
+    <Compile Include="Model\IgnoredJobModel.cs" />
+    <Compile Include="Model\IIgnoredJobModel.cs" />
     <Compile Include="Model\ExtractJobsModel.cs" />
     <Compile Include="Model\IExtractJobsModel.cs" />
     <Compile Include="IoC\IDependencyResolver.cs">
@@ -105,6 +108,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Domain\Job.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\IgnoredJob.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

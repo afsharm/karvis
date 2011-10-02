@@ -11,17 +11,20 @@ namespace Karvis.Web
     {
         private readonly IExtractJobsModel extractJobsModel;
         private readonly IJobModel jobModel;
+        private readonly IIgnoredJobModel ignoredJobModel;
 
         public ExtractJobsPresenter(IExtractJobsView view)
-            : this(view, IoC.Resolve<IExtractJobsModel>(), IoC.Resolve<IJobModel>())
+            : this(view, IoC.Resolve<IExtractJobsModel>(), IoC.Resolve<IJobModel>(), IoC.Resolve<IIgnoredJobModel>())
         {
         }
 
-        public ExtractJobsPresenter(IExtractJobsView view, IExtractJobsModel extractJobsModel, IJobModel jobModel)
+        public ExtractJobsPresenter(IExtractJobsView view, IExtractJobsModel extractJobsModel, 
+            IJobModel jobModel, IIgnoredJobModel ignoredJobModel)
             : base(view)
         {
             this.extractJobsModel = extractJobsModel;
             this.jobModel = jobModel;
+            this.ignoredJobModel = ignoredJobModel;
 
             view.ExtractJobsButtonPressed += view_ExtractJobsButtonPressed;
             view.ApplyJobsButtonPressed += view_ApplyJobsButtonPressed;
@@ -41,12 +44,12 @@ namespace Karvis.Web
             View.DisableTempSaveButton();
 
             SaveJobs(true);
-            View.CleaJobs();
+            View.ClearJobs();
         }
 
         void SaveJobs(bool isActive)
         {
-            List<Job> jobs = View.ReadJobs();
+            List<Job> jobs = View.ReadJobs();            
 
             //is saved beforely in database or not
             bool isNew = true;
@@ -68,6 +71,9 @@ namespace Karvis.Web
             }
 
             int count = jobModel.SaveOrUpdateJobBatch(jobs, isActive, isNew);
+            List<string> ignoreJobUrls = View.ReadIgnoredJobs();
+            AdSource siteSource = View.GetSiteSource();
+            ignoredJobModel.AddBatchIgnoreJobUrls(siteSource, ignoreJobUrls);
 
             string message =
                 isActive ?

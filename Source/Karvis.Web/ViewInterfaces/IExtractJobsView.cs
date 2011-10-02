@@ -19,7 +19,9 @@ namespace Karvis.Web
         void DisableTempSaveButton();
         void EnableTempSaveButton();
         List<Job> ReadJobs();
+        void ClearJobs();
+        List<string> ReadIgnoredJobs();
 
-        void CleaJobs();
+        AdSource GetSiteSource();
     }
 }
