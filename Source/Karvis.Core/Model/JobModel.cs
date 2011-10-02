@@ -267,15 +267,15 @@ namespace Karvis.Core
         }
 
 
-        public int SaveOrUpdateJobBatch(List<Job> jobs, bool isActive, bool isNew)
+        public int SaveOrUpdateJobBatch(List<Job> jobs, bool isActive, ExtractStatus extractStatus)
         {
             //I wan old id should saved sooner in database
             for (int i = 0; i < jobs.Count; i++)
             {
                 Job job = jobs[i];
-                Job selectedJob = isNew ? job : _jobRepository.Get(job.PreSavedJobId);
+                Job selectedJob = extractStatus == ExtractStatus.New ? job : _jobRepository.Get(job.PreSavedJobId);
 
-                if (!isNew)
+                if (extractStatus != ExtractStatus.New)
                 {
                     selectedJob.Description = job.Description;
                     selectedJob.Emails = job.Emails;
@@ -340,5 +340,6 @@ namespace Karvis.Core
             var q = _jobRepository.QueryOver().Where(j => j.AdSource == siteSource).Select(j => j.Url);
             return q.List<string>();
         }
+
     }
 }

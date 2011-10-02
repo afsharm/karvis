@@ -68,6 +68,7 @@
     <Compile Include="Common\IKarvisCrawler.cs" />
     <Compile Include="Common\KarvisCrawler.cs" />
     <Compile Include="Domain\AdSource.cs" />
+    <Compile Include="Domain\ExtractStatus.cs" />
     <Compile Include="Domain\IgnoredJob.cs" />
     <Compile Include="Domain\SearchCriteriaDto.cs" />
     <Compile Include="Model\IgnoredJobModel.cs" />

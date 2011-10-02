@@ -23,5 +23,9 @@ namespace Karvis.Web
         List<string> ReadIgnoredJobs();
 
         AdSource GetSiteSource();
+
+        void SetState(ExtractStatus extractStatus);
+
+        ExtractStatus GetState();
     }
 }

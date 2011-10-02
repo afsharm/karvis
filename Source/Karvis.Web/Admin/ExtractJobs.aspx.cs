@@ -174,5 +174,17 @@ namespace Karvis.Web.Admin
         {
             return (AdSource)Enum.Parse(typeof(AdSource), ddlSiteSource.SelectedValue);
         }
+
+
+        public void SetState(ExtractStatus extractStatus)
+        {
+            hdnExtractStatus.Value = extractStatus.ToString();
+        }
+
+
+        public ExtractStatus GetState()
+        {
+            return (ExtractStatus)Enum.Parse(typeof(ExtractStatus), hdnExtractStatus.Value);
+        }
     }
 }

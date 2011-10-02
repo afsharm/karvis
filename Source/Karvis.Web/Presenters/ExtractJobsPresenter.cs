@@ -12,13 +12,15 @@ namespace Karvis.Web
         private readonly IExtractJobsModel extractJobsModel;
         private readonly IJobModel jobModel;
         private readonly IIgnoredJobModel ignoredJobModel;
+        const int dayLimit = 14;
+        const int recordLimit = 100;
 
         public ExtractJobsPresenter(IExtractJobsView view)
             : this(view, IoC.Resolve<IExtractJobsModel>(), IoC.Resolve<IJobModel>(), IoC.Resolve<IIgnoredJobModel>())
         {
         }
 
-        public ExtractJobsPresenter(IExtractJobsView view, IExtractJobsModel extractJobsModel, 
+        public ExtractJobsPresenter(IExtractJobsView view, IExtractJobsModel extractJobsModel,
             IJobModel jobModel, IIgnoredJobModel ignoredJobModel)
             : base(view)
         {
@@ -49,31 +51,27 @@ namespace Karvis.Web
 
         void SaveJobs(bool isActive)
         {
-            List<Job> jobs = View.ReadJobs();            
+            List<Job> jobs = View.ReadJobs();
 
-            //is saved beforely in database or not
-            bool isNew = true;
-            foreach (var job in jobs)
-                if (job.PreSavedJobId > 0)
-                {
-                    isNew = false;
-                    break;
-                }
+            ExtractStatus extractStatus = View.GetState();
 
             //validation
             foreach (var job in jobs)
             {
-                if (isNew && job.PreSavedJobId > 0)
+                if (extractStatus == ExtractStatus.New && job.PreSavedJobId > 0)
                     throw new ApplicationException("unexpected error is SaveJobs (isNew)");
 
-                if (!isNew && job.PreSavedJobId < 1)
+                if (extractStatus != ExtractStatus.New && job.PreSavedJobId < 1)
                     throw new ApplicationException("unexpected error is SaveJobs (!isNew)");
             }
 
-            int count = jobModel.SaveOrUpdateJobBatch(jobs, isActive, isNew);
+            int count = jobModel.SaveOrUpdateJobBatch(jobs, isActive, extractStatus);
             List<string> ignoreJobUrls = View.ReadIgnoredJobs();
             AdSource siteSource = View.GetSiteSource();
             ignoredJobModel.AddBatchIgnoreJobUrls(siteSource, ignoreJobUrls);
+
+            if (!isActive)
+                View.SetState(ExtractStatus.TempLoad);
 
             string message =
                 isActive ?
@@ -81,8 +79,14 @@ namespace Karvis.Web
                 :
                     message = string.Format("{0} کار به طور موقت ثبت شد.", count);
 
+
             View.ShowMessage(message);
 
+            var loadedJobs = jobModel.FindAll(string.Empty, string.Empty, View.GetSiteSource(),
+                false, string.Empty, int.MaxValue, 0);
+
+            if (loadedJobs.Count > 0)
+                View.ShowJobs(loadedJobs);
         }
 
         void view_ExtractJobsButtonPressed(object sender, TEventArgs<string> e)
@@ -91,7 +95,7 @@ namespace Karvis.Web
 
             AdSource siteSource = (AdSource)Enum.Parse(typeof(AdSource), e.Data);
 
-            var jobs = extractJobsModel.ExtractJobs(siteSource, 14, 100);
+            var jobs = extractJobsModel.ExtractJobs(siteSource, dayLimit, recordLimit);
             View.ShowMessage(string.Format("{0} تا کار استخراج شد", jobs.Count));
             if (jobs.Count > 0)
             {
@@ -104,7 +108,7 @@ namespace Karvis.Web
         void view_ViewInitialized(object sender, EventArgs e)
         {
             //extract temp jobs
-            int jobCount = jobModel.FindNoneActiveCount(adSource: AdSource.All);
+            int jobCount = jobModel.FindNoneActiveCount(View.GetSiteSource());
 
             if (jobCount > 0)
             {
@@ -113,14 +117,19 @@ namespace Karvis.Web
                 View.DisableExtractButton();
                 View.EnableTempSaveButton();
                 View.EnableApplyButton();
+                View.SetState(ExtractStatus.TempLoad);
 
-                var jobs = jobModel.FindAll(string.Empty, string.Empty, AdSource.All, false, string.Empty, int.MaxValue, 0);
+                var jobs = jobModel.FindAll(string.Empty, string.Empty, View.GetSiteSource(), 
+                    false, string.Empty, int.MaxValue, 0);
+
                 View.ShowJobs(jobs);
                 View.ShowMessage(string.Format("{0} کار موقتی وجود دارد", jobCount));
             }
             else
             {
                 //therer are not temp jobs saved 
+
+                View.SetState(ExtractStatus.New);
 
                 View.DisableTempSaveButton();
                 View.DisableApplyButton();
