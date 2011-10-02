@@ -13,6 +13,17 @@ namespace Karvis.Core
 {
     public class ExtractJobsModel : IExtractJobsModel
     {
+        //todo:
+        //save per item
+        //track ignore jobs to not appear again
+        //extract tag must be extended
+        //extract tag must consider title too
+        //ProcessJob() to be accessible in other places
+        //remove fixed words like "mohem nist" from Nofa.ir
+        //delete button in job list must show a confirmation
+        //each tag in job list or job detail must convert to a link to search page
+        //more items must be showed in first page of job list
+
         const string RahnamaTextJobXPath = "//div[@id='listing']";
         const string RahnamaImageJobXPath = "//a[@onclick='return hs.expand(this)']";
 
