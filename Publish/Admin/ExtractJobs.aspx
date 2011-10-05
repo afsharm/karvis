@@ -7,7 +7,8 @@
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="MainHolder">
     <asp:Label runat="server" ID="lblMessage" />
     <br />
-    <asp:DropDownList runat="server" ID="ddlSiteSource">
+    <asp:DropDownList runat="server" ID="ddlSiteSource" OnSelectedIndexChanged="ddlSiteSource_SelectedIndexChanged"
+        AutoPostBack="true">
         <asp:ListItem Value="rahnama_com" Text="نیازمندی‌های ‌همشهری" Selected="True" />
         <asp:ListItem Value="agahi_ir" Text="Agahi.ir" />
         <asp:ListItem Value="irantalent_com" Text="IranTalent.com" />
@@ -17,6 +18,8 @@
         <asp:ListItem Value="nofa_ir" Text="Nofa.ir" />
         <asp:ListItem Value="unp_ir" Text="UNP.ir" />
         <asp:ListItem Value="banki_ir" Text="Banki.ir" />
+        <asp:ListItem Value="estekhtam_com" Text="Estekhtam.com" />
+        <asp:ListItem Value="barnamenevis_org" Text="Barnamenevis.org" />
     </asp:DropDownList>
     <br />
     <table border="0" cellpadding="0" cellspacing="0" style="direction: ltr; text-align: left">
