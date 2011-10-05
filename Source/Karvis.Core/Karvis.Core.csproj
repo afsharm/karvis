@@ -71,6 +71,10 @@
     <Compile Include="Domain\ExtractStatus.cs" />
     <Compile Include="Domain\IgnoredJob.cs" />
     <Compile Include="Domain\SearchCriteriaDto.cs" />
+    <Compile Include="Feed\FeedExtractor.cs" />
+    <Compile Include="Feed\IFeedExtractor.cs" />
+    <Compile Include="Model\ExtractorHelper.cs" />
+    <Compile Include="Model\IExtractorHelper.cs" />
     <Compile Include="Model\IgnoredJobModel.cs" />
     <Compile Include="Model\IIgnoredJobModel.cs" />
     <Compile Include="Model\ExtractJobsModel.cs" />

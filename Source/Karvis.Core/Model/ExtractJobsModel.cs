@@ -38,26 +38,17 @@ namespace Karvis.Core
         /// </summary>
         IKarvisCrawler _crawler;
 
-        IJobModel _jobModel;
-        IIgnoredJobModel _ignoredJobModel;
-
-        /// <summary>
-        /// preloaded job urls that are saved in database previously. 
-        /// Loading them in first step helps to increase performance
-        /// </summary>
-        IList<string> preUrls;
-        IList<string> preIgnoredUrlJobs;
+        IExtractorHelper _extractorHelper;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ExtractJobsModel(IKarvisCrawler karvisCrawler, IDateTimeHelper dateTimeHelper,
-            IJobModel jobModel, IIgnoredJobModel ignoredJobModel)
+            IExtractorHelper extractorHelper)
         {
             _dateTimeHelper = dateTimeHelper;
             _crawler = karvisCrawler;
-            _jobModel = jobModel;
-            _ignoredJobModel = ignoredJobModel;
+            _extractorHelper = extractorHelper;
         }
 
         /// <summary>
@@ -70,87 +61,21 @@ namespace Karvis.Core
         public List<Job> ExtractJobs(AdSource siteSource, int? limitDays, int? stopperRecordCount)
         {
             //url(s) of the specified advertise source
-            string[] urls = GetSiteSourceUrl(siteSource);
+            string[] urls = _extractorHelper.GetSiteSourceUrl(siteSource);
 
             List<Job> retval = new List<Job>();
 
-            //TO PREVENT DUPLICATE URLS
-            preUrls = _jobModel.GetJobUrlsByAdSource(siteSource);
-            preIgnoredUrlJobs = _ignoredJobModel.GetIgnoredJobs(siteSource);
+            _extractorHelper.GetReady(siteSource);
 
             foreach (string url in urls)
             {
-                string rootUrl = ExtractRootUrl(url);
+                string rootUrl = _extractorHelper.ExtractRootUrl(url);
                 var jobs = ExtractSingleUrlJobs(siteSource, url, rootUrl, limitDays, stopperRecordCount);
 
                 retval.AddRange(jobs);
             }
 
             return retval;
-        }
-
-        /// <summary>
-        /// Gets urls that are used for given advertise source, a typical ad source may have more than one url.
-        /// </summary>
-        public string[] GetSiteSourceUrl(AdSource siteSource)
-        {
-            switch (siteSource)
-            {
-                case AdSource.rahnama_com:
-                    return new string[] 
-                        {
-                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35179/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D9%8A%D8%B3.html",//برنامه نویس
-                            "http://www.rahnama.com/component/mtree/%DA%AF%D8%B1%D9%88%D9%87/35310/%D9%85%D9%87%D9%86%D8%AF%D8%B3-%D9%83%D8%A7%D9%85%D9%BE%D9%8A%D9%88%D8%AA%D8%B1.html" //مهندس کامپیوتر
-                        };
-                case AdSource.agahi_ir:
-                    return new string[] 
-                        { 
-                            "http://www.agahi.ir/category/43"  //برنامه نویس
-                        };
-                case AdSource.nofa_ir:
-                    return new string[]
-                    {
-                        "http://www.nofa.ir/JobSR-t12.aspx", //برنامه نویس سیستم
-                        "http://www.nofa.ir/JobSR-t13.aspx", //برنامه نویس تحت وب
-                        "http://www.nofa.ir/JobSR-t14.aspx", //طراح وب
-                        "http://www.nofa.ir/JobSR-t18.aspx" //تکنسین کامپیوتر
-                    };
-                case AdSource.unp_ir:
-                    return new string[]
-                    {
-                        "http://www.unp.ir/education_82.htm", //استخدام مهندس برق و کامپیوتر
-                        "http://www.unp.ir/education_83.htm", //استخدام برنامه نویس
-                        "http://www.unp.ir/education_119.htm" //کار پاره وقت - نیمه وقت
-                    };
-                case AdSource.itjobs_ir:
-                    return new string[]
-                    {
-                        "http://itjobs.ir/Search.aspx?Keyword=&JobTitle=-1&State=-1&ContractType=-1&Mode=0"
-                    };
-                case AdSource.istgah_com:
-                    return new string[]
-                    {
-                        "http://www.istgah.com/firekeys/key_19132/", //برنامه نویس PHP
-                        "http://www.istgah.com/firekeys/key_4967/", //استخدام برنامه نویس
-                        "http://www.istgah.com/firekeys/key_883/", //php
-                        "http://www.istgah.com/firekeys/key_39667/", //استخدام کامپیوتر
-                        "http://www.istgah.com/firekeys/key_264/" //برنامه نویس
-                    };
-
-                case AdSource.irantalent_com:
-                case AdSource.developercenter_ir:
-                case AdSource.banki_ir:
-                    throw new ApplicationException("This site source has not been implemented yet");
-
-                case AdSource.Misc:
-                case AdSource.All:
-                case AdSource.karvis_ir:
-                case AdSource.Email:
-                    throw new ApplicationException("This site source can not be extrcted");
-
-                default:
-                    throw new ArgumentException("Unknown site source");
-            }
         }
 
         /// <summary>
@@ -247,17 +172,12 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                if (!JobUrlExists(job.Url))
+                if (!_extractorHelper.JobUrlExists(job.Url))
                     jobs.Add(job);
             }
 
             //not stopper condition has been encountered
             return true;
-        }
-
-        private bool JobUrlExists(string jobUrl)
-        {
-            return preUrls.Contains(jobUrl) || preIgnoredUrlJobs.Contains(jobUrl);
         }
 
         /// <summary>
@@ -272,7 +192,7 @@ namespace Karvis.Core
             try
             {
                 string relativeUrl = rawHtmlJob.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
-                absoluteUrl = GetAbsoluteUrl(relativeUrl, rootUrl);
+                absoluteUrl = _extractorHelper.GetAbsoluteUrl(relativeUrl, rootUrl);
                 title = rawHtmlJob.ChildNodes[3].ChildNodes[0].InnerText;
                 description = rawHtmlJob.ChildNodes[4].InnerHtml;
             }
@@ -292,7 +212,7 @@ namespace Karvis.Core
                 AdSource = AdSource.rahnama_com
             };
 
-            ProcessJob(job);
+            _extractorHelper.ProcessJob(job);
             return job;
         }
 
@@ -327,143 +247,8 @@ namespace Karvis.Core
                 AdSource = AdSource.rahnama_com
             };
 
-            ProcessJob(job);
+            _extractorHelper.ProcessJob(job);
             return job;
-        }
-
-        /// <summary>
-        /// Process title of a job 
-        /// </summary>
-        public string ProcessTitle(string source)
-        {
-            return FConvert.ToPersianTotal(FConvert.ReplaceControlCharacters(source, " "));
-        }
-
-        /// <summary>
-        /// get absolute url from given relative url and given root url
-        /// </summary>
-        public string GetAbsoluteUrl(string relativeUrl, string rootUrl)
-        {
-            return string.Format("{0}{1}", rootUrl, relativeUrl);
-        }
-
-        /// <summary>
-        /// process description text
-        /// </summary>
-        public string ProcessDescription(string plainDescription)
-        {
-            return
-                FConvert.ToPersianYehKeh(FConvert.ReplaceControlCharacters(
-                plainDescription
-                .Replace("<br>", " ")
-                .Replace("</br>", " ")
-                .Replace("<span>", " ")
-                .Replace("</span>", " "), " "));
-        }
-
-        /// <summary>
-        /// extract tags from given text
-        /// </summary>
-        public string ExtractTags(string text)
-        {
-            string retval = string.Empty;
-            string tagPattern = @"[a-zA-Z.#+_@]+";
-            string source = text;
-
-            source = FConvert.ToPersianYehKeh(source);
-            source = source.ToLower();
-            source = source.Replace(",", " ");
-
-            //todo: remove spaces more than one
-
-            //correcting mispelling
-            source = source
-                .Replace("#c", "C#")
-                .Replace("net.", ".Net")
-                .Replace("++c", "C++")
-                .Replace("++vc", "VC++");
-
-            //persian translation
-            source = source
-                .Replace("وب", "Web")
-                .Replace("و ب", "Web")
-                .Replace("آقا", "Male")
-                .Replace("خانم", "Female")
-                .Replace("طراح قالب", "Template Designer")
-                .Replace("دلفی", "Delphi")
-                .Replace("تحلیل گر", "Analyst")
-                .Replace("تحلیل‌گر", "Analyst")
-                .Replace("طراح", "Software Designer")
-                .Replace("جاوا", "Java")
-                .Replace("بانک اطلاعاتی", "database")
-                .Replace("اوراکل", "Oracle")
-                .Replace("فلش", "Flash")
-                .Replace("جوملا", "Joomla")
-                .Replace("وردپرس", "Wordpress")
-                .Replace("ورد پرس", "WordPress")
-                .Replace("اتوران", "Autoran")
-                .Replace("اتو ران", "Autoran")
-                .Replace("مدیر پروژه", "Project Manager")
-                .Replace("پاره وقت", "Part Time")
-                .Replace("شبکه", "Network")
-                .Replace("پروژه‌ای", "Project Based")
-                .Replace("پروژه ای", "Project Based")
-                .Replace("موبایل", "mobile")
-                .Replace("آژاکس", "Ajax")
-                .Replace("ویندوز", "Windows")
-                .Replace("لینوکس", "Linux")
-                .Replace("تست", "Test")
-                .Replace("آزمون", "Test")
-                .Replace("آزمونگر", "Test")
-                .Replace("آزمون گر", "Test")
-                .Replace("میکرو کنترلر", "Microcontroller")
-                .Replace("میکروکنترلر", "Microcontroller")
-                .Replace("دات نت", ".Net")
-                .Replace("دات‌نت", ".Net");
-
-            //remove email from tags
-            foreach (string email in _crawler.ExtractEmailsByText(source).Trim().Split(','))
-                if (!string.IsNullOrEmpty(email))
-                    source = source.Replace(email.Trim(), " ");
-
-            if (string.IsNullOrEmpty(source.Trim()))
-                return retval;
-
-            //find tags with regular expressions
-            List<string> tags = new List<string>();
-            MatchCollection matches = Regex.Matches(source, tagPattern);
-            foreach (Match match in matches)
-            {
-                string rawTag = match.Value;
-
-                //ignore empty results
-                if (string.IsNullOrEmpty(rawTag))
-                    continue;
-
-                //ignore 1 length tags
-                if (rawTag.Length < 2)
-                    continue;
-
-                //ignore duplicate tags
-                if (tags.Contains(rawTag))
-                    continue;
-
-                tags.Add(rawTag);
-            }
-
-            //concatening
-            foreach (var item in tags)
-                retval += item + ", ";
-
-            return retval;
-        }
-
-        public void ProcessJob(Job job)
-        {
-            job.Description = ProcessDescription(job.Description);
-            job.Emails = _crawler.ExtractEmailsByText(job.Description);
-            job.Tag = ExtractTags(job.Description);
-            job.Title = ProcessTitle(job.Title);
         }
 
         public Job ExtractAgahiJob(HtmlNode item, HtmlNode contact)
@@ -500,19 +285,8 @@ namespace Karvis.Core
                 AdSource = AdSource.agahi_ir
             };
 
-            ProcessJob(job);
+            _extractorHelper.ProcessJob(job);
             return job;
-        }
-
-        public string ExtractRootUrl(string url)
-        {
-            Regex regex = new Regex(@"http([s]*)://[\w.]*");
-            MatchCollection matches = regex.Matches(url);
-
-            if (matches.Count > 0)
-                return matches[0].Value;
-            else
-                return null;
         }
 
         public bool HasPagingNofa(HtmlDocument doc, ref string url)
@@ -534,7 +308,7 @@ namespace Karvis.Core
 
             //extracting url of next page
             if (hasPaging)
-                nextPageUrl = GetAbsoluteUrl(paging[0].Attributes["href"].Value, rootUrl);
+                nextPageUrl = _extractorHelper.GetAbsoluteUrl(paging[0].Attributes["href"].Value, rootUrl);
 
             return hasPaging;
         }
@@ -594,7 +368,7 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                if (!JobUrlExists(job.Url))
+                if (!_extractorHelper.JobUrlExists(job.Url))
                 {
                     ExtractNofaJobComplementary(job);
                     jobs.Add(job);
@@ -638,7 +412,7 @@ namespace Karvis.Core
                 job.Description = string.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7} - {8} - {9} - {10} - {11} - {12} - {13} - {14} - {15}",
                     i1, i2, i3, i4, i5, i6, i7, i8, i9, 10, i11, i12, i13, i14, i15, i16);
 
-                ProcessJob(job);
+                _extractorHelper.ProcessJob(job);
             }
             catch (Exception ex)
             {
@@ -655,7 +429,7 @@ namespace Karvis.Core
             try
             {
                 string relativeUrl = item.ChildNodes[1].ChildNodes[1].ChildNodes[0].ChildNodes[1].Attributes[2].Value;
-                absoluteUrl = GetAbsoluteUrl("/" + relativeUrl, rootUrl);
+                absoluteUrl = _extractorHelper.GetAbsoluteUrl("/" + relativeUrl, rootUrl);
                 string originalDate = item.ChildNodes[1].ChildNodes[3].ChildNodes[0].ChildNodes[1].InnerText;
                 DateTime originalDateGregorian = _dateTimeHelper.ConvertPersianToGregorianDate(originalDate);
 
@@ -679,15 +453,8 @@ namespace Karvis.Core
                 AdSource = AdSource.nofa_ir
             };
 
-            ProcessJob(job);
+            _extractorHelper.ProcessJob(job);
             return job;
-        }
-
-        public void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc)
-        {
-            var res = doc.DocumentNode.SelectNodes("//div[@id='listing']");
-            foreach (var item in res)
-                textJobs.Add(item);
         }
 
         /// <summary>
@@ -716,7 +483,7 @@ namespace Karvis.Core
                     (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
                     return false;
 
-                if (!JobUrlExists(job.Url))
+                if (!_extractorHelper.JobUrlExists(job.Url))
                     jobs.Add(job);
             }
 

@@ -71,6 +71,10 @@ namespace Karvis.Core
                         return "UNP.ir";
                     case AdSource.banki_ir:
                         return "Banki.ir";
+                    case AdSource.estekhtam_com:
+                        return "Estekhtam.com";
+                    case AdSource.barnamenevis_org:
+                        return "barnamenevis.org";
                     default:
                         return "N/A";
                 }

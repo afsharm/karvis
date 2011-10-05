@@ -13,18 +13,11 @@ namespace Karvis.Core
         bool ExtractRahnamaJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, int? limitDays, int? stopperRecordCount, bool isImageJob);
         Job ExtractRahnamaTextJob(string rootUrl, HtmlNode item);
         Job ExtractRahnamaImageJob(HtmlNode item);
-        string GetAbsoluteUrl(string plainLink, string rootUrl);
-
-        Job ExtractNofaJob(string rootUrl, HtmlNode item);
 
         bool ExtractAgahiJobs(List<Job> realJobs, HtmlDocument doc, string rootUrl, int? limitDays, int? stopperRecordCount);
         Job ExtractAgahiJob(HtmlNode item, HtmlNode contact);
 
         bool ExtractNofaJobs(List<Job> realJobs, HtmlDocument doc, int? limitDays, int? stopperRecordCount, string rootUrl);
-        void ExtractRawTextJobs(HtmlNodeCollection textJobs, HtmlDocument doc);
-        string ExtractRootUrl(string url);
-        string ExtractTags(string description);
-        //List<Job> ExtractTextJobs(AdSource siteSource, HtmlNodeCollection textJobs, HtmlNodeCollection agahiContacts, HtmlNodeCollection agahiComplementary, string rootUrl);
-        string ProcessDescription(string plainDescription);
+        Job ExtractNofaJob(string rootUrl, HtmlNode item);
     }
 }

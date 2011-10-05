@@ -31,11 +31,15 @@ namespace Karvis.Test
                 "http://www.epay.ir",
                 "https://modern.enbank.net" };
 
-            IExtractJobsModel extractJobsModel = new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), 
-                new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
 
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(expected[i], extractJobsModel.ExtractRootUrl(raw[i]), i.ToString());
+                Assert.AreEqual(expected[i], extractorHelper.ExtractRootUrl(raw[i]), i.ToString());
         }
 
         [Test]
@@ -50,11 +54,16 @@ namespace Karvis.Test
                 ", استخدام فوری , در یک شرکت معتبر , 4 نفر برنامه نویس , SQL Server-ASP.NET , با تسلط کامل #C , info@behsazan.net"
             };
 
-            IExtractJobsModel extractJobsModel = new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
 
             Regex regex = new Regex("<span>|<br>|</span>|</br>");
             foreach (var item in raw)
-                Assert.AreEqual(0, regex.Matches(extractJobsModel.ProcessDescription(item)).Count, string.Format("problem in: {0}", item));
+                Assert.AreEqual(0, regex.Matches(extractorHelper.ProcessDescription(item)).Count, string.Format("problem in: {0}", item));
         }
 
         [Test]
@@ -75,10 +84,15 @@ namespace Karvis.Test
                 "http://www.rahnama.com/123/456"
             };
 
-            IExtractJobsModel extractJobsModel = new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
 
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(answer[i], extractJobsModel.GetAbsoluteUrl(raw[i], rootUrl));
+                Assert.AreEqual(answer[i], extractorHelper.GetAbsoluteUrl(raw[i], rootUrl));
         }
 
         [Test]
@@ -102,7 +116,13 @@ namespace Karvis.Test
                 "abc@zdef.co, "//"abc@zdef.co.uk, "
             };
 
-            IExtractJobsModel model = new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
+
             IKarvisCrawler crawler = new KarvisCrawler();
             for (int i = 0; i < testCount; i++)
                 Assert.AreEqual(expected[i], crawler.ExtractEmailsByText(raw[i]), i.ToString());
@@ -147,9 +167,15 @@ namespace Karvis.Test
                 "C#, .NET, ASP.NET, SQL, WCF, "
             };
 
-            IExtractJobsModel model = new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
+
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(expected[i], model.ExtractTags(raw[i]), i.ToString());
+                Assert.AreEqual(expected[i], extractorHelper.ExtractTags(raw[i]), i.ToString());
         }
 
     }

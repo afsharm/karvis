@@ -22,6 +22,8 @@ namespace Karvis.Core
         istgah_com = 9, //istgah.com
         nofa_ir = 10, //nofa.ir,
         unp_ir = 11, // unp.ir,
-        banki_ir = 12
+        banki_ir = 12,
+        estekhtam_com = 13,
+        barnamenevis_org = 14
     }
 }

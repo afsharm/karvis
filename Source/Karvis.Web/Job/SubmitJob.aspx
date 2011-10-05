@@ -67,6 +67,8 @@
                     <asp:ListItem Value="nofa_ir" Text="Nofa.ir" />
                     <asp:ListItem Value="unp_ir" Text="UNP.ir" />
                     <asp:ListItem Value="banki_ir" Text="Banki.ir" />
+                    <asp:ListItem Value="estekhtam_com" Text="Estekhtam.com" />
+                    <asp:ListItem Value="barnamenevis_org" Text="Barnamenevis.org" />
                     <asp:ListItem Value="Misc" Text="متفرقه" />
                 </asp:DropDownList>
             </td>

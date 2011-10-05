@@ -15,14 +15,24 @@ namespace Karvis.Web.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            presenter = new ExtractJobsPresenter(this,
-                new ExtractJobsModel(new KarvisCrawler(), new DateTimeHelper(), new JobModel(),
-                    new IgnoredJobModel()), new JobModel(), new IgnoredJobModel());
+            IKarvisCrawler karvisCrawler = new KarvisCrawler();
+            IDateTimeHelper dateTimeHelper = new DateTimeHelper();
+            IJobModel jobModel = new JobModel();
+            IgnoredJobModel ignoredJobModel = new IgnoredJobModel();
+            IExtractorHelper extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
+            IExtractJobsModel extractJobsModel = new ExtractJobsModel(karvisCrawler, dateTimeHelper, extractorHelper);
+            IFeedExtractor feedExtractor = new FeedExtractor(extractorHelper);
+            presenter = new ExtractJobsPresenter(this, extractJobsModel, jobModel, ignoredJobModel, feedExtractor);
 
             if (!IsPostBack)
             {
                 InvokeViewInitialized();
             }
+        }
+
+        protected void ddlSiteSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InvokeViewInitialized();
         }
 
         private void InvokeViewInitialized()

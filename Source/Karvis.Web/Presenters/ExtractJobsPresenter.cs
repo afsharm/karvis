@@ -12,21 +12,25 @@ namespace Karvis.Web
         private readonly IExtractJobsModel extractJobsModel;
         private readonly IJobModel jobModel;
         private readonly IIgnoredJobModel ignoredJobModel;
+        private readonly IFeedExtractor feedExtractor;
+
         const int dayLimit = 14;
         const int recordLimit = 100;
 
         public ExtractJobsPresenter(IExtractJobsView view)
-            : this(view, IoC.Resolve<IExtractJobsModel>(), IoC.Resolve<IJobModel>(), IoC.Resolve<IIgnoredJobModel>())
+            : this(view, IoC.Resolve<IExtractJobsModel>(), IoC.Resolve<IJobModel>(),
+            IoC.Resolve<IIgnoredJobModel>(), IoC.Resolve<IFeedExtractor>())
         {
         }
 
         public ExtractJobsPresenter(IExtractJobsView view, IExtractJobsModel extractJobsModel,
-            IJobModel jobModel, IIgnoredJobModel ignoredJobModel)
+            IJobModel jobModel, IIgnoredJobModel ignoredJobModel, IFeedExtractor feedExtractor)
             : base(view)
         {
             this.extractJobsModel = extractJobsModel;
             this.jobModel = jobModel;
             this.ignoredJobModel = ignoredJobModel;
+            this.feedExtractor = feedExtractor;
 
             view.ExtractJobsButtonPressed += view_ExtractJobsButtonPressed;
             view.ApplyJobsButtonPressed += view_ApplyJobsButtonPressed;
@@ -95,9 +99,37 @@ namespace Karvis.Web
 
             AdSource siteSource = (AdSource)Enum.Parse(typeof(AdSource), e.Data);
 
-            var jobs = extractJobsModel.ExtractJobs(siteSource, dayLimit, recordLimit);
-            View.ShowMessage(string.Format("{0} تا کار استخراج شد", jobs.Count));
-            if (jobs.Count > 0)
+            List<Job> jobs = null;
+
+            switch (siteSource)
+            {
+                case AdSource.rahnama_com:
+                case AdSource.irantalent_com:
+                case AdSource.Email:
+                case AdSource.Misc:
+                case AdSource.All:
+                case AdSource.karvis_ir:
+                case AdSource.itjobs_ir:
+                case AdSource.agahi_ir:
+                case AdSource.istgah_com:
+                case AdSource.nofa_ir:
+                case AdSource.unp_ir:
+                    jobs = extractJobsModel.ExtractJobs(siteSource, dayLimit, recordLimit);
+                    break;
+                case AdSource.developercenter_ir:
+                case AdSource.banki_ir:
+                case AdSource.barnamenevis_org:
+                case AdSource.estekhtam_com:
+                    jobs = feedExtractor.ExtractFeed(siteSource);
+                    break;
+                default:
+                    throw new ApplicationException("unkown error");
+            }
+
+            string message = jobs == null ? "هیچ چیز پیدا نشد" : string.Format("{0} تا کار استخراج شد", jobs.Count);
+            View.ShowMessage(message);
+
+            if (jobs != null && jobs.Count > 0)
             {
                 View.ShowJobs(jobs);
                 View.EnableTempSaveButton();
