@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Karvis.Web.Stats.Dashboard"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StatsDashboard.aspx.cs" Inherits="Karvis.Web.Stats.Dashboard"
     MasterPageFile="~/MasterPages/MainMaster.Master" %>
 
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
@@ -15,7 +15,7 @@
     <br />
     <ul>
         <li>
-            <asp:HyperLink Text="منابع آگهی" NavigateUrl="~/Stats/AdSource.aspx" runat="server" />
+            <asp:HyperLink Text="منابع آگهی" NavigateUrl="~/Stats/StatsAdSource.aspx" runat="server" />
         </li>
     </ul>
     <br />

@@ -146,8 +146,8 @@
     <Content Include="Job\JobList.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MasterPages\main.css" />
-    <Content Include="Stats\AdSource.aspx" />
-    <Content Include="Stats\Dashboard.aspx" />
+    <Content Include="Stats\StatsAdSource.aspx" />
+    <Content Include="Stats\StatsDashboard.aspx" />
     <Content Include="TagCloud.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -160,6 +160,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenters\StatsAdSourcePresenter.cs" />
     <Compile Include="Presenters\JobListPresenter.cs" />
     <Compile Include="Presenters\SubmitJobPresenter.cs" />
     <Compile Include="Job\SubmitJob.aspx.cs">
@@ -253,19 +254,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stats\AdSource.aspx.cs">
-      <DependentUpon>AdSource.aspx</DependentUpon>
+    <Compile Include="Stats\StatsAdSource.aspx.cs">
+      <DependentUpon>StatsAdSource.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Stats\AdSource.aspx.designer.cs">
-      <DependentUpon>AdSource.aspx</DependentUpon>
+    <Compile Include="Stats\StatsAdSource.aspx.designer.cs">
+      <DependentUpon>StatsAdSource.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Stats\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Stats\StatsDashboard.aspx.cs">
+      <DependentUpon>StatsDashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Stats\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
+    <Compile Include="Stats\StatsDashboard.aspx.designer.cs">
+      <DependentUpon>StatsDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="TagCloud.aspx.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
@@ -274,6 +275,7 @@
     <Compile Include="TagCloud.aspx.designer.cs">
       <DependentUpon>TagCloud.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewInterfaces\IStatsAdSourceView.cs" />
     <Compile Include="ViewInterfaces\IExtractJobsView.cs" />
     <Compile Include="ViewInterfaces\IJobListView.cs" />
     <Compile Include="ViewInterfaces\ISubmitJobView.cs" />

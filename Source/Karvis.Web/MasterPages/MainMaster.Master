@@ -56,7 +56,7 @@
                 <li><a href="~/Job/JobList.aspx" runat="server">فهرست مشاغل/جستجو</a></li>
                 <li><a id="A1" href="~/TagCloud.aspx" runat="server">تگ‌ها</a></li>
                 <li><a id="A2" href="~/Job/SubmitJob.aspx" runat="server">ثبت آگهی</a></li>
-                <li><a id="A4" href="~/Stats/Dashboard.aspx" runat="server">آمار</a></li>
+                <li><a id="A4" href="~/Stats/StatsDashboard.aspx" runat="server">آمار</a></li>
                 <li><a id="A5" href="~/ContactUs.aspx" runat="server">تماس با ما</a></li>
                 <li><a id="A6" href="~/AboutUs.aspx" runat="server">درباره‌ی ما</a></li>
                 <li><a id="A7" href="http://blog.karvis.ir/" runat="server">وبلاگ</a></li>

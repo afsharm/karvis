@@ -39,5 +39,9 @@ namespace Karvis.Core
         bool ExistsJobUrl(string jobUrl);
 
         IList<string> GetJobUrlsByAdSource(AdSource siteSource);
+
+        IList<AdSourceStatDto> ExtractAdSourceStat();
+
+        int GetTotalJobCount();
     }
 }

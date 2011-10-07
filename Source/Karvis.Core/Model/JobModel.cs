@@ -341,5 +341,46 @@ namespace Karvis.Core
             return q.List<string>();
         }
 
+        public IList<AdSourceStatDto> ExtractAdSourceStat()
+        {
+            IList<AdSourceStatDto> result = new List<AdSourceStatDto>();
+            int totalCount = GetTotalJobCount();
+
+            foreach (var item in Enum.GetValues(typeof(AdSource)))
+            {
+                AdSource siteSource = (AdSource)item;
+
+                if (siteSource == AdSource.All)
+                    continue;
+
+                int count = AdSourceCount(siteSource);
+                if (count < 1)
+                    continue;
+
+                int percent = (count * 100) / totalCount;
+                string siteSourceDescription = Job.GetAdSourceDescription(siteSource);
+
+                result.Add(new AdSourceStatDto
+                {
+                    SiteSource = (AdSource)item,
+                    SiteSourceDescription = siteSourceDescription,
+                    Count = count,
+                    Percent = percent
+                });
+            }
+
+            var sorted = result.OrderByDescending(dto => dto.Count);
+            return sorted.ToList();
+        }
+
+        private int AdSourceCount(AdSource siteSource)
+        {
+            return _jobRepository.QueryOver().Where(j => j.IsActive && j.AdSource == siteSource).RowCount();
+        }
+
+        public int GetTotalJobCount()
+        {
+            return _jobRepository.QueryOver().Where(j => j.IsActive).RowCount();
+        }
     }
 }
