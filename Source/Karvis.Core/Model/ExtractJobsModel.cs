@@ -251,6 +251,56 @@ namespace Karvis.Core
             return job;
         }
 
+        /// <summary>
+        /// if requested url has another pages of data
+        /// </summary>
+        public bool HasPagingRahnama(HtmlDocument doc, string originalUrl, ref string nextPageUrl, string rootUrl)
+        {
+            HtmlNodeCollection paging = null;
+
+            paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
+            bool hasPaging = paging != null && paging.Count > 0;
+
+            //extracting url of next page
+            if (hasPaging)
+                nextPageUrl = _extractorHelper.GetAbsoluteUrl(paging[0].Attributes["href"].Value, rootUrl);
+
+            return hasPaging;
+        }
+
+        /// <summary>
+        /// extract jobs from agahi_ir
+        /// </summary>
+        public bool ExtractAgahiJobs(List<Job> jobs, HtmlDocument doc, string rootUrl,
+            int? limitDays, int? stopperRecordCount)
+        {
+            var jobsHtml = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes;
+            int recordCounter = 0;
+
+            for (int i = 4; i < jobsHtml.Count - 2; i = i + 8)
+            {
+                recordCounter++;
+
+                //do not continue if stopperrecord counter has been reached
+                if (stopperRecordCount != null && recordCounter > stopperRecordCount.Value)
+                    return false;
+
+                HtmlNode bodyNode = jobsHtml[i];
+                HtmlNode contactNode = jobsHtml[i + 2];
+                Job job = ExtractAgahiJob(bodyNode, contactNode);
+
+                //stop extracting if stopperDate has reached
+                if (job.OriginalDate != null && limitDays != null &&
+                    (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
+                    return false;
+
+                if (!_extractorHelper.JobUrlExists(job.Url))
+                    jobs.Add(job);
+            }
+
+            return true;
+        }
+
         public Job ExtractAgahiJob(HtmlNode item, HtmlNode contact)
         {
             string absoluteUrl;
@@ -287,30 +337,6 @@ namespace Karvis.Core
 
             _extractorHelper.ProcessJob(job);
             return job;
-        }
-
-        public bool HasPagingNofa(HtmlDocument doc, ref string url)
-        {
-            //nofa.ir use ASP.NET GridView for paging, paging in GridView is hard
-            //so we does not support paging for nofa yet
-            return false;
-        }
-
-        /// <summary>
-        /// if requested url has another pages of data
-        /// </summary>
-        public bool HasPagingRahnama(HtmlDocument doc, string originalUrl, ref string nextPageUrl, string rootUrl)
-        {
-            HtmlNodeCollection paging = null;
-
-            paging = doc.DocumentNode.SelectNodes("//a[@title='بعدی']");
-            bool hasPaging = paging != null && paging.Count > 0;
-
-            //extracting url of next page
-            if (hasPaging)
-                nextPageUrl = _extractorHelper.GetAbsoluteUrl(paging[0].Attributes["href"].Value, rootUrl);
-
-            return hasPaging;
         }
 
         /// <summary>
@@ -378,48 +404,6 @@ namespace Karvis.Core
             return true;
         }
 
-        /// <summary>
-        /// Nofa jobs have their information in 2 pages. This
-        /// method extract complementary informtion.
-        /// </summary>
-        private void ExtractNofaJobComplementary(Job job)
-        {
-            string pageContent = _crawler.GetWebText(job.Url);
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(pageContent);
-
-            try
-            {
-                job.Title = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobName']")[0].InnerText;
-
-                string i1 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblDesc']")[0].InnerText;
-                string i2 = doc.DocumentNode.SelectNodes("//a[@id='BaseMasterPage1__ctl0__ctl4_lblCompanyName']")[0].InnerText;
-                string i3 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblRegDate']")[0].InnerText;
-                string i4 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbltel']")[0].InnerText;
-                string i5 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblWebSite']")[0].InnerText;
-                string i6 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobType']")[0].InnerText;
-                string i7 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbladdress']")[0].InnerText;
-                string i8 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblState']")[0].InnerText;
-                string i9 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblCity']")[0].InnerText;
-                string i10 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbledu']")[0].InnerText;
-                string i11 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbllsum']")[0].InnerText;
-                string i12 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblsex']")[0].InnerText;
-                string i13 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmarr']")[0].InnerText;
-                string i14 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmili']")[0].InnerText;
-                string i15 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblage']")[0].InnerText;
-                string i16 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblant']")[0].InnerText;
-
-                job.Description = string.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7} - {8} - {9} - {10} - {11} - {12} - {13} - {14} - {15}",
-                    i1, i2, i3, i4, i5, i6, i7, i8, i9, 10, i11, i12, i13, i14, i15, i16);
-
-                _extractorHelper.ProcessJob(job);
-            }
-            catch (Exception ex)
-            {
-                job.Description = ex.Message;
-            }
-        }
-
         public Job ExtractNofaJob(string rootUrl, HtmlNode item)
         {
             string absoluteUrl;
@@ -458,46 +442,52 @@ namespace Karvis.Core
         }
 
         /// <summary>
-        /// extract jobs from agahi_ir
+        /// Nofa jobs have their information in 2 pages. This
+        /// method extract complementary informtion.
         /// </summary>
-        public bool ExtractAgahiJobs(List<Job> jobs, HtmlDocument doc, string rootUrl,
-            int? limitDays, int? stopperRecordCount)
+        public void ExtractNofaJobComplementary(Job job)
         {
-            var jobsHtml = doc.DocumentNode.SelectNodes("//div[@class='slr_box_contents']")[5].ChildNodes;
-            int recordCounter = 0;
+            string pageContent = _crawler.GetWebText(job.Url);
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(pageContent);
 
-            for (int i = 4; i < jobsHtml.Count - 2; i = i + 8)
+            try
             {
-                recordCounter++;
+                job.Title = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobName']")[0].InnerText;
 
-                //do not continue if stopperrecord counter has been reached
-                if (stopperRecordCount != null && recordCounter > stopperRecordCount.Value)
-                    return false;
+                string i1 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblDesc']")[0].InnerText;
+                string i2 = doc.DocumentNode.SelectNodes("//a[@id='BaseMasterPage1__ctl0__ctl4_lblCompanyName']")[0].InnerText;
+                string i3 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblRegDate']")[0].InnerText;
+                string i4 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbltel']")[0].InnerText;
+                string i5 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblWebSite']")[0].InnerText;
+                string i6 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblJobType']")[0].InnerText;
+                string i7 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbladdress']")[0].InnerText;
+                string i8 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblState']")[0].InnerText;
+                string i9 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblCity']")[0].InnerText;
+                string i10 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbledu']")[0].InnerText;
+                string i11 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lbllsum']")[0].InnerText;
+                string i12 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblsex']")[0].InnerText;
+                string i13 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmarr']")[0].InnerText;
+                string i14 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblmili']")[0].InnerText;
+                string i15 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblage']")[0].InnerText;
+                string i16 = doc.DocumentNode.SelectNodes("//span[@id='BaseMasterPage1__ctl0__ctl4_lblant']")[0].InnerText;
 
-                HtmlNode bodyNode = jobsHtml[i];
-                HtmlNode contactNode = jobsHtml[i + 2];
-                Job job = ExtractAgahiJob(bodyNode, contactNode);
+                job.Description = string.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7} - {8} - {9} - {10} - {11} - {12} - {13} - {14} - {15}",
+                    i1, i2, i3, i4, i5, i6, i7, i8, i9, 10, i11, i12, i13, i14, i15, i16);
 
-                //stop extracting if stopperDate has reached
-                if (job.OriginalDate != null && limitDays != null &&
-                    (DateTime.Now - job.OriginalDate.Value).Days > limitDays)
-                    return false;
-
-                if (!_extractorHelper.JobUrlExists(job.Url))
-                    jobs.Add(job);
+                _extractorHelper.ProcessJob(job);
             }
-
-            return true;
+            catch (Exception ex)
+            {
+                job.Description = ex.Message;
+            }
         }
 
-        public bool SupportPaging(AdSource adSource)
+        public bool HasPagingNofa(HtmlDocument doc, ref string url)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool SupportOriginalDate(AdSource adSource)
-        {
-            throw new NotImplementedException();
+            //nofa.ir use ASP.NET GridView for paging, paging in GridView is hard
+            //so we does not support paging for nofa yet
+            return false;
         }
     }
 }
