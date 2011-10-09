@@ -32,6 +32,13 @@ namespace Karvis.Web.Stats
 
             rptJobAdSource.DataSource = dto;
             rptJobAdSource.DataBind();
+
+            chartAdSource.DataSource = dto;
+
+            chartAdSource.Series["Series 1"].XValueMember = "SiteSourceDescription";
+            chartAdSource.Series["Series 1"].YValueMembers = "Count";
+
+            chartAdSource.DataBind();
         }
 
         public event EventHandler ViewInitialized;
