@@ -65,18 +65,18 @@ namespace Karvis.Test
 
             string[] expected = new string[testCount]
             {
-                "hacjob89@gmail.com,",
-                "poshtiban.marlik@gmail.com,",
-                "jobs@pendarpajouh.com,",
-                "resume@rayansazeh.com,",
-                "info@itsecteam.com,",
-                "tehranitjob@gmail.com,",
+                "hacjob89@gmail.com, ",
+                "poshtiban.marlik@gmail.com, ",
+                "jobs@pendarpajouh.com, ",
+                "resume@rayansazeh.com, ",
+                "info@itsecteam.com, ",
+                "tehranitjob@gmail.com, ",
                 "",
-                "fc.java.job@gmail.com,",
-                "info@ratec.ir,",
-                "recarmandar@gmail.com,",
+                "fc.java.job@gmail.com, ",
+                "info@ratec.ir, ",
+                "recarmandar@gmail.com, ",
                 "",
-                "info@protopsystem.com, info@protopsystem.ir,"
+                "info@protopsystem.com, info@protopsystem.ir, "
             };
 
             for (int i = 0; i < testCount; i++)
