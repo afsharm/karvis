@@ -151,20 +151,20 @@ namespace Karvis.Test
             };
             string[] expected = new string[testCount]
             {
-                "PHP, Programming, Javascript, yahoo.com, @amir_rajabi, ",
+                "php, programming, Software, Designer, javascript, yahoo.com, @amir_rajabi, ",
                 "",     
                 "",
                 "skdhskhdfkshdfkshdfkskjdf, sdkh, sdlf, ",
                 "",
                 "asp.net, ",
                 "asp.net, vb.net, ",
-                "C#, ",
+                "c#, ",
                 "",
                 ".net, ",
-                "C++, ",
-                "A+, ",
-                "SQL, C#, Asp.net, ",
-                "C#, .NET, ASP.NET, SQL, WCF, "
+                "c++, ",
+                "a+, ",
+                "sql, c#, asp.net, ",
+                "c#, .net, asp.net, sql, wcf, "
             };
 
             IKarvisCrawler karvisCrawler = new KarvisCrawler();
