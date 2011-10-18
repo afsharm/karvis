@@ -57,7 +57,7 @@ namespace Karvis.Core
             foreach (Job job in jobs)
             {
                 SyndicationItem item = new SyndicationItem(
-                    job.Title,
+                    "‫" + job.Title,
                     jobModel.GetFeedDescription(job),
                     new Uri(jobModel.GetJobUrl(job)),
                     job.Id.ToString(),

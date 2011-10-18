@@ -35,7 +35,7 @@
                 تگ:
             </td>
             <td>
-                <asp:Label runat="server" ID="lblTag" />
+                <asp:Label runat="server" ID="lblTag" Style='direction: ltr' />
             </td>
         </tr>
         <tr>

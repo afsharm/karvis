@@ -47,8 +47,8 @@ namespace Karvis.Core
         public string GetFeedDescription(Job job)
         {
             return string.Format(
-                "<div>{0}<hr/> Date: {1} - Ad Source: {2} </div>",
-                job.Tag, job.DateAddedPersian, job.AdSourceDescription);
+                "<div style='direction:rtl; text-align:right'>Date: {0} - Ad Source: {1} </div>",
+                job.DateAddedPersian, job.AdSourceDescription);
         }
 
         public int AddNewJob(string title, string description, string url, string tag, AdSource adSource)
@@ -327,6 +327,9 @@ namespace Karvis.Core
 
             foreach (var email in emails)
             {
+                if (string.IsNullOrEmpty(email))
+                    return;
+
                 string subject = "آگهی استخدام شما در «کارویس» به ثبت رسید";
                 
                 string body = string.Format(
