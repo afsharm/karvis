@@ -6,6 +6,8 @@ using NHibernate;
 using NHibernate.Criterion;
 using Fardis;
 using NHibernate.Linq;
+using System.Net.Mail;
+using System.Net;
 
 namespace Karvis.Core
 {
@@ -185,6 +187,7 @@ namespace Karvis.Core
             job.AdSource = adSource;
 
             _jobRepository.SaveOrUpdate(job);
+            SendMail(job);
         }
 
         void IncreaseVisitCount(int id)
@@ -288,6 +291,7 @@ namespace Karvis.Core
                 selectedJob.IsActive = isActive;
 
                 _jobRepository.SaveOrUpdate(selectedJob);
+                SendMail(selectedJob);
             }
 
             return jobs.Count;
@@ -303,6 +307,42 @@ namespace Karvis.Core
         public void SaveOrUpdateJob(Job job)
         {
             _jobRepository.SaveOrUpdate(job);
+            SendMail(job);
+        }
+
+        private void SendMail(Job job)
+        {
+            //dont send email for none actis
+            if (!job.IsActive)
+                return;
+
+            string[] emails = job.Emails.Split(',');
+
+            //send for valid emails
+            if (emails.Length < 1)
+                return;
+
+            SmtpClient client = new SmtpClient("mail.karvis.ir", 25);
+            client.Credentials = new NetworkCredential("info@karvis.ir", "ra5c2y&f");
+
+            foreach (var email in emails)
+            {
+                string subject = "آگهی استخدام شما در «کارویس» به ثبت رسید";
+                
+                string body = string.Format(
+                    "عنوان: {0}\n\rشرح: {1}\n\rتگ: {2}\n\rتاریخ: {3}\n\rلینک: {4}\n\rکارویس http://karvis.ir سایت کاریابی مخصوص برنامه‌نویسان"
+                , job.Title, job.Description, job.Tag, job.DateAddedPersian, job.Url);
+
+                MailMessage message = new MailMessage(new MailAddress("no-reply@karvis.ir", "کارویس"), new MailAddress(email, email));
+                message.Body = body;
+                message.Subject = subject;
+
+                try
+                {
+                    client.Send(message);
+                }
+                catch { }
+            }
         }
 
         public void AddJob(Job job)
