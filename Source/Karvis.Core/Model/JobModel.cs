@@ -45,8 +45,8 @@ namespace Karvis.Core
         public string GetFeedDescription(Job job)
         {
             return string.Format(
-                "<div>{0}<hr/>{1}<hr/>Visit Count: {2} - Feed Count: {3} - Date: {4} - Ad Source: {5} </div>",
-                job.Description, job.Tag, job.VisitCount, job.FeedCount, job.DateAddedPersian, job.AdSourceDescription);
+                "<div>{0}<hr/> Date: {1} - Ad Source: {2} </div>",
+                job.Tag, job.DateAddedPersian, job.AdSourceDescription);
         }
 
         public int AddNewJob(string title, string description, string url, string tag, AdSource adSource)

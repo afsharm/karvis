@@ -19,7 +19,7 @@
                     تگ:
                 </td>
                 <td>
-                    <asp:TextBox runat="server" ID="txtTag" />
+                    <asp:TextBox runat="server" ID="txtTag" Style='direction: ltr' />
                 </td>
             </tr>
             <tr>
@@ -79,7 +79,11 @@
             <Columns>
                 <asp:BoundColumn DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundColumn DataField="Title" HeaderText="عنوان" SortExpression="Title" />
-                <asp:BoundColumn DataField="Tag" HeaderText="تگ" SortExpression="Tag" />
+                <asp:TemplateColumn HeaderText="تگ" SortExpression="Tag">
+                    <ItemTemplate>
+                        <asp:Label Text='<%# Eval("Tag") %>' Style='direction: ltr' runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
                 <asp:BoundColumn DataField="DateAddedPersian" HeaderText="تاریخ ثبت" SortExpression="DateAdded" />
                 <asp:BoundColumn DataField="VisitCount" HeaderText="تعداد مشاهده" SortExpression="VisitCount" />
                 <asp:BoundColumn DataField="AdSourceDescription" HeaderText="منبع" SortExpression="AdSource" />
