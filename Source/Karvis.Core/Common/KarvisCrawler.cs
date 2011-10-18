@@ -52,10 +52,10 @@ namespace Karvis.Core
 
             string retval = string.Empty;
 
-            ExtractEmail(ref content, ref retval, MatchEmailPattern);
-            ExtractEmail(ref content, ref retval, EmailPattern1);
-            ExtractEmail(ref content, ref retval, EmailPattern2);
-            ExtractEmail(ref content, ref retval, EmailPattern3);
+            TryExtractEmail(ref content, ref retval, MatchEmailPattern);
+            TryExtractEmail(ref content, ref retval, EmailPattern1);
+            TryExtractEmail(ref content, ref retval, EmailPattern2);
+            TryExtractEmail(ref content, ref retval, EmailPattern3);
 
             //removing last comma
             if (!string.IsNullOrEmpty(retval))
@@ -64,7 +64,7 @@ namespace Karvis.Core
             return retval;
         }
 
-        private static void ExtractEmail(ref string content, ref string retval, string pattern)
+        private static void TryExtractEmail(ref string content, ref string retval, string pattern)
         {
             //if atsign does not exists don't bother for searching emails
             if (!content.Contains("@"))
@@ -82,8 +82,12 @@ namespace Karvis.Core
                     continue;
 
                 string validEmail = CorrectEmail(value, pattern);
-                retval += string.Format("{0},", validEmail);
-                content = content.Replace(value, " ");
+
+                if (Regex.IsMatch(validEmail, MatchEmailPattern))
+                {
+                    retval += string.Format("{0},", validEmail);
+                    content = content.Replace(value, " ");
+                }
             }
         }
 
@@ -103,11 +107,21 @@ namespace Karvis.Core
                     MatchCollection matches = Regex.Matches(value, @"[a-z-.]+(@\s|\s@)|@[a-z-.]+");
                     string raw = matches[0].Value;
                     string domain = raw.Replace("@", string.Empty).Trim();
-                    if (domain.Split('.').Length < 1)
+                    if (domain.Split('.').Length < 2)
                         domain += ".com";
                     string user = value.Replace(raw, string.Empty).Trim();
                     string email = string.Format("{0}@{1}", user, domain);
                     return email;
+                case EmailPattern2:
+                    return value.Replace(" ", string.Empty).Replace(",", ".");
+                case EmailPattern3:
+                    MatchCollection matches2 = Regex.Matches(value, @"[a-z\.-_]+@[a-z\.-_]+");
+                    string firstPart = matches2[0].Value;
+                    string lastPart = value.Replace(firstPart, string.Empty).Replace(" ", string.Empty);
+                    if (lastPart.EndsWith("."))
+                        lastPart = lastPart.Remove(lastPart.Length - 1, 1);
+                    string email2 = string.Format("{0}.{1}", firstPart, lastPart);
+                    return email2;
                 default:
                     return "N/A";
             }

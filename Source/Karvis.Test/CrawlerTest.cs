@@ -76,7 +76,7 @@ namespace Karvis.Test
                 "info@ratec.ir",
                 "recarmandar@gmail.com",
                 "",
-                "info@protopsystem.com, info@protopsystem.ir"
+                "info@protopsystem.com"
             };
 
             for (int i = 0; i < testCount; i++)

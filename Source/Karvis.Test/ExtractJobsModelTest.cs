@@ -106,11 +106,11 @@ namespace Karvis.Test
             };
             string[] expected = new string[testCount]
             {
-                "sdfkjh@dfjsf.com, ",
-                "yyy@iran.ir, k@d.org, ",
+                "sdfkjh@dfjsf.com",
+                "yyy@iran.ir,k@d.org,kkkk@lksdf.com,sdfl@llkjdf.com",
                 "",
                 "",
-                "abc@zdef.co, "//"abc@zdef.co.uk, "
+                "abc@zdef.co"//"abc@zdef.co.uk, "
             };
 
             IKarvisCrawler crawler = new KarvisCrawler();
@@ -141,7 +141,7 @@ namespace Karvis.Test
             };
             string[] expected = new string[testCount]
             {
-                "php, programming, Software, Designer, javascript, yahoo.com, @amir_rajabi, ",
+                "php, programming, software, designer, javascript, ",
                 "",     
                 "",
                 "skdhskhdfkshdfkshdfkskjdf, sdkh, sdlf, ",

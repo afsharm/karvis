@@ -29,10 +29,5 @@ namespace Karvis.Test
             extractorHelper = new ExtractorHelper(jobModel, ignoredJobModel, karvisCrawler);
         }
 
-        [Test]
-        public void ExtractEmails()
-        {
-            //extractorHelper.ExtractTags(
-        }
     }
 }
