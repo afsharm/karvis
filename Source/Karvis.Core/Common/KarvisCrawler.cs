@@ -45,6 +45,7 @@ namespace Karvis.Core
         public string ExtractEmailsByText(ref string content)
         {
             //content must be lowered
+            content = content.ToLower();
 
             //sometimes we must detect none standard emails too, emails like 'com. resume@rayansazeh'
             //we detect none standard emails after standards. each detected email would be removed from content
@@ -99,8 +100,14 @@ namespace Karvis.Core
                 case MatchEmailPattern:
                     return value;
                 case EmailPattern1:
-
-                    break;
+                    MatchCollection matches = Regex.Matches(value, @"[a-z-.]+(@\s|\s@)|@[a-z-.]+");
+                    string raw = matches[0].Value;
+                    string domain = raw.Replace("@", string.Empty).Trim();
+                    if (domain.Split('.').Length < 1)
+                        domain += ".com";
+                    string user = value.Replace(raw, string.Empty).Trim();
+                    string email = string.Format("{0}@{1}", user, domain);
+                    return email;
                 default:
                     return "N/A";
             }
