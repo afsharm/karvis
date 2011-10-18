@@ -115,7 +115,7 @@ namespace Karvis.Test
 
             IKarvisCrawler crawler = new KarvisCrawler();
             for (int i = 0; i < testCount; i++)
-                Assert.AreEqual(expected[i], crawler.ExtractEmailsByText(raw[i]), i.ToString());
+                Assert.AreEqual(expected[i], crawler.ExtractEmailsByText(ref raw[i]), i.ToString());
         }
 
         [Test]

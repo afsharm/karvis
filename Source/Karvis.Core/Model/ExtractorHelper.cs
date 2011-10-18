@@ -151,8 +151,13 @@ namespace Karvis.Core
         public void ProcessJob(Job job)
         {
             job.Description = ProcessDescription(job.Description);
-            job.Emails = _crawler.ExtractEmailsByText(job.Description);
-            job.Tag = ExtractTags(job.Description);
+            job.ExtractionText = string.Format("{0} - {1}", job.Title, job.Description).ToLower();
+
+            string extractionText = job.ExtractionText;
+            job.Emails = _crawler.ExtractEmailsByText(ref extractionText);
+            job.ExtractionText = extractionText;
+
+            job.Tag = ExtractTags(job.ExtractionText);
             job.Title = ProcessTitle(job.Title);
         }
 
@@ -225,7 +230,7 @@ namespace Karvis.Core
                 .Replace("دات‌نت", ".Net");
 
             //remove email from tags
-            foreach (string email in _crawler.ExtractEmailsByText(source).Trim().Split(','))
+            foreach (string email in _crawler.ExtractEmailsByText(ref source).Trim().Split(','))
                 if (!string.IsNullOrEmpty(email))
                     source = source.Replace(email.Trim(), " ");
 

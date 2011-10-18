@@ -38,6 +38,10 @@ namespace Karvis.Core
 
         public virtual int PreSavedJobId { get; set; }
 
+        /// <summary>
+        /// a utility property to help extracting items. this property help to prevent duplicating.
+        /// </summary>
+        public virtual string ExtractionText { set; get; }
 
         public virtual string AdSourceDescription
         {

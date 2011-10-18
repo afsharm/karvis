@@ -5,7 +5,7 @@ namespace Karvis.Core
 {
     public interface IKarvisCrawler
     {
-        string ExtractEmailsByText(string content);
+        string ExtractEmailsByText(ref string content);
         string GetWebText(string url);
         Stream GetWebTextStream(string url);
     }
