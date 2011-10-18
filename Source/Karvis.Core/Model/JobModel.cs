@@ -334,6 +334,7 @@ namespace Karvis.Core
                 , job.Title, job.Description, job.Tag, job.DateAddedPersian, job.Url);
 
                 MailMessage message = new MailMessage(new MailAddress("no-reply@karvis.ir", "کارویس"), new MailAddress(email, email));
+                message.To.Add("afshar.mohebbi@gmail.com");
                 message.Body = body;
                 message.Subject = subject;
 
