@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Karvis.Core;
 using NUnit.Framework;
+using Moq;
 
 namespace Karvis.Test
 {
@@ -14,7 +15,7 @@ namespace Karvis.Test
         [SetUp]
         public void SetUpTest()
         {
-            model = new KMailModel(SessionFactory);
+            model = new KMailModel(SessionFactory, new ScheduleInfoModel(SessionFactory), new KDispatcher());
         }
 
         [Test]
@@ -79,7 +80,18 @@ namespace Karvis.Test
         [Test]
         public void DoScheduleTest()
         {
-            Assert.Fail("not completed yet");
+            var mock = new Mock<IKDispatcher>();
+
+            mock.Setup(f => f.Send(null))
+                .Returns(true);
+
+            IKDispatcher myDispatcher = mock.Object;
+
+            model = new KMailModel(SessionFactory, new ScheduleInfoModel(), myDispatcher);
+
+            model.DoSchedule();
+
+            mock.Verify(f => f.Send(null));
         }
     }
 }

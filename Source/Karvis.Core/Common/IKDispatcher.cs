@@ -8,6 +8,6 @@ namespace Karvis.Core
 {
     public interface IKDispatcher
     {
-        void Send(MailMessage message);
+        bool Send(MailMessage message);
     }
 }

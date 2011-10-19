@@ -8,7 +8,7 @@ namespace Karvis.Core
 {
     public class KDispatcher : IKDispatcher
     {
-        public void Send(MailMessage message)
+        public bool Send(MailMessage message)
         {
             throw new NotImplementedException();
         }

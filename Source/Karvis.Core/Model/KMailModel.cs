@@ -16,18 +16,22 @@ namespace Karvis.Core
         ISessionFactory _sessionFactory;
         NHibernateRepository<KMail> _mailRepository;
         IScheduleInfoModel _scheduleInfoModel;
+        IKDispatcher _kdispatcher;
 
         public KMailModel()
         {
             _sessionFactory = NHHelper.Instance.GetSessionFactory();
             _mailRepository = new NHibernateRepository<KMail>(_sessionFactory);
             _scheduleInfoModel = new ScheduleInfoModel();
+            _kdispatcher = new KDispatcher();
         }
 
-        public KMailModel(ISessionFactory sessionFactory)
+        public KMailModel(ISessionFactory sessionFactory, IScheduleInfoModel scheduleInfoModel, IKDispatcher kdispatcher)
         {
             _sessionFactory = sessionFactory;
+            _scheduleInfoModel = scheduleInfoModel;
             _mailRepository = new NHibernateRepository<KMail>(_sessionFactory);
+            _kdispatcher = kdispatcher;
         }
 
 
