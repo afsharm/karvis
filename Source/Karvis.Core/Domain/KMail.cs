@@ -23,8 +23,8 @@ namespace Karvis.Core
         public virtual string FromAddress { set; get; }
         public virtual string FromDescription { set; get; }
         public virtual int RelatedReferenceId { set; get; }
-
         public virtual DateTime? AddDate { set; get; }
         public virtual bool IsSent { set; get; }
+        public virtual int TryCounter { set; get; }
     }
 }

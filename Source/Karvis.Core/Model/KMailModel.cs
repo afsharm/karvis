@@ -54,7 +54,8 @@ namespace Karvis.Core
                 FromDescription = fromDescription,
                 RelatedReferenceId = relatedReferenceId,
                 AddDate = DateTime.Now,
-                IsSent = false
+                IsSent = false,
+                TryCounter = 0
             };
 
             _mailRepository.SaveOrUpdate(mail);
@@ -72,12 +73,16 @@ namespace Karvis.Core
 
         public void IncreaseTry(KMail mail)
         {
-            throw new NotImplementedException();
+            var item = _mailRepository.Load(mail.Id);
+            item.TryCounter++;
+            _mailRepository.SaveOrUpdate(item);
         }
 
         public void SaveSuccess(KMail mail)
         {
-            throw new NotImplementedException();
+            var item = _mailRepository.Load(mail.Id);
+            item.IsSent = true;
+            _mailRepository.SaveOrUpdate(item);
         }
     }
 }

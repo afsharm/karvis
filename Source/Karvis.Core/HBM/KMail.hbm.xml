@@ -15,7 +15,7 @@
     <property name="RelatedReferenceId"/>
     <property name="AddDate"/>
     <property name="IsSent"/>
-
+    <property name="TryCounter"/>
   </class>
 
 </hibernate-mapping>
