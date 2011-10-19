@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFixture.cs" />
+    <Compile Include="KMailModelTests.cs" />
     <Compile Include="KGlobalModelTests.cs" />
     <Compile Include="ScheduleInfoModelTests.cs" />
     <Compile Include="CrawlerTest.cs" />

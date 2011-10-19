@@ -46,17 +46,28 @@ namespace Karvis.Core
 
         public void Qeue(string subject, string description, string fromAddress, string fromDescription, int relatedReferenceId)
         {
-            throw new NotImplementedException();
+            KMail mail = new KMail
+            {
+                Subject = subject,
+                Description = description,
+                FromAddress = fromAddress,
+                FromDescription = fromDescription,
+                RelatedReferenceId = relatedReferenceId,
+                AddDate = DateTime.Now,
+                IsSent = false
+            };
+
+            _mailRepository.SaveOrUpdate(mail);
         }
 
-        public List<KMail> GetSentItems()
+        public IList<KMail> GetSentItems()
         {
-            throw new NotImplementedException();
+            return _mailRepository.QueryOver().Where(item => item.IsSent).List();
         }
 
-        public List<KMail> GetUnSentItems()
+        public IList<KMail> GetUnSentItems()
         {
-            throw new NotImplementedException();
+            return _mailRepository.QueryOver().Where(item => !item.IsSent).List();
         }
 
         public void IncreaseTry(KMail mail)

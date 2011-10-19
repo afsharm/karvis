@@ -11,8 +11,8 @@ namespace Karvis.Core
     {
         void DoSchedule();
         void Qeue(string subject, string description, string fromAddress, string fromDescription, int relatedReferenceId);
-        List<KMail> GetSentItems();
-        List<KMail> GetUnSentItems();
+        IList<KMail> GetSentItems();
+        IList<KMail> GetUnSentItems();
         void IncreaseTry(KMail mail);
         void SaveSuccess(KMail mail);
     }
