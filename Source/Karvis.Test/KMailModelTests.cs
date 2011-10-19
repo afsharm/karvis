@@ -75,6 +75,12 @@ namespace Karvis.Test
             var unsent3 = model.GetUnSentItems();
             Assert.AreEqual(0, unsent3.Count);
         }
+
+        [Test]
+        public void DoScheduleTest()
+        {
+            Assert.Fail("not completed yet");
+        }
     }
 }
 
