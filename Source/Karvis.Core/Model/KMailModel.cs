@@ -34,12 +34,13 @@ namespace Karvis.Core
         public void DoSchedule()
         {
             DateTime start = DateTime.Now;
-            
+
             //do the real work
+            string result = string.Empty;
             //todo
 
             DateTime end = DateTime.Now;
-            _scheduleInfoModel.SaveScheduleRun(start, end, KConstants.MailSchedule);
+            _scheduleInfoModel.SaveScheduleInfo(KConstants.MailSchedule, result, start, end);
         }
 
 

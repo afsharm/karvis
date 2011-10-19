@@ -28,15 +28,23 @@ namespace Karvis.Core
             _scheduleInfoRepository = new NHibernateRepository<ScheduleInfo>(_sessionFactory);
         }
 
-        public void SaveScheduleRun(DateTime start, DateTime end, string p)
+        public void SaveScheduleInfo(string name, string result, DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            ScheduleInfo item = new ScheduleInfo
+            {
+                Name = name,
+                Result = result,
+                StartDate = start,
+                EndDate = end
+            };
+
+            _scheduleInfoRepository.SaveOrUpdate(item);
         }
 
 
-        public List<ScheduleInfo> GetSchedulesInfo()
+        public IList<ScheduleInfo> LoadScheduleInfo()
         {
-            throw new NotImplementedException();
+            return _scheduleInfoRepository.QueryOver().List();
         }
     }
 }
