@@ -41,7 +41,7 @@ namespace Karvis.Core
         public KGlobal GetGlobal(string key)
         {
             var results = _kglobalRepository.QueryOver()
-                .Where(item => item.Key == key).Select(item => item.Value).List();
+                .Where(item => item.Key == key).List();
 
             if (results != null && results.Count > 0)
                 return results[0];
