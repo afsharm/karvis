@@ -13,22 +13,33 @@ using NHibernate.Cfg;
 using Castle.Windsor;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
+using System.Timers;
 
 namespace Karvis.Web
 {
     public class Global : System.Web.HttpApplication
     {
+        Timer timer;
+        IKScheduler scheduler;
+
         protected void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            ConfigureIoC();
+            ConfigureScheduler();
         }
 
-        private static void ConfigureIoC()
+        private void ConfigureScheduler()
         {
-            //IWindsorContainer localContainer = new WindsorContainer();
-            //localContainer.Register(Component.For<IJobModel>().ActAs(typeof(JobModel), LifestyleType.Transient));
-            //IoC.RegisterResolver(new WindsorDependencyResolver(localContainer));
+            scheduler = new KScheduler();
+            timer = new Timer();
+            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            timer.Interval = 5 * 60 * 1000;
+            timer.Start();
+        }
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            scheduler.Trigger();
         }
 
         protected void Session_Start(object sender, EventArgs e)
