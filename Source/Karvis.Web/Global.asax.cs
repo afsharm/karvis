@@ -19,27 +19,14 @@ namespace Karvis.Web
 {
     public class Global : System.Web.HttpApplication
     {
-        Timer timer;
-        IKScheduler scheduler;
-
         protected void Application_Start(object sender, EventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            ConfigureScheduler();
-        }
 
-        private void ConfigureScheduler()
-        {
-            scheduler = new KScheduler();
-            timer = new Timer();
-            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            timer.Interval = 5 * 60 * 1000;
-            timer.Start();
-        }
-
-        void timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            scheduler.Trigger();
+            //here we have not NHibernate session yet
+            NHHelper.Instance.BeginRequest();
+            KSingleton.Instance.ConfigTimer();
+            NHHelper.Instance.EndRequest();
         }
 
         protected void Session_Start(object sender, EventArgs e)

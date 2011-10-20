@@ -25,10 +25,10 @@ namespace Karvis.Core
             _mailRepository = new NHibernateRepository<KMail>(_sessionFactory);
             _scheduleInfoModel = new ScheduleInfoModel();
             _kglobalModel = new KGlobalModel();
-            _kdispatcher = new KDispatcher(_kglobalModel.GetValue(KConstants.Host),
-                _kglobalModel.GetValue(KConstants.Port),
-                _kglobalModel.GetValue(KConstants.UserName),
-                _kglobalModel.GetValue(KConstants.Password));
+            _kdispatcher = new KDispatcher(_kglobalModel.GetValue(KGlobalConstants.SmtpHost),
+                _kglobalModel.GetValue(KGlobalConstants.SmtpPort),
+                _kglobalModel.GetValue(KGlobalConstants.SmtpUserName),
+                _kglobalModel.GetValue(KGlobalConstants.SmtpPassword));
         }
 
         public KMailModel(ISessionFactory sessionFactory, IScheduleInfoModel scheduleInfoModel,

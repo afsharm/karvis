@@ -20,7 +20,7 @@ namespace Karvis.Core
 
         public void Trigger()
         {
-            string value = _globalModel.GetValue(KGlobalValues.LastSchedulreRun);
+            string value = _globalModel.GetValue(KGlobalConstants.LastScheduleRun);
 
             DateTime lastRun = DateTime.Now;
             DateTime.TryParse(value, out lastRun);
@@ -31,7 +31,7 @@ namespace Karvis.Core
                 _mailModel.DoSchedule();
             }
 
-            _globalModel.SetValue(KGlobalValues.LastSchedulreRun, currentTime.ToString());
+            _globalModel.SetValue(KGlobalConstants.LastScheduleRun, currentTime.ToString());
         }
     }
 }

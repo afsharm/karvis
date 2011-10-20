@@ -68,10 +68,9 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\KScheduler.cs" />
     <Compile Include="Common\IKScheduler.cs" />
-    <Compile Include="Common\KSchedule.cs" />
-    <Compile Include="Common\IKSchedule.cs" />
     <Compile Include="Common\IKarvisCrawler.cs" />
     <Compile Include="Common\KarvisCrawler.cs" />
+    <Compile Include="Common\KSingleton.cs" />
     <Compile Include="Domain\AdSource.cs" />
     <Compile Include="Domain\ScheduleInfo.cs" />
     <Compile Include="Domain\KGlobal.cs" />
