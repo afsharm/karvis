@@ -9,5 +9,8 @@ namespace Karvis.Core
     public interface IKDispatcher
     {
         bool Send(MailMessage message);
+        int SentCount { get; }
+        int FailCount { get; }
+        int TotalCount { get; }
     }
 }

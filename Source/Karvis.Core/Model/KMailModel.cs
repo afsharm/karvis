@@ -17,16 +17,22 @@ namespace Karvis.Core
         NHibernateRepository<KMail> _mailRepository;
         IScheduleInfoModel _scheduleInfoModel;
         IKDispatcher _kdispatcher;
+        IKGlobalModel _kglobalModel;
 
         public KMailModel()
         {
             _sessionFactory = NHHelper.Instance.GetSessionFactory();
             _mailRepository = new NHibernateRepository<KMail>(_sessionFactory);
             _scheduleInfoModel = new ScheduleInfoModel();
-            _kdispatcher = new KDispatcher();
+            _kglobalModel = new KGlobalModel();
+            _kdispatcher = new KDispatcher(_kglobalModel.GetValue(KConstants.Host),
+                _kglobalModel.GetValue(KConstants.Port),
+                _kglobalModel.GetValue(KConstants.UserName),
+                _kglobalModel.GetValue(KConstants.Password));
         }
 
-        public KMailModel(ISessionFactory sessionFactory, IScheduleInfoModel scheduleInfoModel, IKDispatcher kdispatcher)
+        public KMailModel(ISessionFactory sessionFactory, IScheduleInfoModel scheduleInfoModel,
+            IKDispatcher kdispatcher)
         {
             _sessionFactory = sessionFactory;
             _scheduleInfoModel = scheduleInfoModel;
@@ -40,15 +46,58 @@ namespace Karvis.Core
             DateTime start = DateTime.Now;
 
             //do the real work
-            string result = string.Empty;
-            //todo
+
+            var unsent = GetUnSentItems();
+            int sendSuccessCount = 0;
+            int sendFailCount = 0;
+            foreach (var item in unsent)
+            {
+                MailMessage mailMessage = ConvertToMailMessage(item);
+                bool sendResult = SendMailMessage(item, mailMessage);
+
+                if (sendResult)
+                    sendSuccessCount++;
+                else
+                    sendFailCount++;
+            }
+
+            string scheduleResult = string.Format("{0} success try and {1} fail try", sendSuccessCount, sendFailCount);
 
             DateTime end = DateTime.Now;
-            _scheduleInfoModel.SaveScheduleInfo(KConstants.MailSchedule, result, start, end);
+            _scheduleInfoModel.SaveScheduleInfo(KConstants.MailSchedule, scheduleResult, start, end);
+        }
+
+        private bool SendMailMessage(KMail kmail, MailMessage mailMessage)
+        {
+            bool sendResult = _kdispatcher.Send(mailMessage);
+
+            if (sendResult)
+                SaveSuccess(kmail);
+
+            IncreaseTry(kmail);
+
+            return sendResult;
+        }
+
+        private static MailMessage ConvertToMailMessage(KMail item)
+        {
+            MailMessage mail = new MailMessage
+            {
+                From = new MailAddress(item.FromAddress, item.FromDescription, new UTF8Encoding()),
+                Subject = item.Subject,
+                Body = item.Description,
+            };
+
+            foreach (var receiver in item.Receivers.Split(','))
+                if (!string.IsNullOrEmpty(receiver))
+                    mail.To.Add(receiver);
+
+            return mail;
         }
 
 
-        public void Qeue(string subject, string description, string fromAddress, string fromDescription, int relatedReferenceId)
+        public void Qeue(string subject, string description, string fromAddress, string fromDescription,
+            string receivers, int relatedReferenceId)
         {
             KMail mail = new KMail
             {
@@ -58,6 +107,7 @@ namespace Karvis.Core
                 FromDescription = fromDescription,
                 RelatedReferenceId = relatedReferenceId,
                 AddDate = DateTime.Now,
+                Receivers = receivers,
                 IsSent = false,
                 TryCounter = 0
             };

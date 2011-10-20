@@ -13,5 +13,13 @@ namespace Karvis.Core
     public class KConstants
     {
         public static readonly string MailSchedule = "MailSchedule";
+
+        public static string Host = "Host";
+
+        public static string Port = "Port";
+
+        public static string UserName = "UserName";
+
+        public static string Password = "Password";
     }
 }

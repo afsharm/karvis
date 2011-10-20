@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFixture.cs" />
-    <Compile Include="KDispatcherTests.cs" />
     <Compile Include="KMailModelTests.cs" />
     <Compile Include="KGlobalModelTests.cs" />
     <Compile Include="ScheduleInfoModelTests.cs" />

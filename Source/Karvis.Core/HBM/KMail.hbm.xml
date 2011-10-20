@@ -12,6 +12,7 @@
     <property name="Description"/>
     <property name="FromAddress"/>
     <property name="FromDescription"/>
+    <property name="Receivers"/>
     <property name="RelatedReferenceId"/>
     <property name="AddDate"/>
     <property name="IsSent"/>

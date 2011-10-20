@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Karvis.Core;
 using NUnit.Framework;
 using Moq;
+using System.Net.Mail;
 
 namespace Karvis.Test
 {
@@ -25,9 +26,10 @@ namespace Karvis.Test
             string description = Guid.NewGuid().ToString();
             string fromAddress = Guid.NewGuid().ToString();
             string fromDescription = Guid.NewGuid().ToString();
+            string recievers = Guid.NewGuid().ToString();
             int relatedReferenceId = new Random(DateTime.Now.Millisecond).Next(1, 10000);
 
-            model.Qeue(subject, description, fromAddress, fromDescription, relatedReferenceId);
+            model.Qeue(subject, description, fromAddress, fromDescription, recievers, relatedReferenceId);
 
             var sent = model.GetSentItems();
             var unsent = model.GetUnSentItems();
@@ -55,7 +57,7 @@ namespace Karvis.Test
         public void AdvancedTest()
         {
             model.Qeue(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), 111);
+                Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), 111);
 
             var unsent = model.GetUnSentItems();
             var item = unsent[0];
@@ -72,7 +74,7 @@ namespace Karvis.Test
             model.SaveSuccess(item2);
             var sent2 = model.GetSentItems();
             Assert.AreEqual(1, sent2.Count);
-            
+
             var unsent3 = model.GetUnSentItems();
             Assert.AreEqual(0, unsent3.Count);
         }
@@ -82,16 +84,32 @@ namespace Karvis.Test
         {
             var mock = new Mock<IKDispatcher>();
 
-            mock.Setup(f => f.Send(null))
+            mock.Setup(f => f.Send(It.IsAny<MailMessage>()))
                 .Returns(true);
 
             IKDispatcher myDispatcher = mock.Object;
 
-            model = new KMailModel(SessionFactory, new ScheduleInfoModel(), myDispatcher);
+            model = new KMailModel(SessionFactory, new ScheduleInfoModel(SessionFactory), myDispatcher);
+
+            //we have an empty database at this point
 
             model.DoSchedule();
 
-            mock.Verify(f => f.Send(null));
+            Assert.AreEqual(0, myDispatcher.TotalCount);
+            Assert.AreEqual(0, model.GetSentItems().Count);
+            Assert.AreEqual(0, model.GetUnSentItems().Count);
+
+            model.Qeue("dummy", "dummy", "dummy@dummy.com", "dummy", "d1@dummy.com,d2@dummy.com,", 0);
+            Assert.AreEqual(0, model.GetSentItems().Count);
+            Assert.AreEqual(1, model.GetUnSentItems().Count);
+            
+            model.DoSchedule();
+            mock.Verify(f => f.Send(It.IsAny<MailMessage>()));
+
+            Assert.AreEqual(1, model.GetSentItems().Count);
+            Assert.AreEqual(0, model.GetUnSentItems().Count);
+
+            Assert.AreEqual(1, model.GetSentItems()[0].TryCounter);
         }
     }
 }

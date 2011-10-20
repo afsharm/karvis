@@ -10,7 +10,7 @@ namespace Karvis.Core
     public interface IKMailModel
     {
         void DoSchedule();
-        void Qeue(string subject, string description, string fromAddress, string fromDescription, int relatedReferenceId);
+        void Qeue(string subject, string description, string fromAddress, string fromDescription, string receivers, int relatedReferenceId);
         IList<KMail> GetSentItems();
         IList<KMail> GetUnSentItems();
         void IncreaseTry(KMail mail);

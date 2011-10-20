@@ -22,6 +22,12 @@ namespace Karvis.Core
         public virtual string Description { set; get; }
         public virtual string FromAddress { set; get; }
         public virtual string FromDescription { set; get; }
+        
+        /// <summary>
+        /// comma sperated
+        /// </summary>
+        public virtual string Receivers { set; get; }
+        
         public virtual int RelatedReferenceId { set; get; }
         public virtual DateTime? AddDate { set; get; }
         public virtual bool IsSent { set; get; }
