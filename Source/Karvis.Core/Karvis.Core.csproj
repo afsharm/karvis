@@ -77,8 +77,8 @@
     <Compile Include="Domain\KMail.cs" />
     <Compile Include="Domain\ExtractStatus.cs" />
     <Compile Include="Domain\IgnoredJob.cs" />
-    <Compile Include="DTO\SearchCriteriaDto.cs" />
     <Compile Include="DTO\AdSourceStatDto.cs" />
+    <Compile Include="DTO\SearchCriteriaDto.cs" />
     <Compile Include="Feed\FeedExtractor.cs" />
     <Compile Include="Feed\IFeedExtractor.cs" />
     <Compile Include="Common\KDispatcher.cs" />
