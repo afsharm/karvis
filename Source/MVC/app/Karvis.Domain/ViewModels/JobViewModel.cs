@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Karvis.Tasks.ViewModels
+namespace Karvis.Domain.ViewModels
 {
     public class JobViewModel
     {

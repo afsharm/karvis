@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
+using Karvis.Domain.Tasks;
 using Karvis.NHibernateProvider;
+using Karvis.Tasks;
 using NHibernate;
 using NHibernate.Cfg;
 using Razmyar.Domain.Contracts.Repositories;
@@ -31,6 +33,8 @@ namespace Karvis.Init
                                                   x.For(typeof (ICrudTask<>)).Use(typeof (CrudTask<>));
                                                   x.For<IUserRepository>().Use<UserRepository>();
                                                   x.For<IUserTask>().Use<UserTask>();
+                                                  x.For<IJobTask>().Use<JobTask>();
+
                                                   x.For<IConfigDbTask>().Use<ConfigDbTask>();
                                                   x.For(typeof (IRepositoryWithTypedId<,>)).Use(
                                                       typeof (RepositoryWithTypedId<,>));

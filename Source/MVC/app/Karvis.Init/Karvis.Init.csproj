@@ -77,6 +77,10 @@
       <Project>{4E471CAC-A108-49AE-A4D6-155DC35712C9}</Project>
       <Name>Karvis.NHibernateProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Karvis.Tasks\Karvis.Tasks.csproj">
+      <Project>{BE147A77-3E59-40E6-822D-5AEDFD5D383C}</Project>
+      <Name>Karvis.Tasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

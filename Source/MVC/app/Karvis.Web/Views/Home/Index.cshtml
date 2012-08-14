@@ -4,7 +4,7 @@
 }
 
 @using System.Globalization
-@model IList<JobViewModel>
+@model IList<Karvis.Domain.ViewModels.JobViewModel>
             
 @{
     ViewBag.Title = "Index";
@@ -42,14 +42,9 @@
     var rowIndex = ((grid.PageIndex + 1) * grid.RowsPerPage) - (grid.RowsPerPage - 1);
 }
  
-<div id="container">
+
     @grid.GetHtml(
-            tableStyle: "webgrid",
-            headerStyle: "webgrid-header",
-            footerStyle: "webgrid-footer",
-            alternatingRowStyle: "webgrid-alternating-row",
-            selectedRowStyle: "webgrid-selected-row",
-            rowStyle: "webgrid-row-style",
+         
             htmlAttributes: new { id = "MyGrid" },
             mode: WebGridPagerModes.All,
             columns: grid.Columns(
@@ -132,7 +127,6 @@
         @RenderPage("~/views/path/_partial_view.cshtml", new { Employee = grid.SelectedRow })
     }
     *@
-</div>
  
 @section script{
 <script type="text/javascript">

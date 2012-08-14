@@ -9,10 +9,10 @@ namespace Karvis.Domain.Dto
 
         public string Tag { get; set; }
 
-        public DateTime? RegistredDate { get; set; }
+        public DateTime? AddedDate { get; set; }
 
-        public string VisitsCount { get; set; }
+        public int VisitCount { get; set; }
 
-        public string Source { get; set; }
+        public AdSource Source { get; set; }
     }
 }

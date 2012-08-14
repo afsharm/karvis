@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\SharpLite.Domain.dll</HintPath>
@@ -55,9 +58,11 @@
     <Compile Include="KMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ActiveJobSummery.cs" />
+    <Compile Include="Queries\QueryableExtensions.cs" />
     <Compile Include="ScheduleInfo.cs" />
     <Compile Include="Tasks\IJobTask.cs" />
     <Compile Include="Validators\DataAnnotationsValidator.cs" />
+    <Compile Include="ViewModels\JobViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

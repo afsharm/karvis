@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using Karvis.Domain.Dto;
 
 namespace Karvis.Domain.Queries
 {
-   public static class ActiveJobSummeryExtension
-   {
-       public static IQueryable<JobSummeryDto> QueryForCustomerOrderSummaries(this IQueryable<Job> jobs)
-       {
-           return from customer in jobs
-                  select new CustomerOrderSummaryDto()
-                  {
-                      FirstName = customer.FirstName,
-                      LastName = customer.LastName,
-                      OrderCount = customer.Orders.Count
-                  };
-       }
-   }
+    public static class ActiveJobSummeryExtension
+    {
+        public static IQueryable<JobSummeryDto> QueryForAtiveJobsSummery(this IQueryable<Job> jobs)
+        {
+            return jobs.Where(x => x.IsActive).Select(x => new JobSummeryDto
+                                                               {
+                                                                   Id = x.Id,
+                                                                   AddedDate = x.DateAdded,
+                                                                   Source = x.AdSource,
+                                                                   Tag = x.Tag,
+                                                                   Title = x.Title,
+                                                                   VisitCount = x.VisitCount
+                                                               })
+                ;
+        }
+    }
 }
