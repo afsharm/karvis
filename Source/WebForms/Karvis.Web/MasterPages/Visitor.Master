@@ -29,6 +29,7 @@
         <asp:ContentPlaceHolder ID="head" runat="server">
         </asp:ContentPlaceHolder>
     </head>
+
     <body class="sg-nojs">
         <!-- HEADER -->
         <div class="ef-wrapper">

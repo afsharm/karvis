@@ -1,0 +1,526 @@
+/*
+
+Theme Name: The Mask
+Description: HTML/CSS Template
+Author: fireform
+License: GNU General Public License version 3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Version: 1.0
+
+Designed & Coded by Fireform
+All files, unless otherwise stated, are released under the GNU General Public License
+version 3.0 (http://www.gnu.org/licenses/gpl-3.0.html)
+
+*/
+
+/*Column shortcodes*/
+.one_half,.one_third,.one_fourth,.one_fifth,.one_sixth,.two_thirds,.three_fourth {
+    float: right;
+    line-height: 1.6em;
+}
+
+.one_half {
+    margin-left: 2%;
+    width: 49%;
+}
+
+.one_third {
+    margin-left: 3%;
+    width: 31%;
+}
+
+.one_fourth {
+    margin-left: 2.9%;
+    width: 22.8%;
+}
+
+.one_fifth {
+    margin-left: 1.9%;
+    width: 18.4%;
+}
+
+.one_sixth {
+    margin-left: 1.9%;
+    width: 15%;
+}
+
+.two_thirds {
+    margin-left: 2%;
+    width: 66%;
+}
+
+.three_fourth {
+    margin-left: 1.9%;
+    width: 74.3%;
+}
+
+/*Text highlight*/
+span.highlight-hl-theme,span.highlight-hl-red,span.highlight-hl-lightred,span.highlight-hl-yellow,span.highlight-hl-blue,span.highlight-hl-green,span.highlight-hl-grey,span.highlight-hl-black,span.highlight-hl-orange,span.highlight-hl-pink {
+    padding: 1px 4px 2px;
+    line-height: 1.6em;
+}
+
+span.highlight-hl-red {
+    border: 1px solid #ffbaba;
+}
+
+span.highlight-hl-blue {
+    border: 1px solid #bad4ff;
+}
+
+span.highlight-hl-green {
+    border: 1px solid #b1eda3;
+}
+
+span.highlight-hl-grey {
+    border: 1px solid #d6d6d6;
+}
+
+span.highlight-hl-orange {
+    border: 1px solid #ffd0b6;
+}
+
+/*Accordion*/
+.accordion .ui-state-focus {
+    outline: none;
+}
+
+.accordion .ui-accordion-header a {
+    outline: 0 none;
+    display: block;
+    padding: 8px 20px 8px 51px;
+}
+
+.accordion .ui-accordion-content {
+    padding: 10px 20px;
+}
+
+.accordion .ui-accordion-header {
+    background: transparent;
+    background: #f3f3f3;
+    margin-bottom: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.accordion .ui-accordion-header .ui-icon {
+    cursor: pointer;
+    width: 15px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    margin-top: -7px;
+    background: url(../images/accordion.png) no-repeat right;
+}
+
+.accordion .ui-state-active .ui-icon {
+    background: url(../images/accordion.png) no-repeat left;
+}
+
+.ui-accordion-header a:hover {
+    color: #fff;
+}
+
+/*Tabs*/
+.sg-nojs ul.tabs-nav {
+    display: none;
+}
+
+.ef-tabs {
+    line-height: 1.6em;
+}
+
+.ef-tabs ul.tabs-nav {
+    clear: both;
+    list-style: none outside none;
+    margin: 0 1px 0 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.ef-tabs ul.tabs-nav li {
+    float: right;
+    margin: 0 0 0 2px;
+    position: relative;
+    z-index: 10;
+}
+
+.ef-tabs ul.tabs-nav li a,.ef-tabs ul.tabs-nav li a {
+    border: 1px solid #ececec;
+    display: block;
+    overflow: hidden;
+    padding: 5px 15px;
+}
+
+.ef-tabs ul.tabs-nav li.ui-tabs-selected a,.ef-tabs ul.tabs-nav a:hover {
+    color: #fff;
+}
+
+.ef-tabs .tab {
+    padding: 15px 0;
+}
+
+.ef-tabs .ui-tabs-hide,.ui-tabs-hide {
+    right: -10000px;
+    position: absolute;
+}
+
+/*Alerts*/
+.alertBox-warning,.alertBox-success,.alertBox-alert {
+    background: url(../images/warning.png) #fff0e4 no-repeat left 50%;
+    padding: 17px 15px 17px 45px;
+    border-top: 2px solid #ffad6a;
+    font-size: 19px;
+    display: block;
+    margin-bottom: 25px;
+    line-height: 1em;
+    clear: both;
+}
+
+.alertBox-warning p,.alertBox-success p,.alertBox-alert p {
+    margin: 0;
+}
+
+.alertBox-success {
+    background: url(../images/sucsess.png) #e4ffe5 no-repeat left 50%;
+    border-color: #52df59;
+}
+
+.alertBox-alert {
+    background: url(../images/error.png) #ffe8e8 no-repeat left 50%;
+    border-color: #ee7070;
+}
+
+.alertBox-success div,.alertBox-warning div,.alertBox-alert div {
+    border-style: solid !important;
+    padding: 10px;
+    clear: both;
+}
+
+/*Bolckquotes*/
+blockquote,blockquote.blockquote-left,blockquote.blockquote-right {
+    font-size: 20px;
+    padding: 0 20px;
+    width: 40%;
+    font-style: normal;
+    text-align: right;
+    line-height: 1.3em;
+}
+
+blockquote {
+    width: auto;
+    border-right: 3px solid #d1d1d1;
+    text-align: center;
+    margin: 10px 0 10px 20px;
+}
+
+blockquote.blockquote-left {
+    border-right: 3px solid #d1d1d1;
+    float: right;
+    margin: 10px 0 10px 20px;
+}
+
+blockquote.blockquote-right {
+    border-right: 3px solid #d1d1d1;
+    float: left;
+    margin: 10px 20px 10px 0;
+}
+
+.testimonials {
+    margin-bottom: 20px;
+}
+
+.testimonials.ef-xl .ef-t-content {
+    padding: 30px;
+    background: url(../images/quotes.png) #f5f5f5 no-repeat left top;
+}
+
+.testimonials .proj-img {
+    width: 25%;
+}
+
+.testimonials.ef-xxl {
+    padding-right: 20px;
+    border-right: 3px solid #d1d1d1;
+}
+
+.testimonials.ef-xxl p:first-child {
+    line-height: 1.3em;
+    font-size: 20px;
+}
+
+.testimonials.ef-xxl p {
+    font-size: 15px;
+}
+
+.testimonials.ef-xl .ef-author {
+    padding-top: 20px;
+    background: url(../images/t-corner.gif) no-repeat 30px 0;
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+/*List styles*/
+ul.star li {
+    background: url(../images/star.png) no-repeat 0 .1em;
+}
+
+ul.star.ef-round li {
+    background: url(../images/star-round.png) no-repeat 0 .1em;
+}
+
+ul.star.ef-colored li {
+    background: url(../images/star-round-orange.png) no-repeat 0 .1em;
+}
+
+ul.star.ef-colored1 li {
+    background: url(../images/star-blue.png) no-repeat 0 .1em;
+}
+
+ul.arrow li {
+    background: url(../images/arrow.png) no-repeat 0 .1em;
+}
+
+ul.arrow.ef-round li {
+    background: url(../images/arrow-round.png) no-repeat 0 .1em;
+}
+
+ul.arrow.ef-colored li {
+    background: url(../images/arrow-round-green.png) no-repeat 0 .1em;
+}
+
+ul.arrow.ef-colored1 li {
+    background: url(../images/arrow-blue.png) no-repeat 0 .1em;
+}
+
+ul.arrow-bullet li {
+    background: url(../images/arrow-bullet.png) no-repeat 0 .1em;
+}
+
+ul.arrow-bullet.ef-round li {
+    background: url(../images/arrow-bullet-round.png) no-repeat 0 .1em;
+}
+
+ul.arrow-bullet.ef-colored li {
+    background: url(../images/arrow-bullet-round-green.png) no-repeat 0 .1em;
+}
+
+ul.arrow-bullet.ef-colored1 li {
+    background: url(../images/arrow-bullet-blue.png) no-repeat 0 .1em;
+}
+
+ul.colored-disc.ef-green li {
+    background: url(../images/colored-circle-green.png) no-repeat 0 .1em;
+}
+
+ul.colored-disc.ef-orange li {
+    background: url(../images/colored-circle-orange.png) no-repeat 0 .1em;
+}
+
+ul.colored-disc.ef-red li {
+    background: url(../images/colored-circle-red.png) no-repeat 0 .1em;
+}
+
+ul.colored-disc.ef-blue li {
+    background: url(../images/colored-disk-blue.png) no-repeat 0 .1em;
+}
+
+/*Buttons*/
+.ef-button.ef-rounded,.ef-button.ef-rounded span {
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.ef-button.ef-l-rounded,.ef-button.ef-l-rounded span {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.ef-button.ef-green span,.ef-button.ef-blue span,.ef-button.ef-orange span,.ef-button.ef-red span,.price-item.recomended .ef-button span,.ef-button.ef-gray span {
+    text-shadow: 0 0;
+    color: #fff;
+}
+
+.ef-button.ef-green span,.price-item.recomended .ef-button span {
+    background-color: #5DCC60;
+    border-color: #4fbe52;
+}
+
+.ef-button.ef-green span:hover,.price-item.recomended .ef-button span:hover {
+    border-color: #3f9aea;
+}
+
+.ef-button.ef-blue span {
+    background-color: #4fadff;
+    border-color: #3f9aea;
+}
+
+.ef-button.ef-gray span {
+    background-color: #404040;
+}
+
+.ef-button.ef-blue span:hover,.ef-button.ef-gray span:hover {
+    background-color: #5DCC60;
+    border-color: #4fbe52;
+}
+
+.ef-button.ef-orange span {
+    background-color: #ffb052;
+    border-color: #eea043;
+}
+
+.ef-button.ef-orange span:hover {
+    background-color: #ff5252;
+    border-color: #ee4242;
+}
+
+.ef-button.ef-red span {
+    background-color: #ff5252;
+    border-color: #ee4242;
+}
+
+.ef-button.ef-red span:hover {
+    background-color: #ffb052;
+    border-color: #eea043;
+}
+
+/*Toggle box*/
+.ef-toggle-box li {
+    margin-bottom: 0;
+    display: block;
+}
+
+.ef-toggle-box .toggle-head {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 19px;
+    display: block;
+    padding: 7px 0;
+    border-bottom: 1px solid #ECECEC;
+}
+
+.ef-toggle-box.toggle-icn .toggle-head {
+    padding-right: 30px;
+    background: url(../images/toggle-icn.png) no-repeat 0 10px;
+}
+
+.ef-toggle-box.toggle-icn li.open .toggle-head {
+    background-position: 0 -74px;
+}
+
+.ef-toggle-box.toggle-icn .toggle-content {
+    padding-right: 30px;
+}
+
+.ef-toggle-box .toggle-content {
+    overflow: hidden;
+    padding: 15px 0;
+}
+
+/*Pricing tables*/
+.price-table .pt-column {
+    width: 25%;
+    text-align: center;
+    float: right;
+}
+
+.price-table .price-title {
+    background: #606060;
+    padding: 10px 15px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.price-item .price-content {
+    padding: 0 0 20px;
+}
+
+.price-table a.ef-button {
+    margin-left: 0;
+}
+
+.price-table .pt-column .price-item {
+    padding-bottom: 10px;
+    border: 1px solid #ececec;
+    margin-left: -1px;
+}
+
+.price-item .price-tag {
+    font-size: 33px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #f3f3f3;
+}
+
+.price-table .pt-column .price-item.recomended {
+    -moz-box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    padding-bottom: 30px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
+}
+
+.price-item ul li {
+    margin-bottom: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    line-height: 50px;
+    height: 50px;
+}
+
+.price-content ul li span {
+    padding-right: 20px;
+}
+
+.price-content ul li.ef-yes span {
+    background: url(../images/sucsess.png) no-repeat 0 50%;
+}
+
+.price-content ul li.ef-no span {
+    background: url(../images/error.png) no-repeat 0 50%;
+}
+
+.price-item ul li:nth-child(2n),.price-item ul li.nth-2n {
+    background-color: #fafafa;
+}
+
+.price-item.recomended .price-tag {
+    line-height: 100px;
+    font-size: 40px;
+    height: 100px;
+    color: #fff;
+}
+
+.price-item .price-tag sup {
+    font-weight: 100;
+    font-size: 50%;
+}
+
+.ef-message-container {
+    padding: 30px 0 18px;
+    overflow: hidden;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ef-message-container .ef-message {
+    width: 70%;
+}
+
+.ef-message p {
+    font-weight: 100;
+}
+
+.ef-message h1,.ef-message h2,.ef-message h3,.ef-message h4,.ef-message h5,.ef-message h6 {
+    margin-bottom: 10px;
+}
+
+.ef-message-container .ef-message .ef-button {
+    margin-left: 0;
+}
