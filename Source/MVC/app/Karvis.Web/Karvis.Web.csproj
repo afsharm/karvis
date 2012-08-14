@@ -37,6 +37,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Razmyar.Web.Controllers">
+      <HintPath>..\..\lib\Razmyar.Web.Controllers.dll</HintPath>
+    </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f2f64e823dfaf078, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\SharpLite.Domain.dll</HintPath>
@@ -71,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfigController.cs" />
+    <Compile Include="Areas\Settings\SettingsAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -142,9 +147,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Settings\Controllers\" />
+    <Folder Include="Areas\Settings\Models\" />
+    <Folder Include="Areas\Settings\Views\Shared\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
@@ -167,6 +174,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Settings\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Settings\Views\ConfigDb\GenerateDatabase.cshtml" />
+    <Content Include="Areas\Settings\Views\ConfigDb\Index.cshtml" />
+    <Content Include="Areas\Settings\Views\ConfigDb\InjectDefaultData.cshtml" />
+    <Content Include="Areas\Settings\Views\ConfigDb\InjectSampleData.cshtml" />
+    <Content Include="Areas\Settings\Views\ConfigDb\UpdateDatabase.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
