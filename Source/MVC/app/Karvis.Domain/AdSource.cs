@@ -1,4 +1,4 @@
-﻿namespace Karvis.Core
+﻿namespace Karvis.Domain
 {
     /// <summary>
     /// Advertise Source of a typical Job

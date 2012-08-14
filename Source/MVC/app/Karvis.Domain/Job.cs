@@ -1,7 +1,7 @@
 ﻿using System;
 using SharpLite.Domain;
 
-namespace Karvis.Core
+namespace Karvis.Domain
 {
     public class Job : Entity
     {
