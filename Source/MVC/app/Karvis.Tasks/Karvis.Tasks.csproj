@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Razmyar.Domain">
+      <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Razmyar.SharpLite">
+      <HintPath>..\..\lib\Razmyar.SharpLite.dll</HintPath>
+    </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\SharpLite.Domain.dll</HintPath>
@@ -46,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntityCudTasks.cs" />
+    <Compile Include="JobTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\JobViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Karvis.Domain\Karvis.Domain.csproj">
@@ -54,9 +62,7 @@
       <Name>Karvis.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
