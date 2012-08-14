@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D3F16B21-88F9-4533-975B-82A7F2B55295}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Karvis.Core</RootNamespace>
+    <AssemblyName>Karvis.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Library\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Library\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Fardis.Lib">
+      <HintPath>..\..\Library\Fardis.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\Library\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\Library\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\Library\System.Data.SQLite.DLL</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\KScheduler.cs" />
+    <Compile Include="Common\IKScheduler.cs" />
+    <Compile Include="Common\IKarvisCrawler.cs" />
+    <Compile Include="Common\KarvisCrawler.cs" />
+    <Compile Include="Common\KSingleton.cs" />
+    <Compile Include="Domain\AdSource.cs" />
+    <Compile Include="Domain\ScheduleInfo.cs" />
+    <Compile Include="Domain\KGlobal.cs" />
+    <Compile Include="Domain\KMail.cs" />
+    <Compile Include="Domain\ExtractStatus.cs" />
+    <Compile Include="Domain\IgnoredJob.cs" />
+    <Compile Include="DTO\AdSourceStatDto.cs" />
+    <Compile Include="DTO\SearchCriteriaDto.cs" />
+    <Compile Include="Feed\FeedExtractor.cs" />
+    <Compile Include="Feed\IFeedExtractor.cs" />
+    <Compile Include="Common\KDispatcher.cs" />
+    <Compile Include="Common\IKDispatcher.cs" />
+    <Compile Include="IModel\IScheduleInfoModel.cs" />
+    <Compile Include="Model\ScheduleInfoModel.cs" />
+    <Compile Include="Model\KGlobalModel.cs" />
+    <Compile Include="Model\KMailModel.cs" />
+    <Compile Include="IModel\IKMailModel.cs" />
+    <Compile Include="IModel\IKGlobalModel.cs" />
+    <Compile Include="Model\ExtractorHelper.cs" />
+    <Compile Include="IModel\IExtractorHelper.cs" />
+    <Compile Include="Model\IgnoredJobModel.cs" />
+    <Compile Include="IModel\IIgnoredJobModel.cs" />
+    <Compile Include="Model\ExtractJobsModel.cs" />
+    <Compile Include="IModel\IExtractJobsModel.cs" />
+    <Compile Include="IoC\IDependencyResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IoC\IoC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IoC\LifeStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IoC\WindsorDependencyResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IModel\IJobModel.cs" />
+    <Compile Include="MVP\IView.cs" />
+    <Compile Include="MVP\Presenter.cs" />
+    <Compile Include="MVP\TEventArgs.cs" />
+    <Compile Include="NHibernate\ConfigHelper.cs" />
+    <Compile Include="Domain\Job.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\JobModel.cs" />
+    <Compile Include="NHibernate\Entity.cs" />
+    <Compile Include="Feed\FeedHelper.cs" />
+    <Compile Include="Feed\IFeed.cs" />
+    <Compile Include="GeneralHelper.cs" />
+    <Compile Include="NHibernate\HybridWebSessionContext.cs" />
+    <Compile Include="NHibernate\IRepository.cs" />
+    <Compile Include="NHibernate\NHHelper.cs" />
+    <Compile Include="NHibernate\NHibernateBase.cs" />
+    <Compile Include="NHibernate\NHibernateRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\Job.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\IgnoredJob.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\ScheduleInfo.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\KGlobal.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\KMail.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
