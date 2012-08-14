@@ -1,137 +1,25 @@
-using System.Web.Security;
-using System.Configuration.Provider;
-using System.Collections.Specialized;
 using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Configuration.Provider;
 using System.Data;
 using System.Data.SQLite;
-using System.Configuration;
 using System.Diagnostics;
-using System.Web;
-using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web.Configuration;
-
+using System.Web.Hosting;
+using System.Web.Security;
 
 namespace Karvis.Web
 {
-
     public sealed class SQLiteMembershipProvider : MembershipProvider
     {
-
-      
-
-        private int newPasswordLength = 8;
-        private string eventSource = "SQLiteMembershipProvider";
-        private string eventLog = "Application";
-        private string exceptionMessage = "An exception occurred. Please check the Event Log.";
-        private string tableName = "Users";
-        private string connectionString;
-
         private const string encryptionKey = "AE09F72BA97CBBB5";
-
-        //
-        // If false, exceptions are thrown to the caller. If true,
-        // exceptions are written to the event log.
-        //
-
-        private bool pWriteExceptionsToEventLog;
-
-        public bool WriteExceptionsToEventLog
-        {
-            get { return pWriteExceptionsToEventLog; }
-            set { pWriteExceptionsToEventLog = value; }
-        }
-
-
-        //
-        // System.Configuration.Provider.ProviderBase.Initialize Method
-        //
-
-        public override void Initialize(string name, NameValueCollection config)
-        {
-            //
-            // Initialize values from web.config.
-            //
-
-            if (config == null)
-                throw new ArgumentNullException("config");
-
-            if (name == null || name.Length == 0)
-                name = "SQLiteMembershipProvider";
-
-            if (String.IsNullOrEmpty(config["description"]))
-            {
-                config.Remove("description");
-                config.Add("description", "Sample SQLite Membership provider");
-            }
-
-            // Initialize the abstract base class.
-            base.Initialize(name, config);
-
-            pApplicationName = GetConfigValue(config["applicationName"],
-                                            System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
-            pMaxInvalidPasswordAttempts = Convert.ToInt32(GetConfigValue(config["maxInvalidPasswordAttempts"], "5"));
-            pPasswordAttemptWindow = Convert.ToInt32(GetConfigValue(config["passwordAttemptWindow"], "10"));
-            pMinRequiredNonAlphanumericCharacters = Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "1"));
-            pMinRequiredPasswordLength = Convert.ToInt32(GetConfigValue(config["minRequiredPasswordLength"], "7"));
-            pPasswordStrengthRegularExpression = Convert.ToString(GetConfigValue(config["passwordStrengthRegularExpression"], ""));
-            pEnablePasswordReset = Convert.ToBoolean(GetConfigValue(config["enablePasswordReset"], "true"));
-            pEnablePasswordRetrieval = Convert.ToBoolean(GetConfigValue(config["enablePasswordRetrieval"], "true"));
-            pRequiresQuestionAndAnswer = Convert.ToBoolean(GetConfigValue(config["requiresQuestionAndAnswer"], "false"));
-            pRequiresUniqueEmail = Convert.ToBoolean(GetConfigValue(config["requiresUniqueEmail"], "true"));
-            pWriteExceptionsToEventLog = Convert.ToBoolean(GetConfigValue(config["writeExceptionsToEventLog"], "true"));
-
-            string temp_format = config["passwordFormat"];
-            if (temp_format == null)
-            {
-                temp_format = "Hashed";
-            }
-
-            switch (temp_format)
-            {
-                case "Hashed":
-                    pPasswordFormat = MembershipPasswordFormat.Hashed;
-                    break;
-                case "Encrypted":
-                    pPasswordFormat = MembershipPasswordFormat.Encrypted;
-                    break;
-                case "Clear":
-                    pPasswordFormat = MembershipPasswordFormat.Clear;
-                    break;
-                default:
-                    throw new ProviderException("Password format not supported.");
-            }
-
-            //
-            // Initialize SQLiteConnection.
-            //
-
-            ConnectionStringSettings ConnectionStringSettings =
-              ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
-
-            if (ConnectionStringSettings == null || ConnectionStringSettings.ConnectionString.Trim() == "")
-            {
-                throw new ProviderException("Connection string cannot be blank.");
-            }
-
-            connectionString = ConnectionStringSettings.ConnectionString;
-
-
-        }
-
-
-        //
-        // A helper function to retrieve config values from the configuration file.
-        //
-
-        private string GetConfigValue(string configValue, string defaultValue)
-        {
-            if (String.IsNullOrEmpty(configValue))
-                return defaultValue;
-
-            return configValue;
-        }
+        private string connectionString;
+        private string eventLog = "Application";
+        private string eventSource = "SQLiteMembershipProvider";
+        private string exceptionMessage = "An exception occurred. Please check the Event Log.";
+        private int newPasswordLength = 8;
 
 
         //
@@ -142,11 +30,22 @@ namespace Karvis.Web
         private string pApplicationName;
         private bool pEnablePasswordReset;
         private bool pEnablePasswordRetrieval;
-        private bool pRequiresQuestionAndAnswer;
-        private bool pRequiresUniqueEmail;
         private int pMaxInvalidPasswordAttempts;
+        private int pMinRequiredNonAlphanumericCharacters;
+        private int pMinRequiredPasswordLength;
         private int pPasswordAttemptWindow;
         private MembershipPasswordFormat pPasswordFormat;
+        private string pPasswordStrengthRegularExpression;
+        private bool pRequiresQuestionAndAnswer;
+        private bool pRequiresUniqueEmail;
+        private bool pWriteExceptionsToEventLog;
+        private string tableName = "Users";
+
+        public bool WriteExceptionsToEventLog
+        {
+            get { return pWriteExceptionsToEventLog; }
+            set { pWriteExceptionsToEventLog = value; }
+        }
 
         public override string ApplicationName
         {
@@ -195,25 +94,104 @@ namespace Karvis.Web
             get { return pPasswordFormat; }
         }
 
-        private int pMinRequiredNonAlphanumericCharacters;
-
         public override int MinRequiredNonAlphanumericCharacters
         {
             get { return pMinRequiredNonAlphanumericCharacters; }
         }
-
-        private int pMinRequiredPasswordLength;
 
         public override int MinRequiredPasswordLength
         {
             get { return pMinRequiredPasswordLength; }
         }
 
-        private string pPasswordStrengthRegularExpression;
-
         public override string PasswordStrengthRegularExpression
         {
             get { return pPasswordStrengthRegularExpression; }
+        }
+
+        public override void Initialize(string name, NameValueCollection config)
+        {
+            //
+            // Initialize values from web.config.
+            //
+
+            if (config == null)
+                throw new ArgumentNullException("config");
+
+            if (name == null || name.Length == 0)
+                name = "SQLiteMembershipProvider";
+
+            if (String.IsNullOrEmpty(config["description"]))
+            {
+                config.Remove("description");
+                config.Add("description", "Sample SQLite Membership provider");
+            }
+
+            // Initialize the abstract base class.
+            base.Initialize(name, config);
+
+            pApplicationName = GetConfigValue(config["applicationName"],
+                                              HostingEnvironment.ApplicationVirtualPath);
+            pMaxInvalidPasswordAttempts = Convert.ToInt32(GetConfigValue(config["maxInvalidPasswordAttempts"], "5"));
+            pPasswordAttemptWindow = Convert.ToInt32(GetConfigValue(config["passwordAttemptWindow"], "10"));
+            pMinRequiredNonAlphanumericCharacters =
+                Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "1"));
+            pMinRequiredPasswordLength = Convert.ToInt32(GetConfigValue(config["minRequiredPasswordLength"], "7"));
+            pPasswordStrengthRegularExpression =
+                Convert.ToString(GetConfigValue(config["passwordStrengthRegularExpression"], ""));
+            pEnablePasswordReset = Convert.ToBoolean(GetConfigValue(config["enablePasswordReset"], "true"));
+            pEnablePasswordRetrieval = Convert.ToBoolean(GetConfigValue(config["enablePasswordRetrieval"], "true"));
+            pRequiresQuestionAndAnswer = Convert.ToBoolean(GetConfigValue(config["requiresQuestionAndAnswer"], "false"));
+            pRequiresUniqueEmail = Convert.ToBoolean(GetConfigValue(config["requiresUniqueEmail"], "true"));
+            pWriteExceptionsToEventLog = Convert.ToBoolean(GetConfigValue(config["writeExceptionsToEventLog"], "true"));
+
+            string temp_format = config["passwordFormat"];
+            if (temp_format == null)
+            {
+                temp_format = "Hashed";
+            }
+
+            switch (temp_format)
+            {
+                case "Hashed":
+                    pPasswordFormat = MembershipPasswordFormat.Hashed;
+                    break;
+                case "Encrypted":
+                    pPasswordFormat = MembershipPasswordFormat.Encrypted;
+                    break;
+                case "Clear":
+                    pPasswordFormat = MembershipPasswordFormat.Clear;
+                    break;
+                default:
+                    throw new ProviderException("Password format not supported.");
+            }
+
+            //
+            // Initialize SQLiteConnection.
+            //
+
+            ConnectionStringSettings ConnectionStringSettings =
+                ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
+
+            if (ConnectionStringSettings == null || ConnectionStringSettings.ConnectionString.Trim() == "")
+            {
+                throw new ProviderException("Connection string cannot be blank.");
+            }
+
+            connectionString = ConnectionStringSettings.ConnectionString;
+        }
+
+
+        //
+        // A helper function to retrieve config values from the configuration file.
+        //
+
+        private string GetConfigValue(string configValue, string defaultValue)
+        {
+            if (String.IsNullOrEmpty(configValue))
+                return defaultValue;
+
+            return configValue;
         }
 
         //
@@ -230,8 +208,8 @@ namespace Karvis.Web
                 return false;
 
 
-            ValidatePasswordEventArgs args =
-              new ValidatePasswordEventArgs(username, newPwd, true);
+            var args =
+                new ValidatePasswordEventArgs(username, newPwd, true);
 
             OnValidatingPassword(args);
 
@@ -239,13 +217,14 @@ namespace Karvis.Web
                 if (args.FailureInformation != null)
                     throw args.FailureInformation;
                 else
-                    throw new MembershipPasswordException("Change password canceled due to new password validation failure.");
+                    throw new MembershipPasswordException(
+                        "Change password canceled due to new password validation failure.");
 
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
-                    " SET Password = $Password, LastPasswordChangedDate = $LastPasswordChangedDate " +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
+                                        " SET Password = $Password, LastPasswordChangedDate = $LastPasswordChangedDate " +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Password", DbType.String, 255).Value = EncodePassword(newPwd);
             cmd.Parameters.Add("$LastPasswordChangedDate", DbType.DateTime).Value = DateTime.Now;
@@ -288,23 +267,22 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.ChangePasswordQuestionAndAnswer
         //
 
         public override bool ChangePasswordQuestionAndAnswer(string username,
-                      string password,
-                      string newPwdQuestion,
-                      string newPwdAnswer)
+                                                             string password,
+                                                             string newPwdQuestion,
+                                                             string newPwdAnswer)
         {
             if (!ValidateUser(username, password))
                 return false;
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
-                    " SET PasswordQuestion = $PasswordQuestion, PasswordAnswer = $PasswordAnswer" +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
+                                        " SET PasswordQuestion = $PasswordQuestion, PasswordAnswer = $PasswordAnswer" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Question", DbType.String, 255).Value = newPwdQuestion;
             cmd.Parameters.Add("$Answer", DbType.String, 255).Value = EncodePassword(newPwdAnswer);
@@ -347,22 +325,21 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.CreateUser
         //
 
         public override MembershipUser CreateUser(string username,
-                 string password,
-                 string email,
-                 string passwordQuestion,
-                 string passwordAnswer,
-                 bool isApproved,
-                 object providerUserKey,
-                 out MembershipCreateStatus status)
+                                                  string password,
+                                                  string email,
+                                                  string passwordQuestion,
+                                                  string passwordAnswer,
+                                                  bool isApproved,
+                                                  object providerUserKey,
+                                                  out MembershipCreateStatus status)
         {
-            ValidatePasswordEventArgs args =
-              new ValidatePasswordEventArgs(username, password, true);
+            var args =
+                new ValidatePasswordEventArgs(username, password, true);
 
             OnValidatingPassword(args);
 
@@ -371,7 +348,6 @@ namespace Karvis.Web
                 status = MembershipCreateStatus.InvalidPassword;
                 return null;
             }
-
 
 
             if (RequiresUniqueEmail && GetUserNameByEmail(email) != "")
@@ -399,19 +375,20 @@ namespace Karvis.Web
                     }
                 }
 
-                SQLiteConnection conn = new SQLiteConnection(connectionString);
-                SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `" + tableName + "`" +
-                      " (PKID, Username, Password, Email, PasswordQuestion, " +
-                      " PasswordAnswer, IsApproved," +
-                      " Comment, CreationDate, LastPasswordChangedDate, LastActivityDate," +
-                      " ApplicationName, IsLockedOut, LastLockedOutDate," +
-                      " FailedPasswordAttemptCount, FailedPasswordAttemptWindowStart, " +
-                      " FailedPasswordAnswerAttemptCount, FailedPasswordAnswerAttemptWindowStart)" +
-                      " Values($PKID, $Username, $Password, $Email, $PasswordQuestion, " +
-                      " $PasswordAnswer, $IsApproved, $Comment, $CreationDate, $LastPasswordChangedDate, " +
-                      " $LastActivityDate, $ApplicationName, $IsLockedOut, $LastLockedOutDate, " + 
-                      " $FailedPasswordAttemptCount, $FailedPasswordAttemptWindowStart, " +
-                      " $FailedPasswordAnswerAttemptCount, $FailedPasswordAnswerAttemptWindowStart)", conn);
+                var conn = new SQLiteConnection(connectionString);
+                var cmd = new SQLiteCommand("INSERT INTO `" + tableName + "`" +
+                                            " (PKID, Username, Password, Email, PasswordQuestion, " +
+                                            " PasswordAnswer, IsApproved," +
+                                            " Comment, CreationDate, LastPasswordChangedDate, LastActivityDate," +
+                                            " ApplicationName, IsLockedOut, LastLockedOutDate," +
+                                            " FailedPasswordAttemptCount, FailedPasswordAttemptWindowStart, " +
+                                            " FailedPasswordAnswerAttemptCount, FailedPasswordAnswerAttemptWindowStart)" +
+                                            " Values($PKID, $Username, $Password, $Email, $PasswordQuestion, " +
+                                            " $PasswordAnswer, $IsApproved, $Comment, $CreationDate, $LastPasswordChangedDate, " +
+                                            " $LastActivityDate, $ApplicationName, $IsLockedOut, $LastLockedOutDate, " +
+                                            " $FailedPasswordAttemptCount, $FailedPasswordAttemptWindowStart, " +
+                                            " $FailedPasswordAnswerAttemptCount, $FailedPasswordAnswerAttemptWindowStart)",
+                                            conn);
 
                 cmd.Parameters.Add("$PKID", DbType.String).Value = providerUserKey.ToString();
                 cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
@@ -474,16 +451,15 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.DeleteUser
         //
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `" + tableName + "`" +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("DELETE FROM `" + tableName + "`" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -526,19 +502,18 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.GetAllUsers
         //
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
-                                              "WHERE ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
+                                        "WHERE ApplicationName = $ApplicationName", conn);
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = ApplicationName;
 
-            MembershipUserCollection users = new MembershipUserCollection();
+            var users = new MembershipUserCollection();
 
             SQLiteDataReader reader = null;
             totalRecords = 0;
@@ -548,19 +523,22 @@ namespace Karvis.Web
                 conn.Open();
                 totalRecords = Convert.ToInt32(cmd.ExecuteScalar());
 
-                if (totalRecords <= 0) { return users; }
+                if (totalRecords <= 0)
+                {
+                    return users;
+                }
 
                 cmd.CommandText = "SELECT PKID, Username, Email, PasswordQuestion," +
-                         " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
-                         " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
-                         " FROM `" + tableName + "` " +
-                         " WHERE ApplicationName = $ApplicationName " +
-                         " ORDER BY Username Asc";
+                                  " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
+                                  " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
+                                  " FROM `" + tableName + "` " +
+                                  " WHERE ApplicationName = $ApplicationName " +
+                                  " ORDER BY Username Asc";
 
                 reader = cmd.ExecuteReader();
 
                 int counter = 0;
-                int startIndex = pageSize * pageIndex;
+                int startIndex = pageSize*pageIndex;
                 int endIndex = startIndex + pageSize - 1;
 
                 while (reader.Read())
@@ -571,7 +549,10 @@ namespace Karvis.Web
                         users.Add(u);
                     }
 
-                    if (counter >= endIndex) { cmd.Cancel(); }
+                    if (counter >= endIndex)
+                    {
+                        cmd.Cancel();
+                    }
 
                     counter++;
                 }
@@ -591,7 +572,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 conn.Close();
             }
 
@@ -605,13 +589,13 @@ namespace Karvis.Web
 
         public override int GetNumberOfUsersOnline()
         {
-
-            TimeSpan onlineSpan = new TimeSpan(0, System.Web.Security.Membership.UserIsOnlineTimeWindow, 0);
+            var onlineSpan = new TimeSpan(0, System.Web.Security.Membership.UserIsOnlineTimeWindow, 0);
             DateTime compareTime = DateTime.Now.Subtract(onlineSpan);
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "`" +
-                    " WHERE LastActivityDate > $LastActivityDate AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "`" +
+                                        " WHERE LastActivityDate > $LastActivityDate AND ApplicationName = $ApplicationName",
+                                        conn);
 
             cmd.Parameters.Add("$CompareDate", DbType.DateTime).Value = compareTime;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -646,7 +630,6 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.GetPassword
         //
@@ -663,9 +646,9 @@ namespace Karvis.Web
                 throw new ProviderException("Cannot retrieve Hashed passwords.");
             }
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password, PasswordAnswer, IsLockedOut FROM `" + tableName + "`" +
-                  " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Password, PasswordAnswer, IsLockedOut FROM `" + tableName + "`" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -710,7 +693,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 conn.Close();
             }
 
@@ -732,18 +718,18 @@ namespace Karvis.Web
         }
 
 
-
         //
         // MembershipProvider.GetUser(string, bool)
         //
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT PKID, Username, Email, PasswordQuestion," +
-                 " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
-                 " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate" +
-                 " FROM `" + tableName + "` WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT PKID, Username, Email, PasswordQuestion," +
+                                        " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
+                                        " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate" +
+                                        " FROM `" + tableName +
+                                        "` WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -764,9 +750,10 @@ namespace Karvis.Web
 
                     if (userIsOnline)
                     {
-                        SQLiteCommand updateCmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
-                                  "SET LastActivityDate = $LastActivityDate " +
-                                  "WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+                        var updateCmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
+                                                          "SET LastActivityDate = $LastActivityDate " +
+                                                          "WHERE Username = $Username AND ApplicationName = $ApplicationName",
+                                                          conn);
 
                         updateCmd.Parameters.Add("$LastActivityDate", DbType.DateTime).Value = DateTime.Now;
                         updateCmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
@@ -775,7 +762,6 @@ namespace Karvis.Web
                         updateCmd.ExecuteNonQuery();
                     }
                 }
-
             }
             catch (SQLiteException e)
             {
@@ -792,7 +778,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
 
                 conn.Close();
             }
@@ -807,11 +796,11 @@ namespace Karvis.Web
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT PKID, Username, Email, PasswordQuestion," +
-                  " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
-                  " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate" +
-                  " FROM `" + tableName + "` WHERE PKID = $PKID", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT PKID, Username, Email, PasswordQuestion," +
+                                        " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
+                                        " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate" +
+                                        " FROM `" + tableName + "` WHERE PKID = $PKID", conn);
 
             cmd.Parameters.Add("$PKID", DbType.String).Value = providerUserKey;
 
@@ -831,9 +820,9 @@ namespace Karvis.Web
 
                     if (userIsOnline)
                     {
-                        SQLiteCommand updateCmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
-                                  "SET LastActivityDate = $LastActivityDate " +
-                                  "WHERE PKID = $PKID", conn);
+                        var updateCmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
+                                                          "SET LastActivityDate = $LastActivityDate " +
+                                                          "WHERE PKID = $PKID", conn);
 
                         updateCmd.Parameters.Add("$LastActivityDate", DbType.DateTime).Value = DateTime.Now;
                         updateCmd.Parameters.Add("$PKID", DbType.String).Value = providerUserKey;
@@ -841,7 +830,6 @@ namespace Karvis.Web
                         updateCmd.ExecuteNonQuery();
                     }
                 }
-
             }
             catch (SQLiteException e)
             {
@@ -858,7 +846,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
 
                 conn.Close();
             }
@@ -876,9 +867,9 @@ namespace Karvis.Web
 
         private MembershipUser GetUserFromReader(SQLiteDataReader reader)
         {
-            if (reader.GetString(1)=="") return null;
-            object providerUserKey=null;
-            string strGooid=Guid.NewGuid().ToString();
+            if (reader.GetString(1) == "") return null;
+            object providerUserKey = null;
+            string strGooid = Guid.NewGuid().ToString();
             if (reader.GetValue(0).ToString().Length > 0)
                 providerUserKey = new Guid(reader.GetValue(0).ToString());
             else
@@ -895,22 +886,24 @@ namespace Karvis.Web
                 comment = reader.GetString(4);
 
             bool tmpApproved = (reader.GetValue(5) == null);
-             bool isApproved=false;
-            if(tmpApproved)
-            isApproved = reader.GetBoolean(5);
+            bool isApproved = false;
+            if (tmpApproved)
+                isApproved = reader.GetBoolean(5);
 
-        bool tmpLockedOut = (reader.GetValue(6) == null);
-        bool isLockedOut = false;
-            if(tmpLockedOut)
-            isLockedOut = reader.GetBoolean(6);
+            bool tmpLockedOut = (reader.GetValue(6) == null);
+            bool isLockedOut = false;
+            if (tmpLockedOut)
+                isLockedOut = reader.GetBoolean(6);
 
-        DateTime creationDate = DateTime.Now;
+            DateTime creationDate = DateTime.Now;
             try
             {
                 if (reader.GetValue(6) != DBNull.Value)
                     creationDate = reader.GetDateTime(7);
             }
-            catch { }
+            catch
+            {
+            }
 
             DateTime lastLoginDate = DateTime.Now;
             try
@@ -918,7 +911,9 @@ namespace Karvis.Web
                 if (reader.GetValue(8) != DBNull.Value)
                     lastLoginDate = reader.GetDateTime(8);
             }
-            catch { }
+            catch
+            {
+            }
 
             DateTime lastActivityDate = DateTime.Now;
             try
@@ -926,14 +921,18 @@ namespace Karvis.Web
                 if (reader.GetValue(9) != DBNull.Value)
                     lastActivityDate = reader.GetDateTime(9);
             }
-            catch { }
+            catch
+            {
+            }
             DateTime lastPasswordChangedDate = DateTime.Now;
             try
             {
                 if (reader.GetValue(10) != DBNull.Value)
                     lastPasswordChangedDate = reader.GetDateTime(10);
             }
-            catch { }
+            catch
+            {
+            }
 
             DateTime lastLockedOutDate = DateTime.Now;
             try
@@ -941,21 +940,23 @@ namespace Karvis.Web
                 if (reader.GetValue(11) != DBNull.Value)
                     lastLockedOutDate = reader.GetDateTime(11);
             }
-            catch { }
+            catch
+            {
+            }
 
-            MembershipUser u = new MembershipUser(this.Name,
-                                                  username,
-                                                  providerUserKey,
-                                                  email,
-                                                  passwordQuestion,
-                                                  comment,
-                                                  isApproved,
-                                                  isLockedOut,
-                                                  creationDate,
-                                                  lastLoginDate,
-                                                  lastActivityDate,
-                                                  lastPasswordChangedDate,
-                                                  lastLockedOutDate);
+            var u = new MembershipUser(Name,
+                                       username,
+                                       providerUserKey,
+                                       email,
+                                       passwordQuestion,
+                                       comment,
+                                       isApproved,
+                                       isLockedOut,
+                                       creationDate,
+                                       lastLoginDate,
+                                       lastActivityDate,
+                                       lastPasswordChangedDate,
+                                       lastLockedOutDate);
 
             return u;
         }
@@ -967,10 +968,10 @@ namespace Karvis.Web
 
         public override bool UnlockUser(string username)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
-                                              " SET IsLockedOut = False, LastLockedOutDate = $LastLockedOutDate " +
-                                              " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("UPDATE `" + tableName + "` " +
+                                        " SET IsLockedOut = False, LastLockedOutDate = $LastLockedOutDate " +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$LastLockedOutDate", DbType.DateTime).Value = DateTime.Now;
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
@@ -1015,9 +1016,10 @@ namespace Karvis.Web
 
         public override string GetUserNameByEmail(string email)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Username" +
-                  " FROM `" + tableName + "` WHERE Email = $Email AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Username" +
+                                        " FROM `" + tableName +
+                                        "` WHERE Email = $Email AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Email", DbType.String, 128).Value = email;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -1028,7 +1030,7 @@ namespace Karvis.Web
             {
                 conn.Open();
                 object o = cmd.ExecuteScalar();
-                if (o != null)   username = Convert.ToString(o);
+                if (o != null) username = Convert.ToString(o);
             }
             catch (SQLiteException e)
             {
@@ -1055,8 +1057,6 @@ namespace Karvis.Web
         }
 
 
-
-
         //
         // MembershipProvider.ResetPassword
         //
@@ -1076,11 +1076,11 @@ namespace Karvis.Web
             }
 
             string newPassword =
-              System.Web.Security.Membership.GeneratePassword(newPasswordLength, MinRequiredNonAlphanumericCharacters);
+                System.Web.Security.Membership.GeneratePassword(newPasswordLength, MinRequiredNonAlphanumericCharacters);
 
 
-            ValidatePasswordEventArgs args =
-              new ValidatePasswordEventArgs(username, newPassword, true);
+            var args =
+                new ValidatePasswordEventArgs(username, newPassword, true);
 
             OnValidatingPassword(args);
 
@@ -1091,9 +1091,9 @@ namespace Karvis.Web
                     throw new MembershipPasswordException("Reset password canceled due to password validation failure.");
 
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT PasswordAnswer, IsLockedOut FROM `" + tableName + "`" +
-                  " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT PasswordAnswer, IsLockedOut FROM `" + tableName + "`" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -1133,9 +1133,10 @@ namespace Karvis.Web
 
                 reader.Close();
 
-                SQLiteCommand updateCmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
-                    " SET Password = $Password, LastPasswordChangedDate = $LastPasswordChangedDate" +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName AND IsLockedOut = 0", conn);
+                var updateCmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
+                                                  " SET Password = $Password, LastPasswordChangedDate = $LastPasswordChangedDate" +
+                                                  " WHERE Username = $Username AND ApplicationName = $ApplicationName AND IsLockedOut = 0",
+                                                  conn);
 
                 updateCmd.Parameters.Add("$Password", DbType.String, 255).Value = EncodePassword(newPassword);
                 updateCmd.Parameters.Add("$LastPasswordChangedDate", DbType.DateTime).Value = DateTime.Now;
@@ -1159,7 +1160,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 conn.Close();
             }
 
@@ -1180,11 +1184,11 @@ namespace Karvis.Web
 
         public override void UpdateUser(MembershipUser user)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
-                    " SET Email = $Email, Comment = $Comment," +
-                    " IsApproved = $IsApproved" +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("UPDATE `" + tableName + "`" +
+                                        " SET Email = $Email, Comment = $Comment," +
+                                        " IsApproved = $IsApproved" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Email", DbType.String, 128).Value = user.Email;
             cmd.Parameters.Add("$Comment", DbType.String, 255).Value = user.Comment;
@@ -1227,9 +1231,10 @@ namespace Karvis.Web
         {
             bool isValid = false;
 
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password, IsApproved FROM `" + tableName + "`" +
-                    " WHERE Username = $Username AND ApplicationName = $ApplicationName AND IsLockedOut = 0", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Password, IsApproved FROM `" + tableName + "`" +
+                                        " WHERE Username = $Username AND ApplicationName = $ApplicationName AND IsLockedOut = 0",
+                                        conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
@@ -1264,8 +1269,9 @@ namespace Karvis.Web
                     {
                         isValid = true;
 
-                        SQLiteCommand updateCmd = new SQLiteCommand("UPDATE `" + tableName + "` SET LastLoginDate = $LastLoginDate" +
-                                                                " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+                        var updateCmd =
+                            new SQLiteCommand("UPDATE `" + tableName + "` SET LastLoginDate = $LastLoginDate" +
+                                              " WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
                         updateCmd.Parameters.Add("$LastLoginDate", DbType.DateTime).Value = DateTime.Now;
                         updateCmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
@@ -1296,7 +1302,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 conn.Close();
             }
 
@@ -1312,19 +1321,19 @@ namespace Karvis.Web
 
         private void UpdateFailureCount(string username, string failureType)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT FailedPasswordAttemptCount, " +
-                                              "  FailedPasswordAttemptWindowStart, " +
-                                              "  FailedPasswordAnswerAttemptCount, " +
-                                              "  FailedPasswordAnswerAttemptWindowStart " +
-                                              "  FROM `" + tableName + "` " +
-                                              "  WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT FailedPasswordAttemptCount, " +
+                                        "  FailedPasswordAttemptWindowStart, " +
+                                        "  FailedPasswordAnswerAttemptCount, " +
+                                        "  FailedPasswordAnswerAttemptWindowStart " +
+                                        "  FROM `" + tableName + "` " +
+                                        "  WHERE Username = $Username AND ApplicationName = $ApplicationName", conn);
 
             cmd.Parameters.Add("$Username", DbType.String, 255).Value = username;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
 
             SQLiteDataReader reader = null;
-            DateTime windowStart = new DateTime();
+            var windowStart = new DateTime();
             int failureCount = 0;
 
             try
@@ -1450,7 +1459,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
                 conn.Close();
             }
         }
@@ -1503,13 +1515,13 @@ namespace Karvis.Web
                     break;
                 case MembershipPasswordFormat.Encrypted:
                     encodedPassword =
-                      Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
+                        Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
                     break;
                 case MembershipPasswordFormat.Hashed:
-                    HMACSHA1 hash = new HMACSHA1();
+                    var hash = new HMACSHA1();
                     hash.Key = HexToByte(encryptionKey);
                     encodedPassword =
-                      Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
+                        Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
                     break;
                 default:
                     throw new ProviderException("Unsupported password format.");
@@ -1534,7 +1546,7 @@ namespace Karvis.Web
                     break;
                 case MembershipPasswordFormat.Encrypted:
                     password =
-                      Encoding.Unicode.GetString(DecryptPassword(Convert.FromBase64String(password)));
+                        Encoding.Unicode.GetString(DecryptPassword(Convert.FromBase64String(password)));
                     break;
                 case MembershipPasswordFormat.Hashed:
                     throw new ProviderException("Cannot unencode a hashed password.");
@@ -1553,9 +1565,9 @@ namespace Karvis.Web
 
         private byte[] HexToByte(string hexString)
         {
-            byte[] returnBytes = new byte[hexString.Length / 2];
+            var returnBytes = new byte[hexString.Length/2];
             for (int i = 0; i < returnBytes.Length; i++)
-                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i*2, 2), 16);
             return returnBytes;
         }
 
@@ -1564,16 +1576,17 @@ namespace Karvis.Web
         // MembershipProvider.FindUsersByName
         //
 
-        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
+                                                                 out int totalRecords)
         {
-
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
-                      "WHERE Username LIKE $UsernameSearch AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
+                                        "WHERE Username LIKE $UsernameSearch AND ApplicationName = $ApplicationName",
+                                        conn);
             cmd.Parameters.Add("$UsernameSearch", DbType.String, 255).Value = usernameToMatch;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = pApplicationName;
 
-            MembershipUserCollection users = new MembershipUserCollection();
+            var users = new MembershipUserCollection();
 
             SQLiteDataReader reader = null;
 
@@ -1582,19 +1595,22 @@ namespace Karvis.Web
                 conn.Open();
                 totalRecords = Convert.ToInt32(cmd.ExecuteScalar());
 
-                if (totalRecords <= 0) { return users; }
+                if (totalRecords <= 0)
+                {
+                    return users;
+                }
 
                 cmd.CommandText = "SELECT PKID, Username, Email, PasswordQuestion," +
-                  " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
-                  " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
-                  " FROM `" + tableName + "` " +
-                  " WHERE Username LIKE $UsernameSearch AND ApplicationName = $ApplicationName " +
-                  " ORDER BY Username Asc";
+                                  " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
+                                  " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
+                                  " FROM `" + tableName + "` " +
+                                  " WHERE Username LIKE $UsernameSearch AND ApplicationName = $ApplicationName " +
+                                  " ORDER BY Username Asc";
 
                 reader = cmd.ExecuteReader();
 
                 int counter = 0;
-                int startIndex = pageSize * pageIndex;
+                int startIndex = pageSize*pageIndex;
                 int endIndex = startIndex + pageSize - 1;
 
                 while (reader.Read())
@@ -1605,7 +1621,10 @@ namespace Karvis.Web
                         users.Add(u);
                     }
 
-                    if (counter >= endIndex) { cmd.Cancel(); }
+                    if (counter >= endIndex)
+                    {
+                        cmd.Cancel();
+                    }
 
                     counter++;
                 }
@@ -1625,7 +1644,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
 
                 conn.Close();
             }
@@ -1637,15 +1659,16 @@ namespace Karvis.Web
         // MembershipProvider.FindUsersByEmail
         //
 
-        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
+                                                                  out int totalRecords)
         {
-            SQLiteConnection conn = new SQLiteConnection(connectionString);
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
-                                              "WHERE Email LIKE $EmailSearch AND ApplicationName = $ApplicationName", conn);
+            var conn = new SQLiteConnection(connectionString);
+            var cmd = new SQLiteCommand("SELECT Count(*) FROM `" + tableName + "` " +
+                                        "WHERE Email LIKE $EmailSearch AND ApplicationName = $ApplicationName", conn);
             cmd.Parameters.Add("$EmailSearch", DbType.String, 255).Value = emailToMatch;
             cmd.Parameters.Add("$ApplicationName", DbType.String, 255).Value = ApplicationName;
 
-            MembershipUserCollection users = new MembershipUserCollection();
+            var users = new MembershipUserCollection();
 
             SQLiteDataReader reader = null;
             totalRecords = 0;
@@ -1655,19 +1678,22 @@ namespace Karvis.Web
                 conn.Open();
                 totalRecords = Convert.ToInt32(cmd.ExecuteScalar());
 
-                if (totalRecords <= 0) { return users; }
+                if (totalRecords <= 0)
+                {
+                    return users;
+                }
 
                 cmd.CommandText = "SELECT PKID, Username, Email, PasswordQuestion," +
-                         " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
-                         " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
-                         " FROM `" + tableName + "` " +
-                         " WHERE Email LIKE $Username AND ApplicationName = $ApplicationName " +
-                         " ORDER BY Username Asc";
+                                  " Comment, IsApproved, IsLockedOut, CreationDate, LastLoginDate," +
+                                  " LastActivityDate, LastPasswordChangedDate, LastLockedOutDate " +
+                                  " FROM `" + tableName + "` " +
+                                  " WHERE Email LIKE $Username AND ApplicationName = $ApplicationName " +
+                                  " ORDER BY Username Asc";
 
                 reader = cmd.ExecuteReader();
 
                 int counter = 0;
-                int startIndex = pageSize * pageIndex;
+                int startIndex = pageSize*pageIndex;
                 int endIndex = startIndex + pageSize - 1;
 
                 while (reader.Read())
@@ -1678,7 +1704,10 @@ namespace Karvis.Web
                         users.Add(u);
                     }
 
-                    if (counter >= endIndex) { cmd.Cancel(); }
+                    if (counter >= endIndex)
+                    {
+                        cmd.Cancel();
+                    }
 
                     counter++;
                 }
@@ -1698,7 +1727,10 @@ namespace Karvis.Web
             }
             finally
             {
-                if (reader != null) { reader.Close(); }
+                if (reader != null)
+                {
+                    reader.Close();
+                }
 
                 conn.Close();
             }
@@ -1717,13 +1749,13 @@ namespace Karvis.Web
 
         private void WriteToEventLog(Exception e, string action)
         {
-            EventLog log = new EventLog();
+            var log = new EventLog();
             log.Source = eventSource;
             log.Log = eventLog;
 
             string message = "An exception occurred communicating with the data source.\n\n";
             message += "Action: " + action + "\n\n";
-            message += "Exception: " + e.ToString();
+            message += "Exception: " + e;
 
             log.WriteEntry(message);
         }

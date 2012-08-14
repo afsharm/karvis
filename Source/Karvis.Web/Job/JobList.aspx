@@ -1,10 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="JobList.aspx.cs" Inherits="Karvis.Web.JobList"
-    MasterPageFile="~/MasterPages/MainMaster.Master" Title="کارویس - فهرست مشاغل" %>
+    MasterPageFile="~/MasterPages/Visitor.Master" Title="کارویس - فهرست مشاغل" %>
+<%@ Register TagPrefix="asp" Namespace="Karvis.Web.CodeBase" Assembly="Karvis.Web" %>
 
-<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="head">
+<asp:Content ID="Content2" runat="server"  ContentPlaceHolderID="head">
     فهرست مشاغل/جستجو
 </asp:Content>
-<asp:Content runat="server" ContentPlaceHolderID="MainHolder">
+<asp:Content runat="server" ContentPlaceHolderID="MainHolder" >
     <div>
         <asp:Label Text="" runat="server" ID="lblMessage" />
         <table border="0" cellpadding="0" cellspacing="0">
@@ -73,9 +74,11 @@
             </tr>
         </table>
         <asp:HiddenField runat="server" ID="hdnSortExpression" />
-        <asp:DataGrid runat="server" ID="dgJobList" AutoGenerateColumns="false" AllowPaging="true"
+        <asp:CustomDataGrid CssClass="gridview"  runat="server" ID="dgJobList"   
+            AutoGenerateColumns="false" AllowPaging="true"
             AllowSorting="true" AllowCustomPaging="true" OnPageIndexChanged="dgJobList_PageIndexChanged"
-            OnSortCommand="dgJobList_SortCommand" DataKeyField="Id" OnDeleteCommand="dgJobList_DeleteCommand">
+            OnSortCommand="dgJobList_SortCommand" DataKeyField="Id" 
+            OnDeleteCommand="dgJobList_DeleteCommand">
             <Columns>
                 <asp:BoundColumn DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundColumn DataField="Title" HeaderText="عنوان" SortExpression="Title" />
@@ -108,6 +111,6 @@
                 </asp:TemplateColumn>
             </Columns>
             <PagerStyle Mode="NumericPages" PageButtonCount="20" HorizontalAlign="Center" />
-        </asp:DataGrid>
+        </asp:CustomDataGrid>
     </div>
 </asp:Content>

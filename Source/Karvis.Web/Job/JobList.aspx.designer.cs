@@ -91,6 +91,6 @@ namespace Karvis.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dgJobList;
+        protected global::Karvis.Web.CodeBase.CustomDataGrid dgJobList;
     }
 }
