@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Application Config</h2>
+Welcome to application configurator <b />
+<p>
+</p>
+<ul>
+    <li>
+        @Html.ActionLink("Generate database from scratch", "GenerateDatabase", "ConfigDb", new { area = "Settings" }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Update database", "UpdateDatabase", "ConfigDb", new { area = "Settings" }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Default data", "InjectDefaultData", "ConfigDb", new { area = "Settings" }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Inject sample database", "InjectSampleData", "ConfigDb", new { area = "Settings" }, null)
+    </li>
+</ul>
