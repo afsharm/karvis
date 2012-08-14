@@ -20,8 +20,7 @@ namespace Karvis.Tasks
         public IEnumerable<JobViewModel> GetSummeryPaged(string sort, string sortdir, int page)
         {
             return
-           
-                GetQueryable().Skip(page*10).QueryForAtiveJobsSummery().
+                GetQueryable().Skip((page-1)*10).Take(10).OrderByDescending(x => x.DateAdded).QueryForAtiveJobsSummery().
                     Select(x => new JobViewModel
                                     {
                                         Title = x.Title,
