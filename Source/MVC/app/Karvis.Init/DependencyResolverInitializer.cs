@@ -10,7 +10,7 @@ namespace Karvis.Init
     public class DependencyResolverInitializer
     {
         public static void Initialize() {
-            Container container = new Container(x => {
+            var container = new Container(x => {
                 x.For<ISessionFactory>()
                     .Singleton()
                     .Use(() => NHibernateInitializer.Initialize().BuildSessionFactory());
