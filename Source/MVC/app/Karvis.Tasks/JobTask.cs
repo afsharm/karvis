@@ -46,20 +46,21 @@ namespace Karvis.Tasks
 
         public JobDescriptionViewModel GetJobDescription(int id)
         {
-            var fardis = new DateTimeHelper();
 
-            GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(x => new JobDescriptionViewModel
-                                                                                              {
-                                                                                                  Description =
-                                                                                                      x.Description
-                                                                                                  ,
-                                                                                                  FeedVisitsCount =
-                                                                                                      x.FeedCount.
-                                                                                                      ToString(),
-                                                                                                  Link = x.Url,
-                                                                                                  JobSummery =
-                                                                                                      GetJobSummery(x)
-                                                                                              });
+            return
+                GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(
+                    x => new JobDescriptionViewModel
+                             {
+                                 Description =
+                                     x.Description
+                                 ,
+                                 FeedVisitsCount =
+                                     x.FeedCount.
+                                     ToString(CultureInfo.InvariantCulture),
+                                 Link = x.Url,
+                                 JobSummery =
+                                     GetJobSummery(x)
+                             }).Single();
         }
 
         #endregion
