@@ -2,7 +2,7 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IList<Karvis.Domain.ViewModels.JobViewModel>
+@model Karvis.Domain.ViewModels.JobViewModel
             
 
  
@@ -26,17 +26,13 @@
     }
 }
  
-<h2>Employees List</h2>
  
 @{
-    var grid = new WebGrid(
-        source: Model,
-        canPage: true,
-        rowsPerPage: 10,
-        canSort: true,
-        defaultSort: "FirstName"
-        );
-    int rowIndex = ((grid.PageIndex + 1)*grid.RowsPerPage) - (grid.RowsPerPage - 1);
+    var grid = new WebGrid(source: null, rowsPerPage: 20,
+                           defaultSort: "FirstName");
+
+    grid.Bind(source: Model, rowCount: 140);
+
 }
  
 
@@ -44,9 +40,6 @@
     htmlAttributes: new {id = "MyGrid"},
     mode: WebGridPagerModes.Numeric,
     columns: grid.Columns(
-        grid.Column(header: "#",
-                    style: "text-align-center-col",
-                    format: @<text>@(rowIndex++)</text>),
         grid.Column(columnName: "Title", header: "عنوان"),
         grid.Column(columnName: "Tag", header: "تگ"),
         grid.Column(header: "",
@@ -65,3 +58,4 @@
         @RenderPage("~/views/path/_partial_view.cshtml", new { Employee = grid.SelectedRow })
     }
     *@
+<br/><br/><br/><br/><br/><br/><br/><br/>

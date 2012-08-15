@@ -1,8 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Karvis.Domain.ViewModels
 {
     public class JobViewModel
+    {
+        public IList<JobSummery> Jobs { get; set; }
+
+        public int TotalJobsCount { get; set; }
+    }
+
+    public class JobSummery
     {
         public string Id { get; set; }
 

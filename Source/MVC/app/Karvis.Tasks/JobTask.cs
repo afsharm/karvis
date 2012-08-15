@@ -17,11 +17,11 @@ namespace Karvis.Tasks
 
         #region IJobTask Members
 
-        public IEnumerable<JobViewModel> GetSummeryPaged(string sort, string sortdir, int page)
+        public JobViewModel GetSummeryPaged(string sort, string sortdir, int page)
         {
-            return
+            var jobSummeryList=
                 GetQueryable().Skip((page-1)*10).Take(10).OrderByDescending(x => x.DateAdded).QueryForAtiveJobsSummery().
-                    Select(x => new JobViewModel
+                    Select(x => new JobSummery()
                                     {
                                         Title = x.Title,
                                         Id = x.Id.ToString(),
@@ -29,6 +29,11 @@ namespace Karvis.Tasks
                                         Source = x.Source.ToString(),
                                         Tag = x.Tag.ToString()
                                     }).ToList();
+
+            var jobViewModel = new JobViewModel();
+            jobViewModel.Jobs = jobSummeryList;
+            jobViewModel.TotalJobsCount = GetQueryable().QueryForAtiveJobsSummery().Count();
+            return jobViewModel;
         }
 
         #endregion
