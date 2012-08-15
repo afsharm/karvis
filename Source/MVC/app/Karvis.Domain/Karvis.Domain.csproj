@@ -62,6 +62,7 @@
     <Compile Include="ScheduleInfo.cs" />
     <Compile Include="Tasks\IJobTask.cs" />
     <Compile Include="Validators\DataAnnotationsValidator.cs" />
+    <Compile Include="ViewModels\JobDescriptionViewModel.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

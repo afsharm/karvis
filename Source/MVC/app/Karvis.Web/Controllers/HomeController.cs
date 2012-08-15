@@ -22,5 +22,10 @@ namespace Karvis.Web.Controllers
 
             return View(list);
         }
+
+        public ActionResult Description(int id)
+        {
+            return View(_jobTask.GetJobDescription(id));
+        }
     }
 }

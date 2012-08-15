@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fardis.Lib">
+      <HintPath>..\..\lib\Fardis.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="Razmyar.Domain">
       <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>
     </Reference>

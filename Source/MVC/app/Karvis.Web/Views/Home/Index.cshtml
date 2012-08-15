@@ -1,8 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home";
+﻿@model Karvis.Domain.ViewModels.JobViewModel
+
+@{
+    ViewBag.Title = "کارویس فهرست مشاغل";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Karvis.Domain.ViewModels.JobViewModel
             
 
  
@@ -28,34 +29,37 @@
  
  
 @{
-    var grid = new WebGrid(source: null, rowsPerPage: 20,
+    var grid = new WebGrid(source: null, rowsPerPage: 10,
                            defaultSort: "FirstName");
 
-    grid.Bind(source: Model, rowCount: 140);
+    grid.Bind(source: Model.Jobs, rowCount: Model.TotalJobsCount, autoSortAndPage: false);
 
 }
  
+<div class="ef-inner clearfix">
+    <h3>لیست آخرین مشاغل ثبت شده</h3>
+    <div class="divider">
+    </div>
+    @grid.GetHtml(
+        htmlAttributes: new {id = "JobsList"},
+        mode: WebGridPagerModes.Numeric,
+        columns: grid.Columns(
+            grid.Column(columnName: "Title", header: "عنوان"),
+            grid.Column(columnName: "Tag", header: "تگ"),
+            grid.Column(columnName: "AddedDate", header: "تاریخ ثبت"),
+            grid.Column(columnName: "VisitsCount", header: "تعداد مشاهده"),
+            grid.Column(columnName: "AdSourceDescription", header: "منبع"),
+            grid.Column(header: "",
+                        format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
+                                     جزییات 
+                                 </a>
+                )
+            )
+         )
+ <div class="divider">
+                    </div>
+    <strong>صفحه ی جاری:</strong> @(grid.PageIndex + 1) / @grid.PageCount, 
+    <strong>تعداد شغل های تایید شده:</strong> @WebGridPageFirstItem(@grid) - @WebGridPageLastItem(@grid) از @grid.TotalRowCount
+ 
 
-@grid.GetHtml(
-    htmlAttributes: new {id = "MyGrid"},
-    mode: WebGridPagerModes.Numeric,
-    columns: grid.Columns(
-        grid.Column(columnName: "Title", header: "عنوان"),
-        grid.Column(columnName: "Tag", header: "تگ"),
-        grid.Column(header: "",
-                    format: @<form action="/Home/Delete/@item.Id" method="post"><input type="submit"
-                                                                                       onclick=" return confirm('Do you want to delete this record?'); "
-                                                                                       value="Delete"/></form>)
-        )
-     )
- 
-<strong>Page:</strong> @(grid.PageIndex + 1) / @grid.PageCount, 
-<strong>Records:</strong> @WebGridPageFirstItem(@grid) - @WebGridPageLastItem(@grid) of @grid.TotalRowCount
- 
-@*
-    @if (@grid.HasSelection)
-    {
-        @RenderPage("~/views/path/_partial_view.cshtml", new { Employee = grid.SelectedRow })
-    }
-    *@
-<br/><br/><br/><br/><br/><br/><br/><br/>
+</div>

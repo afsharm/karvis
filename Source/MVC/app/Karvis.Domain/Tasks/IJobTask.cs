@@ -6,5 +6,6 @@ namespace Karvis.Domain.Tasks
     public interface IJobTask
     {
         JobViewModel GetSummeryPaged(string sort, string sortdir, int page);
+        JobDescriptionViewModel GetJobDescription(int id);
     }
 }
