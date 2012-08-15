@@ -58,6 +58,7 @@
     <Compile Include="KMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ActiveJobSummery.cs" />
+    <Compile Include="Queries\ActiveJobSpecific.cs" />
     <Compile Include="Queries\QueryableExtensions.cs" />
     <Compile Include="ScheduleInfo.cs" />
     <Compile Include="Tasks\IJobTask.cs" />

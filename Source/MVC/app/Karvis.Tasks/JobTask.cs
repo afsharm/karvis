@@ -46,9 +46,49 @@ namespace Karvis.Tasks
 
         public JobDescriptionViewModel GetJobDescription(int id)
         {
-            throw new System.NotImplementedException();
+            var fardis = new DateTimeHelper();
+
+            GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(x => new JobDescriptionViewModel
+                                                                                              {
+                                                                                                  Description =
+                                                                                                      x.Description
+                                                                                                  ,
+                                                                                                  FeedVisitsCount =
+                                                                                                      x.FeedCount.
+                                                                                                      ToString(),
+                                                                                                  Link = x.Url,
+                                                                                                  JobSummery =
+                                                                                                      GetJobSummery(x)
+                                                                                              });
         }
 
         #endregion
+
+        private static JobSummery GetJobSummery(Job x)
+        {
+            var fardis = new DateTimeHelper();
+            return
+                new JobSummery
+                    {
+                        AddedDate =
+                            fardis.
+                            ConvertToPersianDatePersianDigit
+                            (x.
+                                 DateAdded),
+                        AdSource =
+                            x.AdSource
+                        ,
+                        Id =
+                            x.Id.
+                            ToString(),
+                        Tag = x.Tag,
+                        Title =
+                            x.Title,
+                        VisitsCount =
+                            x.
+                            VisitCount
+                            .ToString()
+                    };
+        }
     }
 }
