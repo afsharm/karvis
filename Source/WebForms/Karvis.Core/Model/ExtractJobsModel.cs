@@ -191,20 +191,36 @@ namespace Karvis.Core
 
             try
             {
-                string relativeUrl = rawHtmlJob.ChildNodes[3].ChildNodes[0].Attributes["href"].Value;
+                string relativeUrl = rawHtmlJob.ChildNodes[3].ChildNodes[1].Attributes["href"].Value;
                 absoluteUrl = _extractorHelper.GetAbsoluteUrl(relativeUrl, rootUrl);
-                title = rawHtmlJob.ChildNodes[3].ChildNodes[0].InnerText;
-                description = rawHtmlJob.ChildNodes[4].InnerHtml;
             }
-            catch (Exception ex)
+            catch
             {
                 //to ignore possible error
                 absoluteUrl = "N/A";
-                title = "N/A";
-                description = ex.Message;
             }
 
-            Job job = new Job()
+            try
+            {
+                title = rawHtmlJob.ChildNodes[1].ChildNodes[0].Attributes[0].Value;
+            }
+            catch 
+            {
+                //to ignore possible error
+                title = "N/A";
+            }
+
+            try
+            {
+                description = rawHtmlJob.ChildNodes[5].InnerHtml;
+            }
+            catch
+            {
+                //to ignore possible error
+                description = "N/A";
+            }
+
+            var job = new Job()
             {
                 Description = description,
                 Title = title,
