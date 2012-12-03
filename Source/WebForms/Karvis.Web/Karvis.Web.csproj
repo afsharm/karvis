@@ -447,6 +447,8 @@
     <Content Include="Admin\Web.config" />
     <None Include="ckeditor\.htaccess" />
     <Content Include="MasterPages\Visitor.Master" />
+    <None Include="Properties\PublishProfiles\karvis.pubxml" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
