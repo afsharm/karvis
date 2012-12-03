@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Globalization;
 using System.Web;
@@ -49,6 +50,30 @@ namespace Karvis.Core
             }
 
             return result.OrderByDescending(x => x.Value);
+        }
+
+
+
+        static void EncryptPassword()
+        {
+            const string encryptionKey = "AE09F72BA97CBBB5";
+            string password = "123456";
+
+            var hash = new HMACSHA1();
+            hash.Key = HexToByte(encryptionKey);
+            string encodedPassword =
+                Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
+
+            Console.WriteLine(encodedPassword);
+            Console.ReadLine();
+        }
+
+        private static byte[] HexToByte(string hexString)
+        {
+            var returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            return returnBytes;
         }
     }
 }
