@@ -1,18 +1,22 @@
 ﻿@model Karvis.Domain.ViewModels.SearchViewModel
+@{
+    Layout = null;
+}           
 
-        <fieldset><legend>جستجو</legend>
+<fieldset><legend>جستجو</legend>
 
         <form class="ef-contact1"  method="post" action="@Url.Action("Search")">
             <div class="one_third">
-                <label>عنوان*</label> <input class="ef-name1 valid" type="text" name="name1">
+          @Html.LabelFor(x=>x.SearchTerm)
+                @Html.TextBoxFor(x=>x.SearchTerm)
+                @Html.ValidationMessageFor(x=>x.SearchTerm)
             </div>
             <div class="one_third">
-                <label>عنوان*</label> <input class="ef-name1 valid" type="text" name="name1">
+       
                 
             </div>
             <div class="one_third">
-                <label>عنوان*</label> <input class="ef-name1 valid" type="text" name="name1">
-                
+         
             </div>
             <div class="send-wrap alignright">
                 <div class="button">
