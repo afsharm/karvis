@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Core", "Karvis.Core\Karvis.Core.csproj", "{D3F16B21-88F9-4533-975B-82A7F2B55295}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Test", "Karvis.Test\Karvis.Test.csproj", "{66C09827-4CED-4669-9976-FAF67F5FB3AC}"
