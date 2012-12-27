@@ -3,15 +3,19 @@ using System.Web.Mvc;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
 
+
+
+
 namespace Karvis.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IJobTask _jobTask;
-
-        public HomeController(IJobTask jobTask)
+        private readonly ISearchTask _searchTask;
+        public HomeController(IJobTask jobTask, ISearchTask searchTask)
         {
             _jobTask = jobTask;
+            _searchTask = searchTask;
         }
 
         [HttpGet]
@@ -26,6 +30,12 @@ namespace Karvis.Web.Controllers
         public ActionResult Description(int id)
         {
             return View(_jobTask.GetJobDescription(id));
+        }
+        [HttpGet]
+        public ActionResult Search()
+        {
+            var model = _searchTask.GetRawModel();
+            return View(model);
         }
     }
 }

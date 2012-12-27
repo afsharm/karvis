@@ -37,7 +37,20 @@
 }
  
 <div class="ef-inner clearfix">
-    <h3>لیست آخرین مشاغل ثبت شده</h3>
+    <div style="float:right;">
+    
+        <h3>لیست آخرین مشاغل ثبت شده</h3>
+    </div>
+
+    <div style="float:left;">
+        <a href="#" id="btnShowSearch" class="ef-button ef-green"><span>جستجو</span></a>
+
+    </div>
+    <div class="clearfix"></div>
+    <div id="search"  style="display:none">
+@Html.Action("Search")
+
+    </div>
     <div class="divider">
     </div>
     @grid.GetHtml(
@@ -50,16 +63,27 @@
             grid.Column(columnName: "VisitCount", header: "تعداد مشاهده"),
             grid.Column(columnName: "AdSourceDescription", header: "منبع",canSort:false),
             grid.Column( canSort:false,header: "",
-                        format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
-                                     جزییات 
-                                 </a>
+                         format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
+                                      جزییات 
+                                  </a>
                 )
             )
          )
- <div class="divider">
-                    </div>
+    <div class="divider">
+    </div>
     <strong>صفحه ی جاری:</strong> @(grid.PageIndex + 1) / @grid.PageCount, 
     <strong>تعداد شغل های تایید شده:</strong> @WebGridPageFirstItem(@grid) - @WebGridPageLastItem(@grid) از @grid.TotalRowCount
  
 
 </div>
+
+<script>
+    
+    $(function () {
+        
+        $('#btnShowSearch').click(function() {
+            $("#search").show('flip');
+        });
+
+    });
+</script>
