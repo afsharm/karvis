@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using Karvis.Domain.Dto;
 
 namespace Karvis.Domain.ViewModels
 {
@@ -14,5 +16,8 @@ namespace Karvis.Domain.ViewModels
 
         [DisplayName("لینک")]
         public string Link { get; set; }
+
+        [DisplayName("تگ ها")]
+        public IEnumerable<TagDto> Tags { get; set; }
     }
 }

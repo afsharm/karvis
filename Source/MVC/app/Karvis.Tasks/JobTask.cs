@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using Fardis;
 using Karvis.Domain;
+using Karvis.Domain.Dto;
 using Karvis.Domain.Queries;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
@@ -45,7 +46,7 @@ namespace Karvis.Tasks
 
         public JobDescriptionViewModel GetJobDescription(int id)
         {
-            return
+            var job=
                 GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(
                     x => new JobDescriptionViewModel
                              {
@@ -59,6 +60,9 @@ namespace Karvis.Tasks
                                  JobSummeryViewModel =
                                      GetJobSummery(x)
                              }).Single();
+
+            job.Tags = job.JobSummeryViewModel.Tag.Split(',').Select(x => new TagDto(){TagName = x});
+            return job;
         }
 
         #endregion

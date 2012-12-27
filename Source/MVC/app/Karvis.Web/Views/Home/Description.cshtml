@@ -6,21 +6,36 @@
 
 }
 <div class="ef-inner clearfix">
+
     <h2>@Model.JobSummeryViewModel.Title</h2>
-    <div class="divider"></div>
+    <div class="divider1"></div>
+
+        <ul class="post-info">
+			                    	<li>By <a href="#">@Model.JobSummeryViewModel.AdSource</a></li>                    	
+			                    	<li class="i1">@Model.JobSummeryViewModel.DateAdded</li>
+			                    	<li class="i2"><b>تعداد مشاهده  : </b> @Model.JobSummeryViewModel.VisitCount </li>
+			                    </ul>
 	                
-    <h3>شرح</h3>
-    <p>
-        @Model.Description
-    </p>
-    <div class="divider"></div>
-	              <h3>اطلاعات بازدید</h3>
-    
-    <div class="">
+    <div class="ef-post">
         
-    </div>
-    <div class="divider"></div>
+        <p>
+            @Model.Description
+        </p>
+            <div class="divider"></div>
 	             	  	
 			
+    <div class="post-tags">
+        <div class="tag-icn"></div>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="#" class="ef-button"><span>@tag.TagName</span></a>
 					
+        }
+    </div>	
+    </div>
+
+
 </div>
+
+
+

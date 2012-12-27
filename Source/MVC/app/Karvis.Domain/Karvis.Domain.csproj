@@ -51,6 +51,7 @@
     <Compile Include="ActionConfirmation.cs" />
     <Compile Include="AdSource.cs" />
     <Compile Include="Dto\JobSummeryDto.cs" />
+    <Compile Include="Dto\TagDto.cs" />
     <Compile Include="ExtractStatus.cs" />
     <Compile Include="IgnoredJob.cs" />
     <Compile Include="Job.cs" />
