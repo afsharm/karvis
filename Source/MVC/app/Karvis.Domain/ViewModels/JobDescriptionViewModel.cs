@@ -4,7 +4,7 @@ namespace Karvis.Domain.ViewModels
 {
     public class JobDescriptionViewModel
     {
-        public JobSummery JobSummery { get; set; }
+        public JobSummeryViewModel JobSummeryViewModel { get; set; }
 
         [DisplayName("شرح")]
         public string Description { get; set; }

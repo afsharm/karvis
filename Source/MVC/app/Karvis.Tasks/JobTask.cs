@@ -13,7 +13,8 @@ namespace Karvis.Tasks
 {
     public class JobTask : CrudTask<Job>, IJobTask
     {
-        public JobTask(IRepository<Job> repository) : base(repository)
+        public JobTask(IRepository<Job> repository)
+            : base(repository)
         {
         }
 
@@ -22,19 +23,17 @@ namespace Karvis.Tasks
         public JobViewModel GetSummeryPaged(string sort, string sortdir, int page)
         {
             var fardis = new DateTimeHelper();
-            List<JobSummery> jobSummeryList =
-                base.GetQueryable().Skip((page - 1)*10).Take(10).OrderByDescending(x => x.DateAdded).
-                    QueryForAtiveJobsSummery
-                    ().
-                    Select(x => new JobSummery
-                                    {
-                                        Title = x.Title,
-                                        Id = x.Id.ToString(CultureInfo.InvariantCulture),
-                                        AddedDate = fardis.ConvertToPersianDatePersianDigit(x.AddedDate),
-                                        AdSource = x.Source,
-                                        Tag = x.Tag.ToString(CultureInfo.InvariantCulture),
-                                        VisitsCount = x.VisitCount.ToString(CultureInfo.InvariantCulture)
-                                    }).ToList();
+            var jobSummeryList =
+                    base.GetQueryable().Skip((page - 1) * 10).Take(10).OrderByStringColumnName(sort,sortdir).QueryForAtiveJobsSummery().
+                        Select(x => new JobSummeryViewModel
+                                        {
+                                            Title = x.Title,
+                                            Id = x.Id,
+                                            DateAdded = fardis.ConvertToPersianDatePersianDigit(x.AddedDate),
+                                            AdSource = x.Source,
+                                            Tag = x.Tag.ToString(CultureInfo.InvariantCulture),
+                                            VisitCount = x.VisitCount.ToString(CultureInfo.InvariantCulture)
+                                        }).ToList();
 
             var jobViewModel = new JobViewModel
                                    {
@@ -46,7 +45,6 @@ namespace Karvis.Tasks
 
         public JobDescriptionViewModel GetJobDescription(int id)
         {
-
             return
                 GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(
                     x => new JobDescriptionViewModel
@@ -58,20 +56,20 @@ namespace Karvis.Tasks
                                      x.FeedCount.
                                      ToString(CultureInfo.InvariantCulture),
                                  Link = x.Url,
-                                 JobSummery =
+                                 JobSummeryViewModel =
                                      GetJobSummery(x)
                              }).Single();
         }
 
         #endregion
 
-        private static JobSummery GetJobSummery(Job x)
+        private static JobSummeryViewModel GetJobSummery(Job x)
         {
             var fardis = new DateTimeHelper();
             return
-                new JobSummery
+                new JobSummeryViewModel
                     {
-                        AddedDate =
+                        DateAdded =
                             fardis.
                             ConvertToPersianDatePersianDigit
                             (x.
@@ -80,12 +78,12 @@ namespace Karvis.Tasks
                             x.AdSource
                         ,
                         Id =
-                            x.Id.
-                            ToString(),
+                            x.Id
+                        ,
                         Tag = x.Tag,
                         Title =
                             x.Title,
-                        VisitsCount =
+                        VisitCount =
                             x.
                             VisitCount
                             .ToString()

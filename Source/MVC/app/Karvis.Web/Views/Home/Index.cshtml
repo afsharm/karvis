@@ -30,7 +30,7 @@
  
 @{
     var grid = new WebGrid(source: null, rowsPerPage: 10,
-                           defaultSort: "FirstName");
+                           defaultSort: "DateAdded");
 
     grid.Bind(source: Model.Jobs, rowCount: Model.TotalJobsCount, autoSortAndPage: false);
 
@@ -42,14 +42,14 @@
     </div>
     @grid.GetHtml(
         htmlAttributes: new {id = "JobsList"},
-        mode: WebGridPagerModes.Numeric,
+        mode: WebGridPagerModes.All,
         columns: grid.Columns(
             grid.Column(columnName: "Title", header: "عنوان"),
             grid.Column(columnName: "Tag", header: "تگ"),
-            grid.Column(columnName: "AddedDate", header: "تاریخ ثبت"),
-            grid.Column(columnName: "VisitsCount", header: "تعداد مشاهده"),
-            grid.Column(columnName: "AdSourceDescription", header: "منبع"),
-            grid.Column(header: "",
+            grid.Column(columnName: "DateAdded", header: "تاریخ ثبت"),
+            grid.Column(columnName: "VisitCount", header: "تعداد مشاهده"),
+            grid.Column(columnName: "AdSourceDescription", header: "منبع",canSort:false),
+            grid.Column( canSort:false,header: "",
                         format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
                                      جزییات 
                                  </a>

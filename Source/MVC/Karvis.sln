@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EAA774FA-8EA7-4CE4-A406-16D7CE0BC4C1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Web", "app\Karvis.Web\Karvis.Web.csproj", "{3B107D47-9BB3-4D6A-80E2-E430D6C06F45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Domain", "app\Karvis.Domain\Karvis.Domain.csproj", "{74801410-F690-490C-91EA-CD94E520A465}"
@@ -12,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Tests", "app\Karvis.Tests\Karvis.Tests.csproj", "{CEF24DDD-1D15-42BC-B035-4A33388C3F8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karvis.Init", "app\Karvis.Init\Karvis.Init.csproj", "{7112AC6B-C406-481D-99D4-56BA796B7173}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EAA774FA-8EA7-4CE4-A406-16D7CE0BC4C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,7 +50,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7112AC6B-C406-481D-99D4-56BA796B7173} = {EAA774FA-8EA7-4CE4-A406-16D7CE0BC4C1}
 		{4E471CAC-A108-49AE-A4D6-155DC35712C9} = {EAA774FA-8EA7-4CE4-A406-16D7CE0BC4C1}
+		{7112AC6B-C406-481D-99D4-56BA796B7173} = {EAA774FA-8EA7-4CE4-A406-16D7CE0BC4C1}
 	EndGlobalSection
 EndGlobal
