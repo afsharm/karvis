@@ -11,9 +11,9 @@
     <div class="divider1"></div>
 
         <ul class="post-info">
-			                    	<li>By <a href="#">@Model.JobSummeryViewModel.AdSource</a></li>                    	
-			                    	<li class="i1">@Model.JobSummeryViewModel.DateAdded</li>
-			                    	<li class="i2"><b>تعداد مشاهده  : </b> @Model.JobSummeryViewModel.VisitCount </li>
+			                    	<li>  <a target="برای دیدن صفحه ی اصلی کلیک کنید." href="@Model.Link">@Model.JobSummeryViewModel.AdSource</a></li>                    	
+			                    	<li>@Model.JobSummeryViewModel.DateAdded</li>
+			                    	<li><b>تعداد مشاهده  : </b> @Model.JobSummeryViewModel.VisitCount </li>
 			                    </ul>
 	                
     <div class="ef-post">
@@ -34,6 +34,13 @@
     </div>	
     </div>
 
+    <div align="left">
+            <a href="@Url.Action("Index")" class="ef-button"><span>بازگشت به فهرست مشاغل
+ </span></a>
+        
+
+    </div>
+    
 
 </div>
 
