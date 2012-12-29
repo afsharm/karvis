@@ -54,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdSourceTask.cs" />
     <Compile Include="BaseEntityCudTasks.cs" />
     <Compile Include="JobTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchTask.cs" />
+    <Compile Include="TagTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Karvis.Domain\Karvis.Domain.csproj">

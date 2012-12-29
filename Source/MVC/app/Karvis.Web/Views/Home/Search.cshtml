@@ -12,11 +12,21 @@
                 @Html.ValidationMessageFor(x=>x.SearchTerm)
             </div>
             <div class="one_third">
-       
+                 @Html.LabelFor(x=>x.SearchTag)
+                @Html.TextBoxFor(x=>x.SearchTag)
+                @Html.ValidationMessageFor(x=>x.SearchTag)
                 
             </div>
             <div class="one_third">
-         
+                <select id="AdSourceSelectList" name="AdSourceSelectList" >
+                    <option value="0">همه</option>
+                    @foreach(var item in Model.Tags)
+                    {
+                        
+                        <option value="@item.Id">@item.TagName</option>
+                    }
+                        
+                </select>
             </div>
             <div class="send-wrap alignright">
                 <div class="button">

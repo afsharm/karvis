@@ -16,7 +16,7 @@ namespace Karvis.Tasks
          return new SearchViewModel();
      }
 
-     public object Search(SearchViewModel searchViewModel)
+     public SearchResultViewModel Search(SearchViewModel searchViewModel)
      {
          throw new NotImplementedException();
      }
