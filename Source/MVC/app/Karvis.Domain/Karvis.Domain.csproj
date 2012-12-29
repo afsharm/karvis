@@ -77,6 +77,7 @@
     <Compile Include="ViewModels\JobViewModel.cs" />
     <Compile Include="ViewModels\SearchResultViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\TagCloudViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

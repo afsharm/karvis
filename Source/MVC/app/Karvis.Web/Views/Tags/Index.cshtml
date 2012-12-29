@@ -1,0 +1,17 @@
+﻿@model  IList< Karvis.Domain.ViewModels.TagCloudViewModel >
+
+@{
+    ViewBag.Title = "title";
+}
+
+@foreach(var item in Model)
+{
+    <p>
+    
+        @item.TagName
+        
+    </p> 
+    <b>  @item.RepeatCount</b>
+    <br/>
+    
+}
