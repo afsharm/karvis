@@ -91,14 +91,15 @@
                         </a>
                         <div id="ef-nav-menu" class="alignright">
                             <ul class="sf-menu">
-                                <li class="current"><a href="Default.aspx">خانه</a></li>
-                                <li><a href="Job/JobList.aspx">فهرست مشاغل/جستجو</a></li>
-                                <li><a href="TagCloud.aspx" id="ctl00_A1">تگ‌ها</a></li>
-                                <li><a href="Job/SubmitJob.aspx" id="ctl00_A2">ثبت آگهی</a></li>
-                                <li><a href="Stats/StatsDashboard.aspx" id="ctl00_A4">آمار</a></li>
-                                <li><a href="ContactUs.aspx" id="ctl00_A5">تماس با ما</a></li>
-                                <li><a href="AboutUs.aspx" id="ctl00_A6">درباره‌ی ما</a></li>
-                                <li><a href="http://blog.karvis.ir/" id="ctl00_A7">وبلاگ</a></li>
+                                <li class="current"><a href="@Url.Action("Index","Home")">خانه</a></li>
+                                <li><a href="@Url.Action("Index","Tags")" id="ctl00_A1">تگ‌ها</a></li>
+                                <li><a href="@Url.Action("SubmitJob","Job")" >ثبت آگهی</a></li>
+                                                     <li><a href="@Url.Action("Stats","Job")" >آمار</a></li>
+
+                                                         <li class="current"><a href="@Url.Action("AboutUs","Home")">درباره ما</a></li>
+                                <li class="current"><a href="@Url.Action("ContactUs","Home")">تماس با ما</a></li>
+
+                                <li><a href="http://blog.karvis.ir/">وبلاگ</a></li>
                             </ul>
                         </div>
                     </div>

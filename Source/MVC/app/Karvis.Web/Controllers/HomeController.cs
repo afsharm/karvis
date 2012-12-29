@@ -43,5 +43,15 @@ namespace Karvis.Web.Controllers
             var model = _searchTask.GetRawModel();
             return View(model);
         }
+
+        public ActionResult ContactUs()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ActionResult AboutUs()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
