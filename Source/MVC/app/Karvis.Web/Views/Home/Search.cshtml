@@ -18,15 +18,8 @@
                 
             </div>
             <div class="one_third">
-                <select id="AdSourceSelectList" name="AdSourceSelectList" >
-                    <option value="0">همه</option>
-                    @foreach(var item in Model.Tags)
-                    {
-                        
-                        <option value="@item.Id">@item.TagName</option>
-                    }
-                        
-                </select>
+@Html.DropDownList("AdSource", Model.SearchSource)
+
             </div>
             <div class="send-wrap alignright">
                 <div class="button">

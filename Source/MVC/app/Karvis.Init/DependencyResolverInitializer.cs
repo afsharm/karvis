@@ -35,6 +35,8 @@ namespace Karvis.Init
                                                   x.For<IUserTask>().Use<UserTask>();
                                                   x.For<IJobTask>().Use<JobTask>();
                                                   x.For<ISearchTask>().Use<SearchTask>();
+                                                  x.For<IAdSourceTask>().Use<AdSourceTask>();
+                                                  x.For<ITagTask>().Use<TagTask>();
 
                                                   x.For<IConfigDbTask>().Use<ConfigDbTask>();
                                                   x.For(typeof (IRepositoryWithTypedId<,>)).Use(

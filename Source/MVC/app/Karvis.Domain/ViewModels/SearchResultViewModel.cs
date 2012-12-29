@@ -7,5 +7,7 @@ namespace Karvis.Domain.ViewModels
 {
    public class SearchResultViewModel
     {
+       public SearchViewModel SearchViewModel { get; set; }
+       public JobViewModel JobViewModel { get; set; }   
     }
 }

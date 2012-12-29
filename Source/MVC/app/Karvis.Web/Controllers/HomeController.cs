@@ -32,10 +32,10 @@ namespace Karvis.Web.Controllers
             return View(_jobTask.GetJobDescription(id));
         }
         [HttpPost]
-        public ActionResult Search(SearchViewModel searchViewModel)
+        public ActionResult Search(SearchViewModel searchViewModel, string sort, string sortdir, int? page = 1)
         {
-            var model = _searchTask.Search(searchViewModel);
-            return View(model);
+            var model = _searchTask.Search(searchViewModel, sort, sortdir, (int)page);
+            return View("SearchResult",model);
         }
         [HttpGet]
         public ActionResult Search()

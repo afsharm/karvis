@@ -5,6 +5,6 @@ namespace Karvis.Domain.Tasks
     public interface ISearchTask
     {
         SearchViewModel GetRawModel();
-        SearchResultViewModel Search(SearchViewModel searchViewModel);
+        SearchResultViewModel Search(SearchViewModel searchViewModel, string sort, string sortdir, int page);
     }
 }

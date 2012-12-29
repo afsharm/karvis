@@ -1,0 +1,91 @@
+﻿          
+
+@model Karvis.Domain.ViewModels.SearchResultViewModel
+
+@{
+    ViewBag.Title = "کارویس فهرست مشاغل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+            
+
+ 
+@helper WebGridPageFirstItem(WebGrid grid)
+{
+    @(((grid.PageIndex + 1)*grid.RowsPerPage) - (grid.RowsPerPage - 1))
+    ;
+}
+ 
+@helper WebGridPageLastItem(WebGrid grid)
+{
+    if (grid.TotalRowCount < (grid.PageIndex + 1*grid.RowsPerPage))
+    {
+        @grid.TotalRowCount
+        ;
+    }
+    else
+    {
+        @((grid.PageIndex + 1)*grid.RowsPerPage)
+        ;
+    }
+}
+ 
+ 
+@{
+    var grid = new WebGrid(source: null, rowsPerPage: 10,
+                           defaultSort: "DateAdded");
+
+    grid.Bind(source: Model.JobViewModel.Jobs, rowCount: Model.JobViewModel.TotalJobsCount, autoSortAndPage: false);
+
+}
+ 
+<div class="ef-inner clearfix">
+    <div style="float:right;">
+    
+        <h3>نتیجه ی جستجو</h3>
+    </div>
+
+    <div style="float:left;">
+        <a href="#" id="btnShowSearch" class="ef-button ef-green"><span>جستجو</span></a>
+
+    </div>
+    <div class="clearfix"></div>
+    <div id="search">
+        @Html.Partial("Search",Model.SearchViewModel)
+
+    </div>
+    <div class="divider">
+    </div>
+    @grid.GetHtml(
+        htmlAttributes: new {id = "JobsList"},
+        mode: WebGridPagerModes.All,
+        columns: grid.Columns(
+            grid.Column(columnName: "Title", header: "عنوان"),
+            grid.Column(columnName: "Tag", header: "تگ"),
+            grid.Column(columnName: "DateAdded", header: "تاریخ ثبت"),
+            grid.Column(columnName: "VisitCount", header: "تعداد مشاهده"),
+            grid.Column(columnName: "AdSourceDescription", header: "منبع",canSort:false),
+            grid.Column( canSort:false,header: "",
+                         format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
+                                      جزییات 
+                                  </a>
+                )
+            )
+         )
+    <div class="divider">
+    </div>
+    <strong>صفحه ی جاری:</strong> @(grid.PageIndex + 1) / @grid.PageCount, 
+    <strong>تعداد شغل های تایید شده:</strong> @WebGridPageFirstItem(@grid) - @WebGridPageLastItem(@grid) از @grid.TotalRowCount
+ 
+
+</div>
+
+<script>
+    
+    $(function () {
+        
+        $('#btnShowSearch').click(function() {
+            $("#search").show('flip');
+        });
+
+    });
+</script>
