@@ -46,6 +46,7 @@ namespace Karvis.Tasks
 
         public JobDescriptionViewModel GetJobDescription(int id)
         {
+            IncreaseVisitCount(id);
             var job=
                 GetQueryable().QueryForAtiveJobsSpecific().Where(x => x.Id == id).Select(
                     x => new JobDescriptionViewModel
@@ -65,8 +66,16 @@ namespace Karvis.Tasks
             return job;
         }
 
-        #endregion
 
+       
+
+        #endregion
+        private  void IncreaseVisitCount(int jobId)
+        {
+            var job = GetItem(jobId);
+            job.VisitCount++;
+            UpdateItem(job);
+        }
         private static JobSummeryViewModel GetJobSummery(Job x)
         {
             var fardis = new DateTimeHelper();

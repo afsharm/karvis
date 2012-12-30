@@ -1,17 +1,122 @@
-﻿@model  IList< Karvis.Domain.ViewModels.TagCloudViewModel >
-
+﻿@model  IList<Karvis.Domain.ViewModels.TagCloudViewModel>
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "لیست تگ ها";
+    int oneFifthCount = Model.Count/5;
 }
 
-@foreach(var item in Model)
-{
-    <p>
+<div class="ef-inner clearfix">
+    <h2>لیست تگ ها</h2>
+
+    <div class="one_fifth">
+
+        <ul>
+
+            @foreach (var item in Model.Take(oneFifthCount))
+            {
+                <li>
+                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                        <span>
+
+                            @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
+                        </span>
+
+                    </a>
+
+                </li>
     
-        @item.TagName
-        
-    </p> 
-    <b>  @item.RepeatCount</b>
-    <br/>
+            }
+        </ul>
+
+    </div>
+    <div class="one_fifth">
+
+        <ul>
+
+            @foreach (var item in Model.Skip(oneFifthCount * 1).Take(oneFifthCount))
+            {
+                <li>
+                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                        <span>
+
+                            @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
+                        </span>
+
+                    </a>
+
+                </li>
     
-}
+            }
+        </ul>
+
+    </div>
+    <div class="one_fifth">
+
+        <ul>
+
+                   @foreach (var item in Model.Skip(oneFifthCount * 2).Take(oneFifthCount))
+
+            {
+                <li>
+                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                        <span>
+
+                            @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
+                        </span>
+
+                    </a>
+
+                </li>
+    
+            }
+        </ul>
+
+    </div>
+    <div class="one_fifth">
+
+        <ul>
+
+                 @foreach (var item in Model.Skip(oneFifthCount * 3).Take(oneFifthCount))
+
+            {
+                <li>
+                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                        <span>
+
+                            @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
+                        </span>
+
+                    </a>
+
+                </li>
+    
+            }
+        </ul>
+
+    </div>
+    <div class="one_fifth">
+
+        <ul>
+
+            @foreach (var item in Model.Skip(oneFifthCount * 4).Take(oneFifthCount))
+
+            {
+                <li>
+                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                        <span>
+
+                            @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
+                        </span>
+
+                    </a>
+
+                </li>
+    
+            }
+        </ul>
+
+    </div>
+
+</div>
+<style>
+    .one_fifth{ margin: 0;}
+</style>

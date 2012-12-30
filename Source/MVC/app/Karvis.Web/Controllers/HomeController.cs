@@ -53,5 +53,11 @@ namespace Karvis.Web.Controllers
         {
             throw new System.NotImplementedException();
         }
+
+        public ActionResult Tag(string name, string sort, string sortdir, int? page = 1)
+        {
+             var model=_searchTask.GetJobsByTagName(name, sort,  sortdir,  (int) page );
+            return View("Index", model);
+        }
     }
 }

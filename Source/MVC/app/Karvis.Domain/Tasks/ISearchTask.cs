@@ -6,5 +6,6 @@ namespace Karvis.Domain.Tasks
     {
         SearchViewModel GetRawModel();
         SearchResultViewModel Search(SearchViewModel searchViewModel, string sort, string sortdir, int page);
+        JobViewModel GetJobsByTagName(string name, string sort, string sortdir, int page);
     }
-}
+}   

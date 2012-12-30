@@ -96,6 +96,45 @@ namespace Karvis.Tasks
      
      }
 
+     public JobViewModel GetJobsByTagName(string name, string sort, string sortdir, int page)
+     {
+         var activeJobs = _jobTask.GetQueryable().Where(x=>x.Tag.Contains(name));
+         var totalJobs = activeJobs.Count();
+         var takeCount = 10;
+         if (totalJobs < 10)
+         {
+             takeCount = totalJobs;
+         }
+         var fardis = new DateTimeHelper();
+         var jobSummeryList =
+             activeJobs.OrderByStringColumnName(sort, sortdir).
+                 QueryForAtiveJobsSummery().
+                 Select(x => new JobSummeryViewModel
+                 {
+                     Title = x.Title,
+                     Id = x.Id,
+                     DateAdded = fardis.ConvertToPersianDatePersianDigit(x.AddedDate),
+                     AdSource = x.Source,
+                     Tag = x.Tag.ToString(CultureInfo.InvariantCulture),
+                     VisitCount = x.VisitCount.ToString(CultureInfo.InvariantCulture)
+                 });
+         if (totalJobs > 10)
+         {
+             jobSummeryList = jobSummeryList.Skip((page - 1) * 10).Take(takeCount);
+         }
+
+
+         return
+
+             new JobViewModel()
+                 {
+                     Jobs = jobSummeryList.ToList(),
+                     TotalJobsCount = totalJobs
+                 };
+
+
+     }
+
      #endregion
     }
 }

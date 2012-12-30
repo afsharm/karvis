@@ -30,11 +30,17 @@ namespace Karvis.Tasks
        public IList<TagCloudViewModel> GetTagCloud()
        {
            var tags = GetAllTags();
-           var tagCloudList = tags.Select(x => new TagCloudViewModel()
-                                                   {
-                                                       TagName = x.TagName,
-                                                       RepeatCount = tags.Count(z => z.TagName == x.TagName)
-                                                   }).Distinct(new TagComparer()).ToList();
+           var allTags = new List<string>();
+           foreach (var tagDto in tags)
+           {
+                allTags.AddRange(tagDto.TagName.Split(','));
+           }
+           
+                      var tagCloudList = allTags.Select(x => new TagCloudViewModel()
+           {
+               TagName = x,
+               RepeatCount = allTags.Count(xx=> xx== x)
+           }).Distinct(new TagComparer()).ToList();
          
            return tagCloudList;
 

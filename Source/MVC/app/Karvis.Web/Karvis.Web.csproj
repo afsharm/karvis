@@ -266,6 +266,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Home\JobsGridView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
