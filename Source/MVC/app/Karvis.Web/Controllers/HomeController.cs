@@ -59,5 +59,7 @@ namespace Karvis.Web.Controllers
              var model=_searchTask.GetJobsByTagName(name, sort,  sortdir,  (int) page );
             return View("Index", model);
         }
+
+      
     }
 }

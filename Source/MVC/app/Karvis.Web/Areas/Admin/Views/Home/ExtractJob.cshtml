@@ -1,0 +1,14 @@
+﻿@model Karvis.Domain.ViewModels.ExtractJobViewModel
+
+@{
+    Layout = null;
+}
+
+<form method="POST" action="@Url.Action("ExtractJobs")">
+    
+@Html.DropDownList("AdSource", Model.SearchSource)
+    
+    <input type="submit" value="استخراج"/>
+
+</form>
+

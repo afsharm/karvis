@@ -15,9 +15,12 @@ namespace Karvis.Tasks
 {
     public class JobTask : CrudTask<Job>, IJobTask
     {
-        public JobTask(IRepository<Job> repository)
+        private readonly IRepository<IgnoredJob> _ignoredJobsRepo; 
+
+        public JobTask(IRepository<Job> repository, IRepository<IgnoredJob> ignoredJobsRepo)
             : base(repository)
         {
+            _ignoredJobsRepo = ignoredJobsRepo;
         }
 
         #region IJobTask Members
@@ -83,6 +86,16 @@ namespace Karvis.Tasks
                           };
             AddNewItem(job);
 
+        }
+
+        public IList<string> GetJobUrlsByAdSource(AdSource siteSource)
+        {
+            return GetQueryable().Where(x => x.AdSource == siteSource).Select(x => x.Url).ToList();
+        }
+
+        public IList<string> GetIgnoredUrls(AdSource siteSource)
+        {
+            return _ignoredJobsRepo.GetAll().Where(x=>x.AdSource== siteSource).Select(x=>x.Url).ToList();
         }
 
         #endregion

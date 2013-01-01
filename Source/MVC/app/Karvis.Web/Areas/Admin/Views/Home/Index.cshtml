@@ -1,0 +1,47 @@
+﻿@model Karvis.Domain.ViewModels.AdminViewModel
+
+@{
+    ViewBag.Title = "مدیریت کارویس";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ef-inner clearfix">
+    <div id="dashboardTab">
+		                    <ul>
+		                        <li><a href="#tab-1" title="Tab 1 title">استخراج شغل ها</a></li>
+		
+		                        <li><a href="#tab-2" title="Tab 2 title">Tab 2 title</a></li>
+		
+		                        <li><a href="#tab-3" title="Tab 3 title">Tab 3 title</a></li>
+		                    </ul>
+		
+		                    <div id="tab-1" class="tab">
+		                        @Html.Partial("ExtractJob",Model.ExtractJobViewModel)
+		                    </div>
+		
+		                    <div id="tab-2" class="tab">		                    </div>
+		
+		                    <div id="tab-3" class="tab">Mauris ut iaculis nulla.
+		                    </div>
+		                </div>
+    
+</div>
+<script>
+    $(function() {
+        $('#dashboardTab').tabs({
+            fx: {
+                opacity: 'show'
+            },
+            selected: 0
+        });
+
+    });
+</script>
+<style>
+    .ui-tabs { direction: rtl; font-family: tahoma }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
+.ui-tabs .ui-tabs-nav li.ui-state-default {float: right; }
+.ui-tabs .ui-tabs-nav li a { float: right; }
+
+
+</style>

@@ -9,5 +9,7 @@ namespace Karvis.Domain.Tasks
         JobViewModel GetSummeryPaged(string sort, string sortdir, int page);
         JobDescriptionViewModel GetJobDescription(int id);
         void SubmitJob  (SubmitJobViewModel submitJobViewModel);
+        IList<string> GetJobUrlsByAdSource  (AdSource siteSource);
+        IList<string> GetIgnoredUrls(AdSource siteSource);
     }
 }

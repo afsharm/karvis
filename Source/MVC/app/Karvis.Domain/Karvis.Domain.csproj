@@ -34,6 +34,9 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\lib\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Razmyar.Domain">
       <HintPath>..\Karvis.Init\bin\Debug\Razmyar.Domain.dll</HintPath>
     </Reference>
@@ -60,6 +63,9 @@
     <Compile Include="ExtractStatus.cs" />
     <Compile Include="IgnoredJob.cs" />
     <Compile Include="Job.cs" />
+    <Compile Include="JobExtract\IExtractJobs.cs" />
+    <Compile Include="JobExtract\IExtractorHelper.cs" />
+    <Compile Include="JobExtract\IKarvisCrawler.cs" />
     <Compile Include="KGlobal.cs" />
     <Compile Include="KMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,13 +73,16 @@
     <Compile Include="Queries\QueryableExtensions.cs" />
     <Compile Include="Queries\TagQueries.cs" />
     <Compile Include="ScheduleInfo.cs" />
+    <Compile Include="Tasks\IAdminTask.cs" />
     <Compile Include="Tasks\IAdSourceTask.cs" />
     <Compile Include="Tasks\IJobTask.cs" />
     <Compile Include="Tasks\ISearchTask.cs" />
     <Compile Include="Tasks\ITagTask.cs" />
     <Compile Include="Validators\DataAnnotationsValidator.cs" />
     <Compile Include="ViewModels\AboutUsViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\ContactUsViewModel.cs" />
+    <Compile Include="ViewModels\ExtractJobViewModel.cs" />
     <Compile Include="ViewModels\JobDescriptionViewModel.cs" />
     <Compile Include="ViewModels\JobSummeryViewModel.cs" />
     <Compile Include="ViewModels\JobViewModel.cs" />
@@ -84,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

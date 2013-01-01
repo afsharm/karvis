@@ -19,6 +19,9 @@ namespace Karvis.Domain
         public virtual int PreSavedJobId { get; set; }
 
 
+        // todo - expose to viewmodel
+        public virtual string ExtractionText { set; get; }
+
 
         // todo - expose to viewModel
 
