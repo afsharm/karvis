@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ActionConfirmation.cs" />
     <Compile Include="AdSource.cs" />
+    <Compile Include="Constants\JobExtractorConstant.cs" />
     <Compile Include="Dto\AdSourceDto.cs" />
     <Compile Include="Dto\JobSummeryDto.cs" />
     <Compile Include="Dto\TagDto.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="JobExtract\IExtractJobs.cs" />
     <Compile Include="JobExtract\IExtractorHelper.cs" />
     <Compile Include="JobExtract\IKarvisCrawler.cs" />
+    <Compile Include="JobExtract\IFeedExtractor.cs" />
     <Compile Include="KGlobal.cs" />
     <Compile Include="KMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Tasks\ITagTask.cs" />
     <Compile Include="Validators\DataAnnotationsValidator.cs" />
     <Compile Include="ViewModels\AboutUsViewModel.cs" />
+    <Compile Include="ViewModels\AdminExtractJobResultViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\ContactUsViewModel.cs" />
     <Compile Include="ViewModels\ExtractJobViewModel.cs" />
@@ -91,9 +94,7 @@
     <Compile Include="ViewModels\SubmitJobViewModel.cs" />
     <Compile Include="ViewModels\TagCloudViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

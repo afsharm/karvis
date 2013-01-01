@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Karvis.Domain;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
-
+using System.Linq;
 namespace Karvis.Web.Areas.Admin.Controllers
 {
     public class HomeController : Controller
@@ -26,7 +24,17 @@ namespace Karvis.Web.Areas.Admin.Controllers
         }
         public ActionResult ExtractJobs(ExtractJobViewModel extractJobViewModel)
         {
-            throw new System.NotImplementedException();
+            var siteSource = (AdSource)Enum.Parse(typeof(AdSource), extractJobViewModel.SelectedAdSource);
+
+            var result = _adminTask.ExtractJobs(siteSource);
+            
+                    var model = _adminTask.GetRawModel();
+            model.AdminExtractJobResultViewModel = result;
+            var searchSource = model.ExtractJobViewModel.SearchSource;
+    
+
+            return View(@"~\Areas\Admin\Views\Home\Index.cshtml", model);
+
         }
 
     }

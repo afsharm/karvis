@@ -7,6 +7,8 @@ namespace Karvis.Domain.ViewModels
 {
   public  class AdminViewModel
     {
-      public ExtractJobViewModel ExtractJobViewModel { get; set; }  
+      public ExtractJobViewModel ExtractJobViewModel { get; set; }
+
+      public AdminExtractJobResultViewModel AdminExtractJobResultViewModel { get; set; }
     }
 }

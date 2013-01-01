@@ -233,6 +233,7 @@
     <Content Include="packages.config" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ExtractJob.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\ExtractJobResult.cshtml" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-1.8.3.min.js" />

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Fardis;
 using Karvis.Domain.JobExtract;
 using Karvis.Domain.Tasks;
 using Karvis.NHibernateProvider;
@@ -45,6 +46,10 @@ namespace Karvis.Init
                                                   x.For<IKarvisCrawler>().Use<KarvisCrawler>();
 
                                                   x.For<IConfigDbTask>().Use<ConfigDbTask>();
+                                                  x.For<IFeedExtractor>().Use<FeedExtractor>();
+                                                  x.For<IDateTimeHelper>().Use<DateTimeHelper>();
+
+
                                                   x.For(typeof (IRepositoryWithTypedId<,>)).Use(
                                                       typeof (RepositoryWithTypedId<,>));
                                               });

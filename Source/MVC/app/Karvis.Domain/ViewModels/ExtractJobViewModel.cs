@@ -7,6 +7,8 @@ namespace Karvis.Domain.ViewModels
     {
         public AdSource AdSource { get; set; }
 
-        public IEnumerable<SelectListItem> SearchSource { get; set; }
+        public IList<SelectListItem> SearchSource { get; set; }
+
+        public string SelectedAdSource { get; set; }        
     }
 }

@@ -17,7 +17,12 @@
 		
 		                    <div id="tab-1" class="tab">
 		                        @Html.Partial("ExtractJob",Model.ExtractJobViewModel)
-		                    </div>
+                                @if(Model.AdminExtractJobResultViewModel!=null)
+                                {
+                                    @Html.Partial("ExtractJobResult",Model.AdminExtractJobResultViewModel)
+                                }
+
+                            </div>
 		
 		                    <div id="tab-2" class="tab">		                    </div>
 		
