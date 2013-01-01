@@ -1,0 +1,60 @@
+﻿@model Karvis.Domain.ViewModels.SubmitJobViewModel
+
+@{
+    ViewBag.Title = "ارسال آگهی";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="ef-inner">
+    
+
+	            	<h2>ارسال آگهی از سایت کارویس</h2>
+	            
+					
+    	         
+    	            
+    	            
+                    <div>
+        
+        
+                    	<div class="divider"></div>
+        			
+        				<form class="ef-contact1" method="post" action="@Url.Action("SubmitJob")">
+		                    <div>
+		                        @Html.LabelFor(x=>x.Title)
+                                @Html.TextBoxFor(x=>x.Title)
+                                @Html.ValidationMessageFor(x=>x.Title)
+		                    </div>
+		
+		                    <div>
+		                 @Html.LabelFor(x=>x.Tag)
+                                @Html.TextBoxFor(x=>x.Tag, new {@class="ltr"})
+                                @Html.ValidationMessageFor(x=>x.Tag)
+		                    </div>
+		
+		                    <div>
+		                    @Html.LabelFor(x=>x.Link)
+                         @Html.TextBoxFor(x=>x.Link, new {@class="ltr"})
+                                @Html.ValidationMessageFor(x=>x.Link)
+		                    </div>
+		
+		                    <div>
+		                  @Html.LabelFor(x=>x.Description)
+                                @Html.TextAreaFor(x=>x.Description)
+                                @Html.ValidationMessageFor(x=>x.Description)
+		                    </div>
+		
+		                    <div class="send-wrap">
+		                        <div class="button">
+		                            <input class="send1"  type="submit" value="ارسال">
+		                        </div>
+		                    </div>
+		                </form>
+		                <div class="ef-list"></div>
+        
+        	        </div>
+        
+</div>
+    
+<style>
+    .ltr{ direction: ltr;text-align: left;}
+</style>

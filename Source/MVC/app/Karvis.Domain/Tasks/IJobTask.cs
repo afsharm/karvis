@@ -8,5 +8,6 @@ namespace Karvis.Domain.Tasks
     {
         JobViewModel GetSummeryPaged(string sort, string sortdir, int page);
         JobDescriptionViewModel GetJobDescription(int id);
+        void SubmitJob  (SubmitJobViewModel submitJobViewModel);
     }
 }

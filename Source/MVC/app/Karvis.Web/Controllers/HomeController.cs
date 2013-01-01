@@ -46,12 +46,12 @@ namespace Karvis.Web.Controllers
 
         public ActionResult ContactUs()
         {
-            throw new System.NotImplementedException();
+            return View(new ContactUsViewModel());
         }
 
         public ActionResult AboutUs()
         {
-            throw new System.NotImplementedException();
+            return View(new AboutUsViewModel());
         }
 
         public ActionResult Tag(string name, string sort, string sortdir, int? page = 1)

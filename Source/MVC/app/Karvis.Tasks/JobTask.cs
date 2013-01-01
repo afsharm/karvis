@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Fardis;
@@ -66,8 +67,23 @@ namespace Karvis.Tasks
             return job;
         }
 
+        public void SubmitJob(SubmitJobViewModel submitJobViewModel)
+        {
+            var job = new Job
+                          {
+                              IsActive = false,
+                              OriginalDate = DateTime.Now,
+                              Title = submitJobViewModel.Title,
+                              Tag = submitJobViewModel.Tag,
+                              Description = submitJobViewModel.Description,
+                              Url = submitJobViewModel.Link,
+                              DateAdded = DateTime.Now,
+                              VisitCount = 0,
+                              AdSource = AdSource.karvis_ir
+                          };
+            AddNewItem(job);
 
-       
+        }
 
         #endregion
         private  void IncreaseVisitCount(int jobId)
