@@ -29,14 +29,14 @@ namespace Karvis.Tasks.JobExtract
         /// <summary>
         /// Date/Time convertion
         /// </summary>
-        IDateTimeHelper _dateTimeHelper;
+        readonly IDateTimeHelper _dateTimeHelper;
 
         /// <summary>
         /// crawling web addresses
         /// </summary>
-        IKarvisCrawler _crawler;
+        readonly IKarvisCrawler _crawler;
 
-        IExtractorHelper _extractorHelper;
+        readonly IExtractorHelper _extractorHelper;
 
         /// <summary>
         /// Constructor

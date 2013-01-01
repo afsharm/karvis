@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
+using Karvis.Domain.JobExtract;
 using Karvis.Domain.Tasks;
 using Karvis.NHibernateProvider;
 using Karvis.Tasks;
+using Karvis.Tasks.JobExtract;
 using NHibernate;
 using NHibernate.Cfg;
 using Razmyar.Domain.Contracts.Repositories;
@@ -38,6 +40,9 @@ namespace Karvis.Init
                                                   x.For<IAdSourceTask>().Use<AdSourceTask>();
                                                   x.For<ITagTask>().Use<TagTask>();
                                                   x.For<IAdminTask>().Use<AdminTask>();
+                                                  x.For<IExtractJobs>().Use<ExtractJob>();
+                                                  x.For<IExtractorHelper>().Use<ExtractorHelper>();
+                                                  x.For<IKarvisCrawler>().Use<KarvisCrawler>();
 
                                                   x.For<IConfigDbTask>().Use<ConfigDbTask>();
                                                   x.For(typeof (IRepositoryWithTypedId<,>)).Use(

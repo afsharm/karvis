@@ -16,9 +16,9 @@ namespace Karvis.Core
         IList<string> preUrls;
         IList<string> preIgnoredUrlJobs;
 
-        IJobModel _jobModel;
-        IIgnoredJobModel _ignoredJobModel;
-        IKarvisCrawler _crawler;
+        readonly IJobModel _jobModel;
+        readonly IIgnoredJobModel _ignoredJobModel;
+        readonly IKarvisCrawler _crawler;
 
         public ExtractorHelper(IJobModel jobModel, IIgnoredJobModel ignoredJobModel, IKarvisCrawler karvisCrawler)
         {
