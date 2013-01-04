@@ -35,7 +35,7 @@
       <HintPath>..\..\lib\Fardis.Lib.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\..\Library\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Razmyar.Domain">
       <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>

@@ -35,10 +35,10 @@
       <HintPath>..\..\lib\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\..\Library\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Razmyar.Domain">
-      <HintPath>..\Karvis.Init\bin\Debug\Razmyar.Domain.dll</HintPath>
+      <HintPath>..\..\..\..\Library\Razmyar.Domain.dll</HintPath>
     </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
