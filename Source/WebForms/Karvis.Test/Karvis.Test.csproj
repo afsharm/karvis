@@ -32,23 +32,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\Library\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\..\Library\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="CKEditor.NET">
-      <HintPath>..\..\Library\CKEditor.NET.dll</HintPath>
+      <HintPath>..\..\..\Library\CKEditor.NET.dll</HintPath>
     </Reference>
     <Reference Include="Fardis.Lib">
       <HintPath>..\..\..\Library\Fardis.Lib.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\..\Library\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\..\Library\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\Library\log4net.dll</HintPath>
@@ -60,25 +61,38 @@
       <HintPath>..\..\..\Library\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\..\Library\NHibernate.ByteCode.Castle.dll</HintPath>
+      <HintPath>..\..\..\Library\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Caches.SysCache">
-      <HintPath>..\..\Library\NHibernate.Caches.SysCache.dll</HintPath>
+      <HintPath>..\..\..\Library\NHibernate.Caches.SysCache.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\Library\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Razmyar.Common">
+      <HintPath>..\..\..\Library\Razmyar.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Razmyar.Domain">
+      <HintPath>..\..\..\Library\Razmyar.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Razmyar.Web">
+      <HintPath>..\..\..\Library\Razmyar.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Razmyar.Web.Controllers">
+      <HintPath>..\..\..\Library\Razmyar.Web.Controllers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\Library\System.Data.SQLite.DLL</HintPath>
+      <HintPath>..\..\..\Library\System.Data.SQLite.DLL</HintPath>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UrlRewritingNet.UrlRewriter">
-      <HintPath>..\..\Library\UrlRewritingNet.UrlRewriter.dll</HintPath>
+      <HintPath>..\..\..\Library\UrlRewritingNet.UrlRewriter.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
