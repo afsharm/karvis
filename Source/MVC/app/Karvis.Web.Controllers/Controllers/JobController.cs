@@ -17,12 +17,14 @@ namespace Karvis.Web.Controllers.Controllers
         {
             throw new System.NotImplementedException();
         }
+        
         [HttpGet]
         public ActionResult SubmitJob()
         {
             
             return View(new SubmitJobViewModel ());
         }
+        
         [HttpPost]
         public ActionResult SubmitJob(SubmitJobViewModel submitJobViewModel)
         {

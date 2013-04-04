@@ -265,13 +265,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Jobs\Search.cshtml" />
+    <Content Include="Views\Jobs\SearchResult.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Home\JobsGridView.cshtml" />
+    <Content Include="Views\Jobs\JobsGridView.cshtml" />
     <Content Include="Views\Job\SubmitJob.cshtml" />
-    <Content Include="Views\Home\ContactUs.cshtml" />
-    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Jobs\ContactUs.cshtml" />
+    <Content Include="Views\Jobs\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -281,7 +281,7 @@
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Jobs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Karvis.Web.Controllers\Karvis.Web.Controllers.csproj">
@@ -315,7 +315,7 @@
     <Content Include="Areas\Settings\Views\ConfigDb\UpdateDatabase.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Description.cshtml" />
+    <Content Include="Views\Jobs\Description.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

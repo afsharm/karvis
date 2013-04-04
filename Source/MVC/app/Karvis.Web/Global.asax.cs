@@ -28,7 +28,7 @@ namespace Karvis.Web
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
                 new[]
                     {
-                        typeof (HomeController).Namespace,
+                        typeof (JobsController).Namespace,
                         typeof (ConfigDbController).Namespace,
                         typeof (AccountController).Namespace,
                         //typeof (UsersController).Namespace,
