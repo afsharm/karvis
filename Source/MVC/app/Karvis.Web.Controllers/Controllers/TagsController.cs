@@ -5,8 +5,7 @@ namespace Karvis.Web.Controllers.Controllers
 {
     public class TagsController : Controller
     {
-
-                private readonly ITagTask _tagTask;
+        private readonly ITagTask _tagTask;
 
         public TagsController(ITagTask tagTask)
         {

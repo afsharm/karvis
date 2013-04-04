@@ -23,7 +23,7 @@
             grid.Column(columnName: "VisitCount", header: "تعداد مشاهده"),
             grid.Column(columnName: "AdSourceDescription", header: "منبع",canSort:false),
             grid.Column( canSort:false,header: "",
-                         format: @<a target="_blank" href="@Url.Action("Description", new {item.id})">
+                         format: @<a href="@Url.Action("Description", new {item.id})">
                                       جزییات 
                                   </a>
                 )

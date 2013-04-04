@@ -6,8 +6,5 @@ namespace Karvis.Web.Controllers.Controllers
     {
         //
         // GET: /Admin/Config/
-
-
-
     }
 }

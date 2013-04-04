@@ -20,7 +20,6 @@ namespace Karvis.Web.Controllers.Controllers
         {
             var list = _jobTask.GetSummeryPaged(sort, sortdir, (int)page);
 
-
             return View(list);
         }
 
@@ -52,7 +51,6 @@ namespace Karvis.Web.Controllers.Controllers
         [HttpGet]
         public ActionResult SubmitJob()
         {
-
             return View(new SubmitJobViewModel());
         }
 

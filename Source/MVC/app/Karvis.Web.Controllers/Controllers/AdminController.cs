@@ -22,20 +22,16 @@ namespace Karvis.Web.Controllers.Controllers
             var model = _adminTask.GetRawModel();
             return View(model);
         }
+
         public ActionResult ExtractJobs(ExtractJobViewModel extractJobViewModel)
         {
             var siteSource = (AdSource)Enum.Parse(typeof(AdSource), extractJobViewModel.SelectedAdSource);
-
             var result = _adminTask.ExtractJobs(siteSource);
-            
-                    var model = _adminTask.GetRawModel();
+            var model = _adminTask.GetRawModel();
             model.AdminExtractJobResultViewModel = result;
             var searchSource = model.ExtractJobViewModel.SearchSource;
-    
 
             return View(@"~\Areas\Admin\Views\Home\Index.cshtml", model);
-
         }
-
     }
 }
