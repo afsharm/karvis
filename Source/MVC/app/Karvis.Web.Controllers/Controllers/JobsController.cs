@@ -43,16 +43,6 @@ namespace Karvis.Web.Controllers.Controllers
             return View(model);
         }
 
-        public ActionResult ContactUs()
-        {
-            return View(new ContactUsViewModel());
-        }
-
-        public ActionResult AboutUs()
-        {
-            return View(new AboutUsViewModel());
-        }
-
         public ActionResult Tag(string name, string sort, string sortdir, int? page = 1)
         {
             var model = _searchTask.GetJobsByTagName(name, sort, sortdir, (int)page);

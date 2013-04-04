@@ -270,9 +270,9 @@
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Jobs\JobsGridView.cshtml" />
     <Content Include="Views\Jobs\SubmitJob.cshtml" />
-    <Content Include="Views\Jobs\ContactUs.cshtml" />
-    <Content Include="Views\Jobs\AboutUs.cshtml" />
+    <Content Include="Views\AboutUs\Index.cshtml" />
     <Content Include="Views\Stats\Index.cshtml" />
+    <Content Include="Views\ContactUs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

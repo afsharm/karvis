@@ -11,5 +11,15 @@ namespace Karvis.Web.Controllers.Controllers
         {
             return (RedirectToActionPermanent("Index", "Jobs"));
         }
+
+        public ActionResult ContactUs()
+        {
+            return View(new ContactUsViewModel());
+        }
+
+        public ActionResult AboutUs()
+        {
+            return View(new AboutUsViewModel());
+        }
     }
 }
