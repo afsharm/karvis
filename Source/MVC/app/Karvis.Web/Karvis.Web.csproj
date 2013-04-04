@@ -272,6 +272,7 @@
     <Content Include="Views\Jobs\SubmitJob.cshtml" />
     <Content Include="Views\Jobs\ContactUs.cshtml" />
     <Content Include="Views\Jobs\AboutUs.cshtml" />
+    <Content Include="Views\Stats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

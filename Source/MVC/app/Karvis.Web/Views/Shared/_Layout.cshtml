@@ -1,121 +1,123 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title</title>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
 
-        <link rel="stylesheet" href="@Url.Content("~/content/theme/css/reset.css")" type="text/css"
+    <link rel="stylesheet" href="@Url.Content("~/content/theme/css/reset.css")" type="text/css"
               media="screen">
-        <link rel="stylesheet" href="@Url.Content("~/content/theme/css/normalize.css")" type="text/css"
+    <link rel="stylesheet" href="@Url.Content("~/content/theme/css/normalize.css")" type="text/css"
               media="screen">
-        <link rel="stylesheet" href="@Url.Content("~/content/theme/css/style.css")" type="text/css"
+    <link rel="stylesheet" href="@Url.Content("~/content/theme/css/style.css")" type="text/css"
               media="screen">
-        <link rel="stylesheet" href="@Url.Content("~/content/theme/css/shortcodes.css")" type="text/css"
+    <link rel="stylesheet" href="@Url.Content("~/content/theme/css/shortcodes.css")" type="text/css"
               media="screen">
-        <link rel="stylesheet" href="@Url.Content("~/content/theme/css/layout.css")" type="text/css"
+    <link rel="stylesheet" href="@Url.Content("~/content/theme/css/layout.css")" type="text/css"
               media="screen">
-              <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/flick/jquery-ui.css" type="text/css"
-              media="screen">
-        
-        <script src="@Url.Content("~/Scripts/jquery-1.8.3.min.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"> </script>
-        
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/flick/jquery-ui.css" type="text/css"
+        media="screen">
 
-        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>
-        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"> </script>
-    </head>
-    
-    <body class="sg-nojs">
-        <!-- HEADER -->
-        <div class="ef-wrapper">
-            <div id="contact-wrap">
-                <div class="qcontact clearfix">
-                    <div class="col-380">
-                        <h6>
-                            Some info</h6>
-                        <img class="alignleft" src="images/alt-logo.png" alt="">
-                        <p>
-                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+    <script src="@Url.Content("~/Scripts/jquery-1.8.3.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"> </script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"> </script>
+</head>
+
+<body class="sg-nojs">
+    <!-- HEADER -->
+    <div class="ef-wrapper">
+        <div id="contact-wrap">
+            <div class="qcontact clearfix">
+                <div class="col-380">
+                    <h6>Some info</h6>
+                    <img class="alignleft" src="images/alt-logo.png" alt="">
+                    <p>
+                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
                             voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
                             occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-                            mollitia animi, id est laborum et dolorum fuga.</p>
-                    </div>
-                    <div class="alignleft">
-                        <h6>
-                            Feel free to contact us</h6>
-                        <form class="ef-contact clearfix" method="post" action="http://themes.evgenyfireform.com/themask/demo/get_mail.php">
-                            <div class="col1-3">
-                                <div>
-                                    <input class="ef-name" type="text" name="name" value="Name" onclick=" if (this.value == 'Name') this.value = ''; "
-                                           onblur=" if (this.value == '') this.value = 'Name'; " /></div>
-                                <div>
-                                    <input class="ef-email" type="text" name="email" value="E-mail" onclick=" if (this.value == 'E-mail') this.value = ''; "
-                                           onblur=" if (this.value == '') this.value = 'E-mail'; " /></div>
-                                <div>
-                                    <input class="ef-website" type="text" name="website" value="Website" onclick=" if (this.value == 'Website') this.value = ''; "
-                                           onblur=" if (this.value == '') this.value = 'Website'; " /></div>
+                            mollitia animi, id est laborum et dolorum fuga.
+                    </p>
+                </div>
+                <div class="alignleft">
+                    <h6>Feel free to contact us</h6>
+                    <form class="ef-contact clearfix" method="post" action="http://themes.evgenyfireform.com/themask/demo/get_mail.php">
+                        <div class="col1-3">
+                            <div>
+                                <input class="ef-name" type="text" name="name" value="Name" onclick=" if (this.value == 'Name') this.value = ''; "
+                                    onblur=" if (this.value == '') this.value = 'Name'; " />
                             </div>
-                            <div class="col1-3 omega">
-                                <div>
-                                    <textarea class="ef-message" name="message"></textarea></div>
-                                <div class="send-wrap">
-                                    <div class="button">
-                                        <input name="send" type="submit" value="Send">
-                                    </div>
+                            <div>
+                                <input class="ef-email" type="text" name="email" value="E-mail" onclick=" if (this.value == 'E-mail') this.value = ''; "
+                                    onblur=" if (this.value == '') this.value = 'E-mail'; " />
+                            </div>
+                            <div>
+                                <input class="ef-website" type="text" name="website" value="Website" onclick=" if (this.value == 'Website') this.value = ''; "
+                                    onblur=" if (this.value == '') this.value = 'Website'; " />
+                            </div>
+                        </div>
+                        <div class="col1-3 omega">
+                            <div>
+                                <textarea class="ef-message" name="message"></textarea>
+                            </div>
+                            <div class="send-wrap">
+                                <div class="button">
+                                    <input name="send" type="submit" value="Send">
                                 </div>
                             </div>
-                        </form>
-                        <div class="ef-list">
                         </div>
-                    </div>
-                </div>
-                <div class="top-line">
-                    <div>
-                        <a href="#" class="contact-bar-tab"></a>
+                    </form>
+                    <div class="ef-list">
                     </div>
                 </div>
             </div>
-            <div class="head">
-                <div class="social-bar clearfix">
-                    <div class="alignright">
-                        <a href="#" class="twitter soc">
-                            <img src="images/social/twt.png" alt=""></a> <a href="#" class="facebook soc">
-                                                                             <img src="images/social/drbl.png" alt=""></a> <a href="#" class="linkedin soc"></a>
-                    </div>
+            <div class="top-line">
+                <div>
+                    <a href="#" class="contact-bar-tab"></a>
                 </div>
             </div>
-            <div class="boxed">
-                <div class="ef-main-wrap clearfix">
-                    <div class="logo-nav clearfix">
-                        <a class="ef-logo alignleft" href="index-2.html">
-                            <h1>
-                                کارویس
-                            </h1>
-                        </a>
-                        <div id="ef-nav-menu" class="alignright">
-                            <ul class="sf-menu">
-                                <li class="current"><a href="@Url.Action("Index","Home")">خانه</a></li>
-                                <li><a href="@Url.Action("Index","Tags")" id="ctl00_A1">تگ‌ها</a></li>
-                                <li><a href="@Url.Action("SubmitJob","Jobs")" >ثبت آگهی</a></li>
-                                                     <li><a href="@Url.Action("Stats","Job")" >آمار</a></li>
-
-                                                         <li class="current"><a href="@Url.Action("AboutUs","Admin")">درباره ما</a></li>
-                                <li class="current"><a href="@Url.Action("ContactUs","Admin")">تماس با ما</a></li>
-
-                                <li><a href="http://blog.karvis.ir/">وبلاگ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- CONTENT -->
-                    @RenderBody()
-                </div>
-                <!-- FOOTER -->
-                <div id="footer">
-                </div>
-            </div>
-            <a href="#" class="totop"></a>
         </div>
-        @*        <script type="text/javascript" src="<%= ResolveUrl("js/jquery-ui-1.8.20.custom.min.js") %>"> </script>
+        <div class="head">
+            <div class="social-bar clearfix">
+                <div class="alignright">
+                    <a href="#" class="twitter soc">
+                        <img src="images/social/twt.png" alt=""></a> <a href="#" class="facebook soc">
+                            <img src="images/social/drbl.png" alt=""></a> <a href="#" class="linkedin soc"></a>
+                </div>
+            </div>
+        </div>
+        <div class="boxed">
+            <div class="ef-main-wrap clearfix">
+                <div class="logo-nav clearfix">
+                    <a class="ef-logo alignleft" href="index-2.html">
+                        <h1>کارویس
+                        </h1>
+                    </a>
+                    <div id="ef-nav-menu" class="alignright">
+                        <ul class="sf-menu">
+                            <li class="current"><a href="@Url.Action("Index", "Home")">خانه</a></li>
+                            <li><a href="@Url.Action("Index", "Tags")" id="ctl00_A1">تگ‌ها</a></li>
+                            <li><a href="@Url.Action("SubmitJob", "Jobs")" >ثبت آگهی</a></li>
+                            <li><a href="@Url.Action("Index", "Stats")" >آمار</a></li>
+
+                            <li class="current"><a href="@Url.Action("AboutUs", "Admin")">درباره ما</a></li>
+                            <li class="current"><a href="@Url.Action("ContactUs", "Admin")">تماس با ما</a></li>
+
+                            <li><a href="http://blog.karvis.ir/">وبلاگ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- CONTENT -->
+                @RenderBody()
+            </div>
+            <!-- FOOTER -->
+            <div id="footer">
+            </div>
+        </div>
+        <a href="#" class="totop"></a>
+    </div>
+    @*        <script type="text/javascript" src="<%= ResolveUrl("js/jquery-ui-1.8.20.custom.min.js") %>"> </script>
         <script type="text/javascript" src="<%= ResolveUrl("js/jquery.mobilemenu.js") %>"> </script>
 
         <script type="text/javascript" src="<%= ResolveUrl("js/css3-mediaqueries.js") %>"> </script>
@@ -133,10 +135,12 @@
         <script type="text/javascript" src="<%= ResolveUrl("js/column-height.js") %>"> </script>
         <script type="text/javascript" src="<%= ResolveUrl("js/custom.js") %>"> </script>
 *@
- 
-        <style>
-            * { font-family: tahoma; }
-        </style>
-    </body>
+
+    <style>
+        * {
+            font-family: tahoma;
+        }
+    </style>
+</body>
 
 </html>
