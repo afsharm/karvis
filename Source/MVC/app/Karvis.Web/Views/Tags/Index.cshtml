@@ -14,7 +14,7 @@
             @foreach (var item in Model.Take(oneFifthCount))
             {
                 <li>
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = item.TagName })">
                         <span>
 
                             @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
@@ -35,7 +35,7 @@
             @foreach (var item in Model.Skip(oneFifthCount * 1).Take(oneFifthCount))
             {
                 <li>
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = item.TagName })">
                         <span>
 
                             @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
@@ -57,7 +57,7 @@
 
             {
                 <li>
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = item.TagName })">
                         <span>
 
                             @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
@@ -79,7 +79,7 @@
 
             {
                 <li>
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = item.TagName })">
                         <span>
 
                             @string.Format("{0} ({1})", item.TagName, item.RepeatCount)
@@ -101,7 +101,7 @@
 
             {
                 <li>
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = item.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = item.TagName })">
                         <span>
 
                             @string.Format("{0} ({1})", item.TagName, item.RepeatCount)

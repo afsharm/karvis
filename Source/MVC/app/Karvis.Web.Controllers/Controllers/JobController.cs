@@ -1,9 +1,8 @@
 ﻿using System.Web.Mvc;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
-using Karvis.Tasks;
 
-namespace Karvis.Web.Controllers
+namespace Karvis.Web.Controllers.Controllers
 {
     public class JobController : Controller
     {
@@ -29,7 +28,7 @@ namespace Karvis.Web.Controllers
         {
 
             _jobTask.SubmitJob(submitJobViewModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

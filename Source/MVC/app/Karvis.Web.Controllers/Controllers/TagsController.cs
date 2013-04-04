@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Karvis.Domain.Tasks;
 
-namespace Karvis.Web.Controllers
+namespace Karvis.Web.Controllers.Controllers
 {
     public class TagsController : Controller
     {

@@ -3,16 +3,16 @@ using System.Web.Mvc;
 using Karvis.Domain;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
-using System.Linq;
-namespace Karvis.Web.Areas.Admin.Controllers
+
+namespace Karvis.Web.Controllers.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
         //
         // GET: /Admin/Admin/
         private readonly IAdminTask _adminTask;
 
-        public HomeController(IAdminTask adminTask)
+        public AdminController(IAdminTask adminTask)
         {
             _adminTask = adminTask;
         }

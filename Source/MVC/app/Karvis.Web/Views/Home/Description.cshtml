@@ -28,7 +28,7 @@
         <div class="tag-icn"></div>
         @foreach (var tag in Model.Tags)
         {
-                    <a class="ef-button" href="@Url.Action("Tag", "Home", new { Name = tag.TagName })">
+                    <a class="ef-button" href="@Url.Action("Tag", "Admin", new { Name = tag.TagName })">
             
             <span>@tag.TagName</span></a>
 					
