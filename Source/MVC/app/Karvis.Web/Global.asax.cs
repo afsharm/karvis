@@ -7,7 +7,7 @@ using Razmyar.Web.Controllers.Help;
 using Razmyar.Web.Controllers.Home;
 using Razmyar.Web.Controllers.Settings;
 using SharpLite.Web.Mvc.ModelBinder;
-using HomeController = Razmyar.Web.Controllers.Home.HomeController;
+
 
 namespace Karvis.Web
 {

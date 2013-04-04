@@ -1,10 +1,11 @@
 ﻿using System.Web.Mvc;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
+using Razmyar.Web.Controllers.Home;
 
 namespace Karvis.Web.Controllers.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseHomeController
     {
         private readonly IJobTask _jobTask;
         private readonly ISearchTask _searchTask;
