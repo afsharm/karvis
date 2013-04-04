@@ -8,7 +8,7 @@ using Karvis.Domain.Dto;
 using Karvis.Domain.Queries;
 using Karvis.Domain.Tasks;
 using Karvis.Domain.ViewModels;
-using Razmyar.SharpLite.Tasks;
+using Razmyar.Tasks.Tasks;
 using SharpLite.Domain.DataInterfaces;
 
 namespace Karvis.Tasks

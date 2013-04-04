@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,16 +36,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Fardis.Lib.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Razmyar.Common">
+      <HintPath>..\..\lib\Razmyar.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Razmyar.Core">
+      <HintPath>..\..\lib\Razmyar.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Razmyar.Domain">
       <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>
     </Reference>
-    <Reference Include="Razmyar.SharpLite">
-      <HintPath>..\..\lib\Razmyar.SharpLite.dll</HintPath>
+    <Reference Include="Razmyar.Tasks">
+      <HintPath>..\..\lib\Razmyar.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,7 +66,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
