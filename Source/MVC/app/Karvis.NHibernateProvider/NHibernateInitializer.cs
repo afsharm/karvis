@@ -3,6 +3,7 @@ using NHibernate.Bytecode;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
+using Razmyar.Domain.Entities;
 using SharpLite.NHibernateProvider;
 using SharpLite.NHibernateProvider.ConfigurationCaching;
 
@@ -14,7 +15,8 @@ namespace Karvis.NHibernateProvider
             INHibernateConfigurationCache cache = new NHibernateConfigurationFileCache();
 
             var mappingAssemblies = new[] { 
-                typeof(ActionConfirmation<>).Assembly.GetName().Name
+                typeof(ActionConfirmation<>).Assembly.GetName().Name,
+                typeof(User).Assembly.GetName().Name
             };
 
             var configuration = cache.LoadConfiguration(CONFIG_CACHE_KEY, null, mappingAssemblies);
@@ -26,9 +28,10 @@ namespace Karvis.NHibernateProvider
                     .Proxy(p => p.ProxyFactoryFactory<DefaultProxyFactoryFactory>())
                     .DataBaseIntegration(db => {
                         db.ConnectionStringName = "KarvisConnectionString";
-                        db.Dialect<MsSql2008Dialect>();
+                        db.Dialect<SQLiteDialect>();
                     })
                     .AddAssembly(typeof(ActionConfirmation<>).Assembly)
+                    .AddAssembly(typeof(User).Assembly)
                     .CurrentSessionContext<LazySessionContext>();
 
                 var mapper = new ConventionModelMapper();

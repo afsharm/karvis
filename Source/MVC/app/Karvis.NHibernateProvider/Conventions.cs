@@ -6,7 +6,8 @@ using Karvis.NHibernateProvider.Overrides;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
-using SharpLite.Domain;
+﻿using Razmyar.Domain.Entities;
+﻿using SharpLite.Domain;
 
 namespace Karvis.NHibernateProvider
 {
@@ -44,7 +45,11 @@ namespace Karvis.NHibernateProvider
 
             AddConventionOverrides(mapper);
 
-            HbmMapping mapping = mapper.CompileMappingFor(typeof(ActionConfirmation<>).Assembly.GetExportedTypes().Where(t => IsEntity(t)));
+            var mappingTypes = new List<Type>();
+            mappingTypes.AddRange(typeof(ActionConfirmation<>).Assembly.GetExportedTypes().Where(IsEntity));
+            mappingTypes.AddRange(typeof(User).Assembly.GetExportedTypes().Where(IsEntity));
+
+            var mapping = mapper.CompileMappingFor(mappingTypes);
             configuration.AddDeserializedMapping(mapping, "KarvisMappings");
         }
 

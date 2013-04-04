@@ -5,6 +5,7 @@ using Karvis.Domain.Tasks;
 using Karvis.NHibernateProvider;
 using Karvis.Tasks;
 using Karvis.Tasks.JobExtract;
+using Microsoft.Practices.ServiceLocation;
 using NHibernate;
 using NHibernate.Cfg;
 using Razmyar.Core.Repositories;
@@ -14,6 +15,7 @@ using Razmyar.Tasks.Tasks;
 using SharpLite.Domain.DataInterfaces;
 using SharpLite.NHibernateProvider;
 using StructureMap;
+using StructureMap.ServiceLocatorAdapter;
 
 namespace Karvis.Init
 {
@@ -54,7 +56,7 @@ namespace Karvis.Init
                                                       typeof (RepositoryWithTypedId<,>));
                                               });
 
-            // ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(container));
+            ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(container));
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(container));
         }
     }

@@ -38,6 +38,10 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Razmyar.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\SharpLite.Domain.dll</HintPath>
