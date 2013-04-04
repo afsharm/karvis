@@ -269,7 +269,7 @@
     <Content Include="Views\Jobs\SearchResult.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Jobs\JobsGridView.cshtml" />
-    <Content Include="Views\Job\SubmitJob.cshtml" />
+    <Content Include="Views\Jobs\SubmitJob.cshtml" />
     <Content Include="Views\Jobs\ContactUs.cshtml" />
     <Content Include="Views\Jobs\AboutUs.cshtml" />
   </ItemGroup>

@@ -59,5 +59,21 @@ namespace Karvis.Web.Controllers.Controllers
             var model = _searchTask.GetJobsByTagName(name, sort, sortdir, (int)page);
             return View("Index", model);
         }
+
+        [HttpGet]
+        public ActionResult SubmitJob()
+        {
+
+            return View(new SubmitJobViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult SubmitJob(SubmitJobViewModel submitJobViewModel)
+        {
+
+            _jobTask.SubmitJob(submitJobViewModel);
+            return RedirectToAction("Index", "Admin");
+        }
+
     }
 }

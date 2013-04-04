@@ -33,7 +33,7 @@ namespace Karvis.Web
                         typeof (AccountController).Namespace,
                         //typeof (UsersController).Namespace,
                         typeof (AboutController).Namespace,
-                        typeof (JobController).Namespace
+                        typeof (JobsController).Namespace
                     });
         }
 

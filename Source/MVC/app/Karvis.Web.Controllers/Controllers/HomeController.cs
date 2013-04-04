@@ -7,5 +7,9 @@ namespace Karvis.Web.Controllers.Controllers
 {
     public class HomeController : BaseHomeController
     {
+        public override ActionResult Index()
+        {
+            return (RedirectToActionPermanent("Index", "Jobs"));
+        }
     }
 }
