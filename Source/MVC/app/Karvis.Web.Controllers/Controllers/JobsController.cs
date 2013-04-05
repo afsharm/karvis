@@ -59,7 +59,7 @@ namespace Karvis.Web.Controllers.Controllers
         {
 
             _jobTask.SubmitJob(submitJobViewModel);
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Jobs");
         }
 
     }
