@@ -38,8 +38,9 @@
     <Reference Include="Razmyar.Web.Controllers">
       <HintPath>..\..\lib\Razmyar.Web.Controllers.dll</HintPath>
     </Reference>
-    <Reference Include="SharpLite.Domain">
-      <HintPath>..\lib\SharpLite.Domain.dll</HintPath>
+    <Reference Include="SharpLite.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SharpLite.Domain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
