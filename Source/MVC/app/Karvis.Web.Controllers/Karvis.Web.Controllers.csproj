@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Razmyar.Domain">
-      <HintPath>..\lib\Razmyar.Domain.dll</HintPath>
+    <Reference Include="Razmyar.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Razmyar.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Razmyar.Web.Controllers">
       <HintPath>..\..\lib\Razmyar.Web.Controllers.dll</HintPath>
