@@ -234,7 +234,6 @@
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
-    <Content Include="packages.config" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ExtractJob.cshtml" />
     <Content Include="Views\Admin\ExtractJobResult.cshtml" />

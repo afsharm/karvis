@@ -59,31 +59,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionConfirmation.cs" />
-    <Compile Include="AdSource.cs" />
+    <Compile Include="Etc\ActionConfirmation.cs" />
+    <Compile Include="Entities\AdSource.cs" />
     <Compile Include="Constants\JobExtractorConstant.cs" />
-    <Compile Include="Dto\AdSourceDto.cs" />
-    <Compile Include="Dto\JobSummeryDto.cs" />
-    <Compile Include="Dto\TagDto.cs" />
-    <Compile Include="ExtractStatus.cs" />
-    <Compile Include="IgnoredJob.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="JobExtract\IExtractJobs.cs" />
-    <Compile Include="JobExtract\IExtractorHelper.cs" />
-    <Compile Include="JobExtract\IKarvisCrawler.cs" />
-    <Compile Include="JobExtract\IFeedExtractor.cs" />
-    <Compile Include="KGlobal.cs" />
-    <Compile Include="KMail.cs" />
+    <Compile Include="Dtos\AdSourceDto.cs" />
+    <Compile Include="Dtos\JobSummeryDto.cs" />
+    <Compile Include="Dtos\TagDto.cs" />
+    <Compile Include="Etc\ExtractStatus.cs" />
+    <Compile Include="Entities\IgnoredJob.cs" />
+    <Compile Include="Entities\Job.cs" />
+    <Compile Include="Contracts\IExtractJobs.cs" />
+    <Compile Include="Contracts\IExtractorHelper.cs" />
+    <Compile Include="Contracts\IKarvisCrawler.cs" />
+    <Compile Include="Contracts\IFeedExtractor.cs" />
+    <Compile Include="Entities\KGlobal.cs" />
+    <Compile Include="Entities\KMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\JobQueries.cs" />
-    <Compile Include="Queries\QueryableExtensions.cs" />
-    <Compile Include="Queries\TagQueries.cs" />
-    <Compile Include="ScheduleInfo.cs" />
-    <Compile Include="Tasks\IAdminTask.cs" />
-    <Compile Include="Tasks\IAdSourceTask.cs" />
-    <Compile Include="Tasks\IJobTask.cs" />
-    <Compile Include="Tasks\ISearchTask.cs" />
-    <Compile Include="Tasks\ITagTask.cs" />
+    <Compile Include="Etc\ScheduleInfo.cs" />
+    <Compile Include="Contracts\IAdminTask.cs" />
+    <Compile Include="Contracts\IAdSourceTask.cs" />
+    <Compile Include="Contracts\IJobTask.cs" />
+    <Compile Include="Contracts\ISearchTask.cs" />
+    <Compile Include="Contracts\ITagTask.cs" />
     <Compile Include="Validators\DataAnnotationsValidator.cs" />
     <Compile Include="ViewModels\AboutUsViewModel.cs" />
     <Compile Include="ViewModels\AdminExtractJobResultViewModel.cs" />
@@ -99,9 +96,6 @@
     <Compile Include="ViewModels\TagCloudViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

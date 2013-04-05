@@ -10,23 +10,22 @@ using Karvis.Domain.Dto;
 
 namespace Karvis.Domain.ViewModels
 {
-        [Bind(Exclude = "SearchSource")]
-
-   public class SearchViewModel
+    [Bind(Exclude = "SearchSource")]
+    public class SearchViewModel
     {
-       [Required]
-       [DisplayName ("عنوان شغل")]
-       public string     SearchTerm { get; set; }
-       [DisplayName("تگ")]
+        [Required]
+        [DisplayName("عنوان شغل")]
+        public string SearchTerm { get; set; }
+        [DisplayName("تگ")]
 
-       public string SearchTag { get; set; }
-       [DisplayName ("منبع")]
-       
+        public string SearchTag { get; set; }
+        [DisplayName("منبع")]
 
-       public IEnumerable<SelectListItem> SearchSource { get; set; }
 
-       [DisplayName("منبع ارسال شده به سرور")]
-       public string AdSource { get; set; } 
-    
+        public IEnumerable<SelectListItem> SearchSource { get; set; }
+
+        [DisplayName("منبع ارسال شده به سرور")]
+        public string AdSource { get; set; }
+
     }
 }

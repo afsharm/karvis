@@ -63,18 +63,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminTask.cs" />
-    <Compile Include="AdSourceTask.cs" />
-    <Compile Include="BaseEntityCudTasks.cs" />
+    <Compile Include="Tasks\AdminTask.cs" />
+    <Compile Include="Tasks\AdSourceTask.cs" />
+    <Compile Include="Tasks\BaseEntityCudTasks.cs" />
     <Compile Include="JobExtract\FeedExtractor.cs" />
     <Compile Include="JobExtract\ExtractorHelper.cs" />
     <Compile Include="JobExtract\ExtractJobs.cs" />
     <Compile Include="JobExtract\WebFormsJobModel.cs" />
     <Compile Include="JobExtract\KarvisCrawler.cs" />
-    <Compile Include="JobTask.cs" />
+    <Compile Include="Tasks\JobTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchTask.cs" />
-    <Compile Include="TagTask.cs" />
+    <Compile Include="Queries\JobQueries.cs" />
+    <Compile Include="Queries\QueryableExtensions.cs" />
+    <Compile Include="Queries\TagQueries.cs" />
+    <Compile Include="Tasks\SearchTask.cs" />
+    <Compile Include="Tasks\TagTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Karvis.Domain\Karvis.Domain.csproj">
@@ -82,9 +85,7 @@
       <Name>Karvis.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
